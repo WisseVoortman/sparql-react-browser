@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 //import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap';
@@ -9,12 +8,33 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'popper.js'
 
 function Datasource(props) {
-  return <a class="dropdown-item" href="#" onClick={props.onClick}>
+  return <a className="dropdown-item" href="#" onClick={props.onClick}>
           {props.name}
          </a>
 }
 
-class DatasourcePlugin extends React.Component {
+function DataSourceDropdown(props) {
+  return <div className="setDataSourceDropdown">
+    <div className="dropdown show">
+      <a className="btn btn-secondary dropdown-toggle" href="#" role="button"
+      id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false">Specificeer bron</a>
+      <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        {
+          props.datasources.map((item, key) =>
+            <Datasource
+              key={key}
+              onClick={() => props.onClick(key)}
+              name={item.name}
+              />
+          )
+        }
+      </div>
+    </div>
+  </div>
+}
+
+class App extends React.Component {
 
     constructor(props) {
       super(props);
@@ -32,37 +52,30 @@ class DatasourcePlugin extends React.Component {
           {
             name: 'Onderwijsinspectie',
             endpoint: 'http://localhost:8080/rdf4j-workbench/repositories/ivho/query'
+          },
+          {
+            name: 'Kennisnet',
+            endpoint: 'http://localhost:8080/rdf4j-workbench/repositories/kennisnet/query'
           }
         ]
       };
     }
+
   handleClick(key) {
     this.setState({
       currentDatasource: key,
       datasources: this.state.datasources
     });
   }
+
   render() {
     return (
-      <div className="setDataSourceDropdown">
-        <div class="dropdown show">
-          <p>{this.state.datasources[this.state.currentDatasource].name}</p>
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
-          id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false">Specificeer bron</a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            {
-              this.state.datasources.map((item, key) =>
-                <Datasource
-                  key={key}
-                  onClick={() => this.handleClick(key)}
-                  name={item.name}
-                  />
-              //<a class="dropdown-item" href="#" onClick={this.handleClick({key})}>{item.name}</a>
-              )
-            }
-          </div>
-        </div>
+      <div className="content">
+        <p>{this.state.datasources[this.state.currentDatasource].name}</p>
+        <DataSourceDropdown
+            onClick={(key)=> this.handleClick(key)}
+            datasources={this.state.datasources}
+        />
       </div>
     );
   }
@@ -70,7 +83,7 @@ class DatasourcePlugin extends React.Component {
 
 ReactDOM.render(
   <React.StrictMode>
-    <DatasourcePlugin />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
