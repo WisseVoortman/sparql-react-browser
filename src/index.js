@@ -6,6 +6,7 @@ import 'bootstrap';
 import {jQuery as $} from 'jquery';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'popper.js'
+import { createStore } from 'redux'
 
 function Datasource(props) {
   return <a className="dropdown-item" href="#" onClick={props.onClick}>
@@ -62,10 +63,13 @@ class App extends React.Component {
     }
 
   handleClick(key) {
-    this.setState({
-      currentDatasource: key,
-      datasources: this.state.datasources
+    store.dispatch({
+      type: SET_CURRENT_DATASOURCE,
+      currentDatasource: key
     });
+    let newState = Object.assign({},this.state)
+    newState.currentDatasource =key
+    this.setState(newState);
   }
 
   render() {
@@ -92,3 +96,26 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+const SET_CURRENT_DATASOURCE = 'SET_DATASOURCE'
+
+function counter(state, action) {
+  let newState = Object.assign({}, state)
+  switch (action.type) {
+    case SET_CURRENT_DATASOURCE:
+      newState.currentDatasource = action.currentDatasource;
+      return newState;
+    default:
+      return state
+  }
+}
+
+// Create a Redux store holding the state of your app.
+// Its API is { subscribe, dispatch, getState }.
+let store = createStore(counter)
+
+// You can use subscribe() to update the UI in response to state changes.
+// Normally you'd use a view binding library (e.g. React Redux) rather than subscribe() directly.
+// However it can also be handy to persist the current state in the localStorage.
+
+store.subscribe(() => console.log("current datasource:"+ store.getState().currentDatasource))
