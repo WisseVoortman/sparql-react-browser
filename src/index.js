@@ -4,7 +4,6 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import index from './js/index'
-import {SET_CURRENT_DATASOURCE} from "./js/constants/action-types";
 import store from "./js/store/index";
 import { Provider } from "react-redux";
 import App from "./js/components/App";
