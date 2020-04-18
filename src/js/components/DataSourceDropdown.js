@@ -1,9 +1,9 @@
 import React from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import {setCurrentDatasource} from "../actions/index"
 
 const mapStateToProps = state => {
-  return { datasources: state.connection.datasources };
+  return { connection: state.connection };
 };
 
 function Datasource(props) {
@@ -12,17 +12,19 @@ function Datasource(props) {
          </a>
 }
 
-const ConnectedDataSourceDropdown = ({datasources}) => {
+const ConnectedDataSourceDropdown = ({connection}) => {
   let dispatch = useDispatch();
+  let currentDatasource = useSelector(state => state.connection.currentDatasource);
+
   return (
     <div className="setDataSourceDropdown">
       <div className="dropdown show">
         <a className="btn btn-secondary dropdown-toggle" href="#" role="button"
         id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">Specificeer bron</a>
+        aria-expanded="false">Specificeer bron {currentDatasource}</a>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
           {
-            datasources.map((item, key) =>
+            connection.datasources.map((item, key) =>
               <Datasource
                 key={key}
                 onClick={() => dispatch(setCurrentDatasource(key))}
