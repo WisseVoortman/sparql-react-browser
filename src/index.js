@@ -9,6 +9,7 @@ import 'popper.js'
 import index from './js/index'
 import {SET_CURRENT_DATASOURCE} from "./js/constants/action-types";
 import store from "./js/store/index";
+import { Provider } from "react-redux"
 
 
 function Datasource(props) {
@@ -90,7 +91,9 @@ class App extends React.Component {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
