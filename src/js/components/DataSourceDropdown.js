@@ -1,30 +1,27 @@
 import React from "react";
-import { connect, useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {setCurrentDatasource} from "../actions/index"
 
-const mapStateToProps = state => {
-  return { connection: state.connection };
-};
-
-function Datasource(props) {
-  return <a className="dropdown-item" href="#" onClick={props.onClick}>
+const Datasource = (props) => {
+  return <button className="dropdown-item" onClick={props.onClick}>
           {props.name}
-         </a>
+         </button>
 }
 
-const ConnectedDataSourceDropdown = ({connection}) => {
+const DataSourceDropdown = () => {
   let dispatch = useDispatch();
   let currentDatasource = useSelector(state => state.connection.currentDatasource);
+  let datasources = useSelector(state => state.connection.datasources);
 
   return (
     <div className="setDataSourceDropdown">
       <div className="dropdown show">
-        <a className="btn btn-secondary dropdown-toggle" href="#" role="button"
+        <button className="btn btn-secondary dropdown-toggle"
         id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">Specificeer bron {currentDatasource}</a>
+        aria-expanded="false">Specificeer bron {currentDatasource}</button>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
           {
-            connection.datasources.map((item, key) =>
+            datasources.map((item, key) =>
               <Datasource
                 key={key}
                 onClick={() => dispatch(setCurrentDatasource(key))}
@@ -36,7 +33,5 @@ const ConnectedDataSourceDropdown = ({connection}) => {
       </div>
     </div>);
 };
-
-const DataSourceDropdown = connect(mapStateToProps)(ConnectedDataSourceDropdown);
 
 export default DataSourceDropdown;
