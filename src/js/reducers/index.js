@@ -1,4 +1,4 @@
-import {SET_CURRENT_DATASOURCE} from "../constants/action-types";
+import { SET_CURRENT_DATASOURCE } from '../constants/action-types';
 
 const initialState = {
   connection: {
@@ -6,26 +6,26 @@ const initialState = {
     datasources: [
       {
         name: 'Onderwijsregistratie',
-        endpoint: 'http://localhost:8080/rdf4j-workbench/repositories/rio/query'
+        endpoint: 'http://localhost:8080/rdf4j-workbench/repositories/rio/query',
       },
       {
         name: 'Basisregistraties',
-        endpoint: 'https://data.pdok.nl/sparql'
+        endpoint: 'https://data.pdok.nl/sparql',
       },
       {
         name: 'Onderwijsinspectie',
-        endpoint: 'http://localhost:8080/rdf4j-workbench/repositories/ivho/query'
+        endpoint: 'http://localhost:8080/rdf4j-workbench/repositories/ivho/query',
       },
       {
         name: 'Kennisnet',
-        endpoint: 'http://localhost:8080/rdf4j-workbench/repositories/kennisnet/query'
-      }
-    ]
-  }
-}
+        endpoint: 'http://localhost:8080/rdf4j-workbench/repositories/kennisnet/query',
+      },
+    ],
+  },
+};
 
-function rootReducer(state = initialState, action) {
-  let newState = Object.assign({}, state)
+const rootReducer = (state = initialState, action) => {
+  let newState = Object.assign({}, state);
   switch (action.type) {
     case SET_CURRENT_DATASOURCE:
       newState.connection.currentDatasource = action.currentDatasource;
@@ -33,6 +33,6 @@ function rootReducer(state = initialState, action) {
     default:
       return state;
   }
-}
+};
 
 export default rootReducer;

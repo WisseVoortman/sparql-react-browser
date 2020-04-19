@@ -1,5 +1,5 @@
-import React from "react";
-import DataSourceDropdown from "./DataSourceDropdown";
+import React from 'react';
+import DataSourceDropdown from './DataSourceDropdown';
 
 const App = () => (
   <div>

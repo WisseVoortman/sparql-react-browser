@@ -1,12 +1,12 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {setCurrentDatasource} from "../actions/index"
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCurrentDatasource } from '../actions/index';
 
-const Datasource = (props) => {
-  return <button className="dropdown-item" onClick={props.onClick}>
+const Datasource = (props) => (
+  <button className="dropdown-item" onClick={props.onClick}>
           {props.name}
-         </button>
-}
+        </button>
+);
 
 const DataSourceDropdown = () => {
   let dispatch = useDispatch();
