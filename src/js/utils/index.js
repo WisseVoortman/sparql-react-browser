@@ -1,6 +1,8 @@
 export const getTextFromUri = (uri) => {
-    var charStart = uri.lastIndexOf('/') + 1;
-    return uri.substr(charStart, charStart + 20);
+    let charStartSlash = uri.lastIndexOf('/');
+    let charStartHash = uri.lastIndexOf('#');
+    let charStart = (charStartSlash > charStartHash ? charStartSlash : charStartHash) + 1;
+    return uri.substr(charStart, 20);
   };
 
 export const isValidUri = (input) => (
@@ -13,4 +15,5 @@ export const addTripleToArray = (rdfData, subject, property, object) => {
         property: property,
         object: object,
       });
+    return rdfData;
   };

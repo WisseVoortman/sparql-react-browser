@@ -1,6 +1,6 @@
 import { SET_CURRENT_DATASOURCE } from '../constants/action-types';
 
-const initialState = {
+export const initialState = {
   connection: {
     currentDatasource: 0,
     datasources: [
@@ -24,7 +24,7 @@ const initialState = {
   },
 };
 
-const rootReducer = (state = initialState, action) => {
+export const rootReducer = (state = initialState, action) => {
   let newState = Object.assign({}, state);
   switch (action.type) {
     case SET_CURRENT_DATASOURCE:
