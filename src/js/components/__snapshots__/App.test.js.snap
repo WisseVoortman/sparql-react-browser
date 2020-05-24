@@ -3,12 +3,10 @@
 exports[`App component should render component 1`] = `
 <DocumentFragment>
   <div>
-    <h2>
-      Select DataSourceDropdown
-    </h2>
     <div
       class="content"
     >
+      <p />
       <p />
     </div>
   </div>
