@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { useDispatch } from 'react-redux';
-import { executeSparqlQuery } from '../actions/index';
+import { getUrisFromLabel } from '../actions/index';
 
 const Search = props => {
   const { handleSubmit } = props;
@@ -23,7 +23,7 @@ const SearchComponent = () => {
   const dispatch = useDispatch();
 
   return (<SearchForm onSubmit={ state => {
-          dispatch(executeSparqlQuery(state.searchQuery));
+          dispatch(getUrisFromLabel(state.searchQuery));
         }
       } />);
 };
