@@ -1,6 +1,8 @@
-import { SET_CURRENT_DATASOURCE } from '../constants/action-types';
+import { SET_CURRENT_DATASOURCE, FETCH_SPARQL_REQUEST_PENDING,
+ FETCH_SPARQL_REQUEST_FULFILLED,
+FETCH_SPARQL_REQUEST_REJECTED } from '../constants/action-types';
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form'
+import { reducer as formReducer } from 'redux-form';
 
 const initialConnectionState = {
     currentDatasource: 0,
@@ -35,10 +37,25 @@ export const datasourceReducer = (state = initialConnectionState, action) => {
   }
 };
 
+export const sparqlReducer = (state={}, action) => {
+  switch (action.type) {
+    case FETCH_SPARQL_REQUEST_PENDING:
+      //newState.currentDatasource = action.currentDatasource;
+      return { ...state, pending: true };
+    case FETCH_SPARQL_REQUEST_FULFILLED:
+      return { ...state, pending: false, data: action.payload };
+    case FETCH_SPARQL_REQUEST_REJECTED:
+      return { ...state, pending: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
   connection: datasourceReducer,
+  sparql: sparqlReducer,
   form: formReducer,
-  })
+});
 
 
 export default rootReducer;
