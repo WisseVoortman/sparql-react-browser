@@ -1,6 +1,8 @@
 
 import { SET_CURRENT_DATASOURCE,
-  FETCH_SPARQL_REQUEST
+  SPARQL_GET_URI_FROM_LABEL, SPARQL_GET_URI_FROM_LABEL_PENDING,
+  SPARQL_GET_URI_FROM_LABEL_FULFILLED,
+  SPARQL_GET_URI_FROM_LABEL_REJECTED
 } from '../constants/action-types';
 import axios from 'axios';
 import store from '../store/index';
@@ -11,17 +13,35 @@ export const setCurrentDatasource = (currentDatasource) => ({
   currentDatasource,
 });
 
-export const getUrisFromLabel = (label) => {
-  var query = 'SELECT ?subject WHERE {?subject <http://www.w3.org/2000/01/rdf-'
-    + 'schema#label> "' + label + '"@nl} limit 10';
-  const state = store.getState();
-  const currentDatasource = state.connection.currentDatasource;
-  const endpoint = state.connection.datasources[currentDatasource].endpoint;
-  return {
-    type: FETCH_SPARQL_REQUEST,
-    payload: sparqlAxios(query, endpoint),
-  };
-};
+export const startSparqlGetUriFromLabel = () => ({
+  type: SPARQL_GET_URI_FROM_LABEL_PENDING,
+});
+
+export const fulfillSparqlGetUriFromLabel = (payload) => ({
+  type: SPARQL_GET_URI_FROM_LABEL_FULFILLED,
+  payload,
+});
+
+export const errorSparqlGetUriFromLabel = (payload) => ({
+  type: SPARQL_GET_URI_FROM_LABEL_FULFILLED,
+  payload,
+});
+
+export const getUrisFromLabel = (label) => (dispatch => {
+    dispatch(startSparqlGetUriFromLabel());
+    var query = 'SELECT ?subject WHERE {?subject <http://www.w3.org/2000/01/rdf-'
+      + 'schema#label> "' + label + '"@nl} limit 10';
+    const state = store.getState();
+    const currentDatasource = state.connection.currentDatasource;
+    const endpoint = state.connection.datasources[currentDatasource].endpoint;
+    sparqlAxios(query, endpoint)
+      .then(result => {
+          dispatch(fulfillSparqlGetUriFromLabel(result));
+      })
+      .catch(error => {
+        dispatch(errorSparqlGetUriFromLabel(error));
+      });
+  });
 
 const sparqlAxios = (query, endpoint) => (axios({
   method: 'post',
