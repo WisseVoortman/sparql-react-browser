@@ -28,10 +28,15 @@ export const errorSparqlGetUriFromLabel = (payload) => ({
   payload,
 });
 
-export const getTriplesFromUri = (payload) => ({
-  type: SPARQL_GET_TRIPLES_FROM_URI,
-  payload,
-});
+export const getTriplesFromUri = (uri, endpoint) => {
+  const query = 'SELECT * \
+    WHERE { <'+ uri +'> ?property ?object }\
+    limit 10';
+  return {
+    type: SPARQL_GET_TRIPLES_FROM_URI,
+    payload: sparqlAxios(query, endpoint),
+  };
+}
 
 export const getUrisFromLabel = (label) => (dispatch => {
     dispatch(startSparqlGetUriFromLabel());
@@ -39,23 +44,26 @@ export const getUrisFromLabel = (label) => (dispatch => {
       WHERE { \
         ?subject <http://www.w3.org/2000/01/rdf-schema#label> "' + label + '"@nl\
       } limit 10';
-    const state = store.getState();
-    const currentDatasource = state.connection.currentDatasource;
-    const endpoint = state.connection.datasources[currentDatasource].endpoint;
-    sparqlAxios(query, endpoint)
+
+    sparqlAxios(query, getCurrentEndpoint())
       .then(payload => {
-          dispatch(fulfillSparqlGetUriFromLabel(payload));
-          payload.data.results.bindings.forEach(function(triple) {
-              const query = 'SELECT * \
-                WHERE { <'+ triple.subject.value +'> ?property ?object }\
-                limit 10';
-              dispatch(getTriplesFromUri(sparqlAxios(query, endpoint)));
-          });
-      })
+            dispatch(fulfillSparqlGetUriFromLabel(payload));
+            payload.data.results.bindings.forEach(triple => {
+              dispatch(getTriplesFromUri(triple.subject.value,
+                getCurrentEndpoint()));
+            });
+          })
       .catch(error => {
         dispatch(errorSparqlGetUriFromLabel(error));
       });
   });
+
+const getCurrentEndpoint = () => {
+  const state = store.getState();
+  const currentDatasource = state.connection.currentDatasource;
+  const endpoint = state.connection.datasources[currentDatasource].endpoint;
+  return endpoint;
+}
 
 const sparqlAxios = (query, endpoint) => (axios({
   method: 'post',
