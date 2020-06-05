@@ -2,7 +2,8 @@
 import { SET_CURRENT_DATASOURCE,
   SPARQL_GET_URI_FROM_LABEL, SPARQL_GET_URI_FROM_LABEL_PENDING,
   SPARQL_GET_URI_FROM_LABEL_FULFILLED,
-  SPARQL_GET_URI_FROM_LABEL_REJECTED
+  SPARQL_GET_URI_FROM_LABEL_REJECTED,
+  SPARQL_GET_TRIPLES_FROM_URI
 } from '../constants/action-types';
 import axios from 'axios';
 import store from '../store/index';
@@ -23,20 +24,33 @@ export const fulfillSparqlGetUriFromLabel = (payload) => ({
 });
 
 export const errorSparqlGetUriFromLabel = (payload) => ({
-  type: SPARQL_GET_URI_FROM_LABEL_FULFILLED,
+  type: SPARQL_GET_URI_FROM_LABEL_REJECTED,
+  payload,
+});
+
+export const getTriplesFromUri = (payload) => ({
+  type: SPARQL_GET_TRIPLES_FROM_URI,
   payload,
 });
 
 export const getUrisFromLabel = (label) => (dispatch => {
     dispatch(startSparqlGetUriFromLabel());
-    var query = 'SELECT ?subject WHERE {?subject <http://www.w3.org/2000/01/rdf-'
-      + 'schema#label> "' + label + '"@nl} limit 10';
+    const query = 'SELECT ?subject \
+      WHERE { \
+        ?subject <http://www.w3.org/2000/01/rdf-schema#label> "' + label + '"@nl\
+      } limit 10';
     const state = store.getState();
     const currentDatasource = state.connection.currentDatasource;
     const endpoint = state.connection.datasources[currentDatasource].endpoint;
     sparqlAxios(query, endpoint)
-      .then(result => {
-          dispatch(fulfillSparqlGetUriFromLabel(result));
+      .then(payload => {
+          dispatch(fulfillSparqlGetUriFromLabel(payload));
+          payload.data.results.bindings.forEach(function(triple) {
+              const query = 'SELECT * \
+                WHERE { <'+ triple.subject.value +'> ?property ?object }\
+                limit 10';
+              dispatch(getTriplesFromUri(sparqlAxios(query, endpoint)));
+          });
       })
       .catch(error => {
         dispatch(errorSparqlGetUriFromLabel(error));
