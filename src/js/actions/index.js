@@ -29,21 +29,21 @@ export const errorSparqlGetUriFromLabel = (payload) => ({
 });
 
 export const getTriplesFromUri = (uri, endpoint) => {
-  const query = 'SELECT * \
-    WHERE { <'+ uri +'> ?property ?object }\
-    limit 10';
+  const query = 'SELECT * ' +
+    'WHERE { <' + uri + '> ?property ?object }' +
+    'limit 10';
   return {
     type: SPARQL_GET_TRIPLES_FROM_URI,
     payload: sparqlAxios(query, endpoint),
   };
-}
+};
 
 export const getUrisFromLabel = (label) => (dispatch => {
     dispatch(startSparqlGetUriFromLabel());
-    const query = 'SELECT ?subject \
-      WHERE { \
-        ?subject <http://www.w3.org/2000/01/rdf-schema#label> "' + label + '"@nl\
-      } limit 10';
+    const query = 'SELECT ?subject ' +
+      'WHERE { ' +
+        '?subject <http://www.w3.org/2000/01/rdf-schema#label> "' + label + '"@nl' +
+      '} limit 10';
 
     sparqlAxios(query, getCurrentEndpoint())
       .then(payload => {

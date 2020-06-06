@@ -1,8 +1,7 @@
-import { SET_CURRENT_DATASOURCE, SPARQL_GET_URI_FROM_LABEL_PENDING,
- SPARQL_GET_URI_FROM_LABEL_FULFILLED,
-SPARQL_GET_URI_FROM_LABEL_REJECTED } from '../constants/action-types';
+import { SET_CURRENT_DATASOURCE } from '../constants/action-types';
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
+import sparqlReducer from './sparqlReducer'
 
 const initialConnectionState = {
     currentDatasource: 0,
@@ -37,25 +36,11 @@ export const datasourceReducer = (state = initialConnectionState, action) => {
   }
 };
 
-export const sparqlReducer = (state={}, action) => {
-  switch (action.type) {
-    case SPARQL_GET_URI_FROM_LABEL_PENDING:
-      //newState.currentDatasource = action.currentDatasource;
-      return { ...state, pending: true };
-    case SPARQL_GET_URI_FROM_LABEL_FULFILLED:
-      return { ...state, pending: false, data: action.payload };
-    case SPARQL_GET_URI_FROM_LABEL_REJECTED:
-      return { ...state, pending: false, error: action.payload };
-    default:
-      return state;
-  }
-};
-
-const rootReducer = combineReducers({
+const reducersCombined = {
   connection: datasourceReducer,
   sparql: sparqlReducer,
   form: formReducer,
-});
+};
 
-
+const rootReducer = combineReducers(reducersCombined);
 export default rootReducer;
