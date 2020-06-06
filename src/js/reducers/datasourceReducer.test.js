@@ -1,5 +1,5 @@
 import { SET_CURRENT_DATASOURCE } from '../constants/action-types';
-import { datasourceReducer, initialConnectionState } from './index';
+import { datasourceReducer, initialConnectionState } from './datasourceReducer';
 import { setCurrentDatasource } from '../actions/index';
 
 test('test datasourceReducer reducer setCurrentDatasource', () => {
