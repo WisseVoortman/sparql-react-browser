@@ -1,9 +1,8 @@
-import { SPARQL_GET_URI_FROM_LABEL_PENDING,
- SPARQL_GET_URI_FROM_LABEL_FULFILLED,
-SPARQL_GET_URI_FROM_LABEL_REJECTED,
-SPARQL_GET_TRIPLES_FROM_URI_PENDING,
+import {
+SPARQL_GET_URI_FROM_LABEL_FULFILLED,
 SPARQL_GET_TRIPLES_FROM_URI_FULFILLED,
-SPARQL_GET_TRIPLES_FROM_URI_REJECTED } from '../constants/action-types';
+SPARQL_REJECTED_REQUESTS_LIST,
+SPARQL_PENDING_REQUESTS_LIST } from '../constants/action-types';
 
 const initialSparqlState = {
   pendingRequests: 0,
@@ -24,17 +23,21 @@ export const sparqlReducer = (state=initialSparqlState, action) => {
     nodes: state.rdfGraph.nodes.slice(),
     links: state.rdfGraph.links.slice(),
   };
+
+  if (SPARQL_PENDING_REQUESTS_LIST.includes(action.type)) {
+    return {
+      ...state,
+      pendingRequests: state.pendingRequests + 1,
+    };
+  } else if (SPARQL_REJECTED_REQUESTS_LIST.includes(action.type)) {
+    return {
+      ...state,
+      error: action.payload,
+      pendingRequests: state.pendingRequests - 1,
+    };
+  }
+
   switch (action.type) {
-    case SPARQL_GET_URI_FROM_LABEL_PENDING:
-      return {
-        ...state,
-        pendingRequests: state.pendingRequests + 1,
-      };
-    case SPARQL_GET_TRIPLES_FROM_URI_PENDING:
-      return {
-        ...state,
-        pendingRequests: state.pendingRequests + 1,
-      };
     case SPARQL_GET_URI_FROM_LABEL_FULFILLED:
       let requestUrl = action.payload.config.url;
       action.payload.data.results.bindings.forEach(
@@ -48,18 +51,6 @@ export const sparqlReducer = (state=initialSparqlState, action) => {
     case SPARQL_GET_TRIPLES_FROM_URI_FULFILLED:
       requestUrl = action.payload.config.url;
       return state;
-    case SPARQL_GET_URI_FROM_LABEL_REJECTED:
-      return {
-        ...state,
-        error: action.payload,
-        pendingRequests: state.pendingRequests - 1,
-      };
-    case SPARQL_GET_TRIPLES_FROM_URI_REJECTED:
-      return {
-        ...state,
-        error: action.payload,
-        pendingRequests: state.pendingRequests - 1,
-      };
     default:
       return state;
   }
@@ -85,7 +76,7 @@ const addNodeIfNotExists = (nodes, source, subject) => {
 };
 
 const findNode = (uri, nodes) => {
-  nodes.find((d)=> d.uri == uri);
+  nodes.find((d)=> d.uri === uri);
 };
 
 export default sparqlReducer;
