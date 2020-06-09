@@ -80,11 +80,11 @@ const addLinkIfNotExists = (rdfGraph, source, triple) => {
   let link = findLink(triple, rdfGraph.links);
   if (link == null) {
     if (triple.property === 'http://www.w3.org/2000/01/rdf-schema#label') {
-      const node = addNodeIfNotExists(rdfGraph.nodes, triple.subject);
+      const node = addNodeIfNotExists(rdfGraph.nodes, source, triple.subject);
       node.label = triple.object;
       return null;
     } else if (triple.property === 'http://www.w3.org/2000/01/rdf-schema#comment') {
-      const node = addNodeIfNotExists(rdfGraph.nodes, triple.subject);
+      const node = addNodeIfNotExists(rdfGraph.nodes, source, triple.subject);
       node.comment = triple.object;
       return null;
     } else {
