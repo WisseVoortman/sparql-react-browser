@@ -1,6 +1,6 @@
 
 import { SET_CURRENT_DATASOURCE,
-  SPARQL_GET_URI_FROM_LABEL, SPARQL_GET_URI_FROM_LABEL_PENDING,
+  SPARQL_GET_URI_FROM_LABEL_PENDING,
   SPARQL_GET_URI_FROM_LABEL_FULFILLED,
   SPARQL_GET_URI_FROM_LABEL_REJECTED,
   SPARQL_GET_TRIPLES_FROM_URI
@@ -35,6 +35,10 @@ export const getTriplesFromUri = (uri, endpoint) => {
   return {
     type: SPARQL_GET_TRIPLES_FROM_URI,
     payload: sparqlAxios(query, endpoint),
+    meta: {
+      subject: uri,
+      endpoint,
+    },
   };
 };
 
