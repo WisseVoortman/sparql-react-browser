@@ -22,7 +22,7 @@ class PageContent extends React.Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/home" component={Home} />
-            <Route path="/sparql-react-browser" component={Home}
+            <Route path="/sparql-react-browser" component={Home} />
             <Route path="/graph" component={Graph} />
             <Route path="/contact" component={Contact} />
 
