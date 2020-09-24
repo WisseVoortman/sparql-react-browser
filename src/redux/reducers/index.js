@@ -6,6 +6,7 @@ import nodesReducer from './nodes'
 import linkesReducer from './links'
 import datasourceReducer from './datasource'
 import loadingReducer from './loading'
+import errorReducer from './error'
 import testReducer from './test'
 
 import { connectRouter } from 'connected-react-router'
@@ -15,6 +16,7 @@ const appReducer = (history) => combineReducers({
   links: linkesReducer,
   datasource: datasourceReducer,
   loading: loadingReducer,
+  error: errorReducer,
   test: testReducer,
   router: connectRouter(history)
 })

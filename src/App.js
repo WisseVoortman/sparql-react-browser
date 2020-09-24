@@ -27,6 +27,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import PageContent from './components/PageContent';
 import ConnectedLoading from './containers/ConnectedLoading'
+import ConnectedError from './containers/ConnectedError'
 
 //init redux store
 const store = configureStore()
@@ -48,6 +49,7 @@ const App = () => (
         <Header />
         <PageContent />
         <ConnectedLoading />
+        <ConnectedError />
         <Footer />
       </ConnectedRouter>
       {/* exclude devtools in production */}
