@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/sparql-react-browser/static/css/main.cfa9b229.chunk.css",
-    "main.js": "/sparql-react-browser/static/js/main.9c9031ef.chunk.js",
-    "main.js.map": "/sparql-react-browser/static/js/main.9c9031ef.chunk.js.map",
+    "main.js": "/sparql-react-browser/static/js/main.09d5c325.chunk.js",
+    "main.js.map": "/sparql-react-browser/static/js/main.09d5c325.chunk.js.map",
     "runtime-main.js": "/sparql-react-browser/static/js/runtime-main.02568383.js",
     "runtime-main.js.map": "/sparql-react-browser/static/js/runtime-main.02568383.js.map",
     "static/css/2.5b44f0a0.chunk.css": "/sparql-react-browser/static/css/2.5b44f0a0.chunk.css",
     "static/js/2.4981b833.chunk.js": "/sparql-react-browser/static/js/2.4981b833.chunk.js",
     "static/js/2.4981b833.chunk.js.map": "/sparql-react-browser/static/js/2.4981b833.chunk.js.map",
     "index.html": "/sparql-react-browser/index.html",
-    "precache-manifest.2fd7f9356828d759ac8cac94f8eb200e.js": "/sparql-react-browser/precache-manifest.2fd7f9356828d759ac8cac94f8eb200e.js",
+    "precache-manifest.cc3bd2dc8d0453697334af78a8c0f651.js": "/sparql-react-browser/precache-manifest.cc3bd2dc8d0453697334af78a8c0f651.js",
     "service-worker.js": "/sparql-react-browser/service-worker.js",
     "static/css/2.5b44f0a0.chunk.css.map": "/sparql-react-browser/static/css/2.5b44f0a0.chunk.css.map",
     "static/css/main.cfa9b229.chunk.css.map": "/sparql-react-browser/static/css/main.cfa9b229.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.5b44f0a0.chunk.css",
     "static/js/2.4981b833.chunk.js",
     "static/css/main.cfa9b229.chunk.css",
-    "static/js/main.9c9031ef.chunk.js"
+    "static/js/main.09d5c325.chunk.js"
   ]
 }
