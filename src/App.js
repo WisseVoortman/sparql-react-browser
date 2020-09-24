@@ -25,8 +25,8 @@ import configureStore from './redux/store/index'
 // Layout components
 import Header from './components/Header'
 import Footer from './components/Footer'
-import Nav from './components/Nav';
 import PageContent from './components/PageContent';
+import ConnectedLoading from './containers/ConnectedLoading'
 
 //init redux store
 const store = configureStore()
@@ -47,6 +47,7 @@ const App = () => (
       <ConnectedRouter history={history}>
         <Header />
         <PageContent />
+        <ConnectedLoading />
         <Footer />
       </ConnectedRouter>
       {/* exclude devtools in production */}
