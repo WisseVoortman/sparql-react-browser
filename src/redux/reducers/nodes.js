@@ -1,14 +1,14 @@
 //import { CREATE_POST, EDIT_POST } from '../actionTypes'
 
 export default function nodeReducer(state = [
-  { name: 'A' },
-  { name: 'B' },
-  { name: 'C' },
-  { name: 'D' },
-  { name: 'E' },
-  { name: 'F' },
-  { name: 'G' },
-  { name: 'H' },], action) {
+  { id: 'A' },
+  { id: 'B' },
+  { id: 'C' },
+  { id: 'D' },
+  { id: 'E' },
+  { id: 'F' },
+  { id: 'G' },
+  { id: 'H' },], action) {
   switch (action.type) {
     // case CREATE_POST: {
     //   const { type, ...post } = action

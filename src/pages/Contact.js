@@ -7,7 +7,7 @@ class Contact extends React.Component {
   render() {
     return (
       <div className="Contact">
-        <p>this is the contact form</p>
+        <h2>Contact form</h2>
         <form>
           <input placeholder="name" type="name" />
           <input placeholder="email" type="email" />

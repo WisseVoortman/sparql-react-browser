@@ -12,14 +12,17 @@ class ForceGraph extends React.Component {
 
     //simulation
     var simulation = d3.forceSimulation(nodes)
-      .force('charge', d3.forceManyBody().strength(-150))
+      .force('charge', d3.forceManyBody().strength(-10)) //defaul -30
+      // TODO: linkdistance
       .force('center', d3.forceCenter(width / 2, height / 2))
-      .force('link', d3.forceLink().links(links))
+      .force('link', d3.forceLink().links(links).id(function (d) { return d.id; }))
+      .force('link', d3.forceLink().distance(1000))
+
       .on('tick', ticked);
 
     //node properties
-    function updateNodes() {
-      var selection = d3.select('.nodes')
+    function updateNodesText() {
+      var selection = d3.select('.nodestext')
         .selectAll('text')
         .data(nodes)                        //bind data
         .call(drag(simulation));            //allow dragging  
@@ -27,12 +30,34 @@ class ForceGraph extends React.Component {
       selection.enter()                     //for each row in the data do...
         .append('text')                     //add element
         .text(function (d) {                // add attributes
-          return d.name
+          return d.id
         })
         .merge(selection)
-        .attr('x', function (d) { return d.x })
-        .attr('y', function (d) { return d.y })
-        .attr('dy', function (d) { return 5 })
+        .attr("transform", function (d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        });
+      // 2nd way of doing it
+      // .attr('x', function (d) { return d.x })
+      // .attr('y', function (d) { return d.y })
+      // .attr('dy', function (d) { return 5 })
+
+      selection.exit().remove()
+    }
+
+    function updateNodesCircle() {
+      var selection = d3.select('.nodescircle')
+        .selectAll('circle')
+        .data(nodes)                        //bind data
+        .call(drag(simulation));            //allow dragging  
+
+      selection.enter()                     //for each row in the data do...
+        .append('circle')
+        .attr("r", 20)
+        .style("fill", "#FD8D3C")
+        .merge(selection)
+        .attr("transform", function (d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        })
       //2nd way of doing the positioning
       // .attr("transform", function (d) {
       //   return "translate(" + d.x + "," + d.y + ")";
@@ -44,24 +69,21 @@ class ForceGraph extends React.Component {
     //link properties
     function updateLinks() {
       var selection = d3.select('.links')
-        .selectAll('line')
+        .selectAll('path')
         .data(links)
 
       selection.enter()
-        .append('line')
+        .append('path')
+        .attr("class", function (d) { return "link" })
+        .attr("class", function (d) { return "link " + d.type; })
         .merge(selection)
-        .attr('x1', function (d) {
-          return d.source.x
-        })
-        .attr('y1', function (d) {
-          return d.source.y
-        })
-        .attr('x2', function (d) {
-          return d.target.x
-        })
-        .attr('y2', function (d) {
-          return d.target.y
-        })
+        .attr("d", function (d) {
+          var dx = d.target.x - d.source.x,
+            dy = d.target.y - d.source.y,
+            dr = 100 / 2;  //linknum is defined above
+          return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+        });
+
 
       selection.exit().remove()
     }
@@ -97,9 +119,10 @@ class ForceGraph extends React.Component {
 
     //update drawing nodes and links
     function ticked() {
-      updateNodes()
+      updateNodesText()
+      updateNodesCircle()
       updateLinks()
-      updateLabels()
+      //updateLabels()
     }
 
     // dragging
@@ -135,7 +158,8 @@ class ForceGraph extends React.Component {
     return <div id="content">
       <svg width={width} height={height} style={{ border: "1px solid black" }}>
         <g class="links"></g>
-        <g class="nodes"></g>
+        <g class="nodescircle"></g>
+        <g class="nodestext"></g>
         <g class="labels"></g>
         <g class="linktext"></g>
       </svg>

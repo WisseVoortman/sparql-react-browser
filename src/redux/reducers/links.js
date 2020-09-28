@@ -1,14 +1,14 @@
 //import { CREATE_POST, EDIT_POST } from '../actionTypes'
 
 export default function linkReducer(state = [
-  { source: 0, target: 1, property: 'dirk' },
-  { source: 0, target: 2, property: 'ryan' },
-  //{ source: 0, target: 3 },
-  { source: 1, target: 6, property: 'wisse' },
-  { source: 3, target: 4, property: 'bart' },
-  { source: 3, target: 7, property: 'henk' },
-  { source: 4, target: 5, property: 'john' },
-  { source: 4, target: 7, property: 'test' }
+  { source: 'A', target: 'B', property: 'dirk' },
+  { source: 'A', target: 'C', property: 'ryan' },
+  //{ source: A, target: D },
+  { source: 'B', target: 'G', property: 'wisse' },
+  { source: 'D', target: 'E', property: 'bart' },
+  { source: 'D', target: 'H', property: 'henk' },
+  { source: 'E', target: 'F', property: 'john' },
+  { source: 'E', target: 'H', property: 'test' }
 ], action) {
   switch (action.type) {
     //   case CREATE_POST: {
