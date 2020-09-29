@@ -7,15 +7,12 @@ class ForceGraph extends React.Component {
   constructor(props) {
     super();
 
-    var nodes = props.nodes
-    var links = props.links
-
     //simulation
-    var simulation = d3.forceSimulation(nodes)
+    var simulation = d3.forceSimulation(props.data.nodes)
       .force('charge', d3.forceManyBody().strength(-10)) //defaul -30
       // TODO: linkdistance
       .force('center', d3.forceCenter(width / 2, height / 2))
-      .force('link', d3.forceLink().links(links).id(function (d) { return d.id; }))
+      .force('link', d3.forceLink().links(props.data.links).id(function (d) { return d.id; }))
       .force('link', d3.forceLink().distance(1000))
 
       .on('tick', ticked);
@@ -24,7 +21,7 @@ class ForceGraph extends React.Component {
     function updateNodesText() {
       var selection = d3.select('.nodestext')
         .selectAll('text')
-        .data(nodes)                        //bind data
+        .data(props.data.nodes)                        //bind data
         .call(drag(simulation));            //allow dragging  
 
       selection.enter()                     //for each row in the data do...
@@ -47,7 +44,7 @@ class ForceGraph extends React.Component {
     function updateNodesCircle() {
       var selection = d3.select('.nodescircle')
         .selectAll('circle')
-        .data(nodes)                        //bind data
+        .data(props.data.nodes)                        //bind data
         .call(drag(simulation));            //allow dragging  
 
       selection.enter()                     //for each row in the data do...
@@ -70,7 +67,7 @@ class ForceGraph extends React.Component {
     function updateLinks() {
       var selection = d3.select('.links')
         .selectAll('path')
-        .data(links)
+        .data(props.data.links)
 
       selection.enter()
         .append('path')
@@ -80,7 +77,7 @@ class ForceGraph extends React.Component {
         .attr("d", function (d) {
           var dx = d.target.x - d.source.x,
             dy = d.target.y - d.source.y,
-            dr = 100 / 2;  //linknum is defined above
+            dr = 100 / 1;  //linknum is defined abov TODO: update to sue linknum from 
           return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
         });
 
@@ -91,7 +88,7 @@ class ForceGraph extends React.Component {
     function updateLabels() {
       var selection = d3.select('.labels')
         .selectAll('text')
-        .data(links)
+        .data(props.data.links)
 
       selection.enter()
         .append('text')

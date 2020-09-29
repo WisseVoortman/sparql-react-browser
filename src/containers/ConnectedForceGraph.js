@@ -7,7 +7,8 @@ import ForceGraph from '../components/ForceGraph'
 const mapStateToProps = (state, props) => {
   return {
     nodes: state.nodes,
-    links: state.links
+    links: state.links,
+    data: state.data
   }
 }
 

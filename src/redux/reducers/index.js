@@ -8,6 +8,7 @@ import datasourceReducer from './datasource'
 import loadingReducer from './loading'
 import errorReducer from './error'
 import testReducer from './test'
+import dataReducer from './data'
 
 import { connectRouter } from 'connected-react-router'
 
@@ -18,6 +19,7 @@ const appReducer = (history) => combineReducers({
   loading: loadingReducer,
   error: errorReducer,
   test: testReducer,
+  data: dataReducer,
   router: connectRouter(history)
 })
 
