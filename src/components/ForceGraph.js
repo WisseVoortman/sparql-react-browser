@@ -12,9 +12,7 @@ class ForceGraph extends React.Component {
       .force('charge', d3.forceManyBody().strength(-10)) //defaul -30
       // TODO: linkdistance
       .force('center', d3.forceCenter(width / 2, height / 2))
-      .force('link', d3.forceLink().links(props.data.links).id(function (d) { return d.id; }))
-      .force('link', d3.forceLink().distance(1000))
-
+      .force('link', d3.forceLink().links(props.data.links).distance(200).id(function (d) { return d.id; }))
       .on('tick', ticked);
 
     //node properties
@@ -44,7 +42,7 @@ class ForceGraph extends React.Component {
     function updateNodesCircle() {
       var selection = d3.select('.nodescircle')
         .selectAll('circle')
-        .data(props.data.nodes)                        //bind data
+        .data(props.data.nodes)             //bind data
         .call(drag(simulation));            //allow dragging  
 
       selection.enter()                     //for each row in the data do...
@@ -55,10 +53,6 @@ class ForceGraph extends React.Component {
         .attr("transform", function (d) {
           return "translate(" + d.x + "," + d.y + ")";
         })
-      //2nd way of doing the positioning
-      // .attr("transform", function (d) {
-      //   return "translate(" + d.x + "," + d.y + ")";
-      // })
 
       selection.exit().remove()
     }
@@ -73,40 +67,34 @@ class ForceGraph extends React.Component {
         .append('path')
         .attr("class", function (d) { return "link" })
         .attr("class", function (d) { return "link " + d.type; })
+        .attr("id", function (d, i) { return "linkId_" + i; })
         .merge(selection)
         .attr("d", function (d) {
           var dx = d.target.x - d.source.x,
             dy = d.target.y - d.source.y,
-            dr = 100 / 1;  //linknum is defined abov TODO: update to sue linknum from 
+            dr = 150 / 2;  //linknum is defined abov TODO: update to sue linknum from 
           return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
-        });
+        })
+
 
 
       selection.exit().remove()
     }
 
-    function updateLabels() {
-      var selection = d3.select('.labels')
+    function updateLinksText() {
+      var selection = d3.select('.linkstext')
         .selectAll('text')
         .data(props.data.links)
 
       selection.enter()
-        .append('text')
+        .append("text")
+        .attr("x", "100")
+        .attr("y", "-20")
+        .attr("class", "linklabel")
+        .append("textPath")
+        .attr("xlink:href", function (d, i) { return "#linkId_" + i; })
         .text(function (d) {
-          return d.property
-        })
-        .merge(selection)
-        .attr('x', function (d) {
-          return d.source.x
-        })
-        .attr('y', function (d) {
-          return d.source.y
-        })
-        .attr('dx', function (d) {
-          return d.target.x - d.source.x
-        })
-        .attr('dy', function (d) {
-          return d.target.y - d.source.y
+          return d.property;
         })
 
       selection.exit().remove()
@@ -119,7 +107,15 @@ class ForceGraph extends React.Component {
       updateNodesText()
       updateNodesCircle()
       updateLinks()
-      //updateLabels()
+      updateLinksText()
+    }
+
+    function linkDeviation(d) {
+      var dx = d.target.x - d.source.x,
+        dy = d.target.y - d.source.y,
+        dr = 150 / 2;  //linknum is defined above
+      return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+
     }
 
     // dragging
@@ -157,8 +153,7 @@ class ForceGraph extends React.Component {
         <g class="links"></g>
         <g class="nodescircle"></g>
         <g class="nodestext"></g>
-        <g class="labels"></g>
-        <g class="linktext"></g>
+        <g class="linkstext"></g>
       </svg>
     </div >;
   }
