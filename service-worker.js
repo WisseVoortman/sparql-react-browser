@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/sparql-react-browser/precache-manifest.cc3bd2dc8d0453697334af78a8c0f651.js"
+  "/sparql-react-browser/precache-manifest.36423554e08c27441414437aef785ebd.js"
 );
 
 self.addEventListener('message', (event) => {
