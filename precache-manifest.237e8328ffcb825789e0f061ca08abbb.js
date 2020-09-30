@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c81c0e0f6a182b3bd4e2898276ac4fb6",
+    "revision": "cc6f854f6d6e759af02f1397519de4ef",
     "url": "/sparql-react-browser/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sparql-react-browser/static/css/2.5b44f0a0.chunk.css"
   },
   {
-    "revision": "ae8e800b4014ed427411",
+    "revision": "3ff23c0cc4028b634d5d",
     "url": "/sparql-react-browser/static/css/main.0fe350e9.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sparql-react-browser/static/js/2.93056770.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ae8e800b4014ed427411",
-    "url": "/sparql-react-browser/static/js/main.fdd74673.chunk.js"
+    "revision": "3ff23c0cc4028b634d5d",
+    "url": "/sparql-react-browser/static/js/main.aa215857.chunk.js"
   },
   {
     "revision": "6e45e6a6286fd13fba83",
