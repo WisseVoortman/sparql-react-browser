@@ -2,16 +2,16 @@ import { FETCH_TEST_SUCCESS } from '../actionTypes'
 
 export default function dataReducer(state = {
   links: [
-    { source: "John", target: "Footbal", property: "plays" },
-    { source: "Footbal", target: "John", property: "plays" },
+    { source: "John", target: "Voetbal", property: "Speelt" },
+    { source: "Voetbal", target: "John", property: "Gespeeld door" },
     { source: "John", target: "Chip", property: "Heeft vriend" },
-    { source: "Chip", target: "Footbal", property: "plays" }
+    { source: "Chip", target: "Voetbal", property: "Speelt" }
 
   ],
   nodes: [
     { id: 'John' },
     { id: 'Chip' },
-    { id: 'Footbal' },
+    { id: 'Voetbal' },
   ]
 
 

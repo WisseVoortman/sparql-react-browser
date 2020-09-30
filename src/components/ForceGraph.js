@@ -1,17 +1,17 @@
 import * as d3 from 'd3'
 import React from 'react'
 
-var width = 600, height = 600
-
 class ForceGraph extends React.Component {
   constructor(props) {
     super();
+    this.width = 600
+    this.height = 600
 
     //simulation
     var simulation = d3.forceSimulation(props.data.nodes)
-      .force('charge', d3.forceManyBody().strength(-10)) //defaul -30
+      .force('charge', d3.forceManyBody().strength(-30)) //defaul -30
       // TODO: linkdistance
-      .force('center', d3.forceCenter(width / 2, height / 2))
+      .force('center', d3.forceCenter(this.width / 2, this.height / 2))
       .force('link', d3.forceLink().links(props.data.links).distance(200).id(function (d) { return d.id; }))
       .on('tick', ticked);
 
@@ -66,13 +66,14 @@ class ForceGraph extends React.Component {
       selection.enter()
         .append('path')
         .attr("class", function (d) { return "link" })
-        .attr("class", function (d) { return "link " + d.type; })
+        .attr("class", function (d) { return "link " + d.property; })
         .attr("id", function (d, i) { return "linkId_" + i; })
+        .attr("marker-end", function (d) { return "url(#" + d.property.replace(/\s/g, '') + ")"; }) //removed to allow matching
         .merge(selection)
         .attr("d", function (d) {
           var dx = d.target.x - d.source.x,
             dy = d.target.y - d.source.y,
-            dr = 150 / 2;  //linknum is defined abov TODO: update to sue linknum from 
+            dr = 300 / 1;  //linknum is defined abov TODO: update to use linknum from the links 
           return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
         })
 
@@ -100,7 +101,35 @@ class ForceGraph extends React.Component {
       selection.exit().remove()
     }
 
+    function updateLinkMarkers() {
+      var selection = d3.select('.defs')
+        .selectAll('marker')
+        .data(getAllLinkPropertys())
 
+      selection.enter()
+        .append("marker")
+        .attr("id", String)
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 30) // distance from link
+        .attr("refY", 0) //deviation from link linke
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6)
+        .attr("orient", "auto")
+        .append("svg:path")
+        .attr("d", "M0,-5L10,0L0,5");
+
+
+      selection.exit().remove()
+    }
+
+    function getAllLinkPropertys() {
+
+      var linkpropertys = []
+      props.data.links.forEach(element => {
+        linkpropertys.push(element.property.replace(/\s/g, ''))
+      });
+      return linkpropertys
+    }
 
     //update drawing nodes and links
     function ticked() {
@@ -108,6 +137,7 @@ class ForceGraph extends React.Component {
       updateNodesCircle()
       updateLinks()
       updateLinksText()
+      updateLinkMarkers()
     }
 
     function linkDeviation(d) {
@@ -148,12 +178,13 @@ class ForceGraph extends React.Component {
 
   render() {
 
-    return <div id="content">
-      <svg width={width} height={height} style={{ border: "1px solid black" }}>
+    return <div id="forcegraph">
+      <svg width={this.width} height={this.height} style={{ border: "1px solid black" }}>
         <g class="links"></g>
         <g class="nodescircle"></g>
         <g class="nodestext"></g>
         <g class="linkstext"></g>
+        <defs class="defs"></defs>
       </svg>
     </div >;
   }
