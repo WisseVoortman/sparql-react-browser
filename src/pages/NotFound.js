@@ -5,6 +5,7 @@ class NotFound extends React.Component {
     return (
       <div className="NotFound">
         <h1>Not Found...</h1>
+        <button onClick={() => this.props.history.push('/home')}>Go home</button>
       </div>
     )
   }

@@ -1,29 +1,40 @@
-//import { CREATE_POST, EDIT_POST } from '../actionTypes'
+import { FETCH_TEST_SUCCESS, } from '../actionTypes'
 
 export default function nodeReducer(state = [
-  { id: 'A' },
-  { id: 'B' },
-  { id: 'C' },
-  { id: 'D' },
-  { id: 'E' },
-  { id: 'F' },
-  { id: 'G' },
-  { id: 'H' },], action) {
+  { id: 'John' },
+  { id: 'Chip' },
+  { id: 'Voetbal' },
+], action) {
+  let NewState = Object.assign({}, state);
   switch (action.type) {
-    // case CREATE_POST: {
-    //   const { type, ...post } = action
-    //   return [...state, post]
-    // }
+    case FETCH_TEST_SUCCESS: {
 
-    // case EDIT_POST: {
-    //   const { type, id, ...newPost } = action
-    //   return state.map((oldPost, index) =>
-    //     action.id === index
-    //       ? { ...oldPost, ...newPost }
-    //       : oldPost
-    //   )
-    // }
+      var links = [
+        { source: "John", target: 'Fussbal', property: 'plays' },
+        { source: "John", target: 'Chip', property: 'Heeft vriend' },
+        { source: "Eric", target: 'Footbal', property: 'Speelt' },
+        { source: "John", target: 'Golf', property: 'Speelt' },
+        { source: "Eric", target: 'John', property: 'Heeft vriend' },
+        { source: "Eric", target: 'Chip', property: 'Heeft vriend' }]
 
+      NewState = []
+
+      //distinct nodes
+      var templist = []
+      links.forEach(link => {
+        if (!templist.includes(link.source)) {
+          NewState.push({ id: link.source })
+        }
+        if (!templist.includes(link.target)) {
+          NewState.push({ id: link.target })
+        }
+
+        templist.push(link.source)
+        templist.push(link.target)
+      })
+
+      return NewState
+    }
     default:
       return state
   }

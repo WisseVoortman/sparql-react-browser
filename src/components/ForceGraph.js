@@ -6,20 +6,22 @@ class ForceGraph extends React.Component {
     super();
     this.width = 600
     this.height = 600
+    this.uniqueID = Math.random()
+    console.log('ForceGraph rerendered')
 
     //simulation
-    var simulation = d3.forceSimulation(props.data.nodes)
+    var simulation = d3.forceSimulation(props.nodes)
       .force('charge', d3.forceManyBody().strength(-30)) //defaul -30
       // TODO: linkdistance
       .force('center', d3.forceCenter(this.width / 2, this.height / 2))
-      .force('link', d3.forceLink().links(props.data.links).distance(200).id(function (d) { return d.id; }))
+      .force('link', d3.forceLink().links(props.links).distance(200).id(function (d) { return d.id; }))
       .on('tick', ticked);
 
     //node properties
     function updateNodesText() {
       var selection = d3.select('.nodestext')
         .selectAll('text')
-        .data(props.data.nodes)                        //bind data
+        .data(props.nodes)                        //bind data
         .call(drag(simulation));            //allow dragging  
 
       selection.enter()                     //for each row in the data do...
@@ -42,7 +44,7 @@ class ForceGraph extends React.Component {
     function updateNodesCircle() {
       var selection = d3.select('.nodescircle')
         .selectAll('circle')
-        .data(props.data.nodes)             //bind data
+        .data(props.nodes)             //bind data
         .call(drag(simulation));            //allow dragging  
 
       selection.enter()                     //for each row in the data do...
@@ -61,7 +63,7 @@ class ForceGraph extends React.Component {
     function updateLinks() {
       var selection = d3.select('.links')
         .selectAll('path')
-        .data(props.data.links)
+        .data(props.links)
 
       selection.enter()
         .append('path')
@@ -85,7 +87,7 @@ class ForceGraph extends React.Component {
     function updateLinksText() {
       var selection = d3.select('.linkstext')
         .selectAll('text')
-        .data(props.data.links)
+        .data(props.links)
 
       selection.enter()
         .append("text")
@@ -125,7 +127,7 @@ class ForceGraph extends React.Component {
     function getAllLinkPropertys() {
 
       var linkpropertys = []
-      props.data.links.forEach(element => {
+      props.links.forEach(element => {
         linkpropertys.push(element.property.replace(/\s/g, ''))
       });
       return linkpropertys
@@ -177,8 +179,7 @@ class ForceGraph extends React.Component {
   }
 
   render() {
-
-    return <div id="forcegraph">
+    return <div id="forcegraph" >
       <svg width={this.width} height={this.height} style={{ border: "1px solid black" }}>
         <g class="links"></g>
         <g class="nodescircle"></g>

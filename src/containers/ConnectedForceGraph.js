@@ -8,7 +8,7 @@ const mapStateToProps = (state, props) => {
   return {
     nodes: state.nodes,
     links: state.links,
-    data: state.data
+    history: state.router
   }
 }
 

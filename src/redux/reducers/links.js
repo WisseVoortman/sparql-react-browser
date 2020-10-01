@@ -1,30 +1,47 @@
-//import { CREATE_POST, EDIT_POST } from '../actionTypes'
+import { FETCH_TEST_SUCCESS, } from '../actionTypes'
 
 export default function linkReducer(state = [
-  { source: 'A', target: 'B', property: 'dirk' },
-  { source: 'A', target: 'C', property: 'ryan' },
-  //{ source: A, target: D },
-  { source: 'B', target: 'G', property: 'wisse' },
-  { source: 'D', target: 'E', property: 'bart' },
-  { source: 'D', target: 'H', property: 'henk' },
-  { source: 'E', target: 'F', property: 'john' },
-  { source: 'E', target: 'H', property: 'test' }
+  { source: "John", target: "Voetbal", property: "Speelt" },
+  { source: "Voetbal", target: "John", property: "Gespeeld door" },
+  { source: "John", target: "Chip", property: "Heeft vriend" },
+  { source: "Chip", target: "Voetbal", property: "Speelt" }
 ], action) {
+  let NewState = Object.assign({}, state);
   switch (action.type) {
-    //   case CREATE_POST: {
-    //     const { type, ...post } = action
-    //     return [...state, post]
-    //   }
+    case FETCH_TEST_SUCCESS: {
 
-    //   case EDIT_POST: {
-    //     const { type, id, ...newPost } = action
-    //     return state.map((oldPost, index) =>
-    //       action.id === index
-    //         ? { ...oldPost, ...newPost }
-    //         : oldPost
-    //     )
-    //   }
+      NewState = [
+        { source: "John", target: 'Fussbal', property: 'plays' },
+        { source: "John", target: 'Chip', property: 'Heeft vriend' },
+        { source: "Eric", target: 'Footbal', property: 'Speelt' },
+        { source: "John", target: 'Golf', property: 'Speelt' },
+        { source: "Eric", target: 'John', property: 'Heeft vriend' },
+        { source: "Eric", target: 'Chip', property: 'Heeft vriend' }]
 
+      //sort links by source then target --> sorteert goed.
+      NewState.sort(function (a, b) {
+        if (a.source > b.source) { return 1; }
+        else if (a.source < b.source) { return -1; }
+        else {
+          if (a.target > b.target) { return 1; }
+          if (a.target < b.target) { return -1; }
+          else { return 0; }
+        }
+      })
+
+      console.log(NewState)
+
+      // set linknum for every link --> wordt in path gebruikt om duplicate links te kunnen leggen
+      for (var i = 0; i < NewState.length; i++) {
+        if (i != 0 &&
+          NewState[i].source == NewState[i - 1].source &&
+          NewState[i].target == NewState[i - 1].target) {
+          NewState[i].linknum = NewState[i - 1].linknum + 1;
+        }
+        else { NewState[i].linknum = 1; };
+      };
+      return NewState
+    }
     default:
       return state
   }
