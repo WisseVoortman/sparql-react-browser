@@ -1,4 +1,5 @@
 import React from 'react'
+import ConnectedSearch from '../containers/ConnectedSearch'
 
 class Home extends React.Component {
 
@@ -6,6 +7,7 @@ class Home extends React.Component {
     return (
       <div className="Home">
         <h2>home</h2>
+        <ConnectedSearch />
       </div>
 
     )

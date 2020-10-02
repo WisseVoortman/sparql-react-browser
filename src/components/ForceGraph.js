@@ -6,7 +6,6 @@ class ForceGraph extends React.Component {
     super();
     this.width = 600
     this.height = 600
-    this.uniqueID = Math.random()
     console.log('ForceGraph rerendered')
 
     //simulation
@@ -179,7 +178,7 @@ class ForceGraph extends React.Component {
   }
 
   render() {
-    return <div id="forcegraph" >
+    return <div id="forcegraph">
       <svg width={this.width} height={this.height} style={{ border: "1px solid black" }}>
         <g class="links"></g>
         <g class="nodescircle"></g>

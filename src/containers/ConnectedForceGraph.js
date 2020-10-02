@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux'
 
 import ForceGraph from '../components/ForceGraph'
 
-
 const mapStateToProps = (state, props) => {
   return {
     nodes: state.nodes,
