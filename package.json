@@ -27,7 +27,8 @@
     "redux-form": "^8.3.6",
     "redux-history": "^1.0.2",
     "redux-thunk": "^2.3.0",
-    "sass": "^1.26.11"
+    "sass": "^1.26.11",
+    "xml2js": "^0.4.23"
   },
   "scripts": {
     "predeploy": "npm run build",

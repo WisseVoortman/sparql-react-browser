@@ -1,4 +1,4 @@
-import { FETCH_TEST_SUCCESS, } from '../actionTypes'
+import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS } from '../actionTypes'
 
 export default function nodeReducer(state = [
   { id: 'John' },
@@ -34,6 +34,19 @@ export default function nodeReducer(state = [
       })
 
       return NewState
+    }
+    case FETCH_SPARQL_SUCCESS: {
+      //LINK:
+      //{ source: "John", target: 'Fussbal', property: 'plays' }
+
+      //NODE
+      //{ id: 'John' }
+      // var parseString = require('xml2js').parseString;
+      // var xml = action.result.data
+      // parseString(xml, function (err, result) {
+      //   console.dir(result);
+      // });
+      return 'ok dan'
     }
     default:
       return state

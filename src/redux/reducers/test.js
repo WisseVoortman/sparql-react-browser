@@ -6,9 +6,6 @@ export default function testReducer(state = [
     case FETCH_TEST_SUCCESS: {
       return action.result
     }
-    case FETCH_SPARQL_SUCCESS: {
-      return action.result
-    }
 
     default:
       return state
