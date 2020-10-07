@@ -1,4 +1,4 @@
-import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS } from '../actionTypes'
+import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_JSON_SUCCESS } from '../actionTypes'
 
 export default function nodeReducer(state = [
   { id: 'John' },
@@ -32,7 +32,7 @@ export default function nodeReducer(state = [
         templist.push(link.source)
         templist.push(link.target)
       })
-
+      console.log('node NewState: ' + NewState)
       return NewState
     }
     case FETCH_SPARQL_SUCCESS: {
@@ -47,6 +47,32 @@ export default function nodeReducer(state = [
       //   console.dir(result);
       // });
       return 'ok dan'
+    }
+    case FETCH_SPARQL_JSON_SUCCESS: {
+      //LINK:
+      //[{ source: "John", target: 'Fussbal', property: 'plays' }]
+
+      //NODE
+      //[{ id: 'John' }]
+
+      NewState = []
+
+      //distinct nodes
+      var templist = []
+      action.result.data.results.bindings.forEach(element => {
+
+        //add subject and object to templist
+        if (!templist.includes(element.sub.value)) {
+          NewState.push({ id: element.sub.value })
+        }
+        if (!templist.includes(element.obj.value)) {
+          NewState.push({ id: element.obj.value })
+        }
+
+        templist.push(element.sub.value)
+        templist.push(element.obj.value)
+      })
+      return NewState
     }
     default:
       return state

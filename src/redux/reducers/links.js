@@ -1,4 +1,4 @@
-import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS } from '../actionTypes'
+import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_JSON_SUCCESS } from '../actionTypes'
 
 export default function linkReducer(state = [
   { source: "John", target: "Voetbal", property: "Speelt" },
@@ -28,8 +28,6 @@ export default function linkReducer(state = [
           else { return 0; }
         }
       })
-
-      console.log(NewState)
 
       // set linknum for every link --> wordt in path gebruikt om duplicate links te kunnen leggen
       for (var i = 0; i < NewState.length; i++) {
@@ -99,6 +97,28 @@ export default function linkReducer(state = [
       });
 
 
+      return NewState
+    }
+    case FETCH_SPARQL_JSON_SUCCESS: {
+      //LINK:
+      //[{ source: "John", target: 'Fussbal', property: 'plays' }]
+
+      //NODE
+      //[{ id: 'John' }]
+
+      NewState = []
+
+      action.result.data.results.bindings.forEach(element => {
+        //console.log(element)
+        var source = element.sub
+        var target = element.obj
+        var property = element.pred
+        var link = {}
+        link.source = source.value
+        link.target = target.value
+        link.property = property.value
+        NewState.push(link)
+      });
       return NewState
     }
     default:

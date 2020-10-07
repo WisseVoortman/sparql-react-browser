@@ -2,7 +2,7 @@ import { SET_CURRENT_DATASOURCE } from '../actionTypes';
 
 
 export default function datasourceReducer(state = {
-  currentDatasource: 0,
+  currentDatasource: 'https://lod.onderwijsregistratie.nl/rio/sparql',
   datasources: [
     {
       name: 'Onderwijsregistratie',
