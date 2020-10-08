@@ -63,10 +63,10 @@ export default function nodeReducer(state = [
 
         //add subject and object to templist
         if (!templist.includes(element.sub.value)) {
-          NewState.push({ id: element.sub.value })
+          NewState.push({ id: element.sub.value, type: element.sub.type })
         }
         if (!templist.includes(element.obj.value)) {
-          NewState.push({ id: element.obj.value })
+          NewState.push({ id: element.obj.value, type: element.obj.type })
         }
 
         templist.push(element.sub.value)
