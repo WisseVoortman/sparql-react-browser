@@ -8,19 +8,88 @@ class ForceGraph extends React.Component {
     this.height = 600
     console.log('ForceGraph rerendered')
 
+
+  }
+
+  componentDidMount() {
+
+
+    console.log('createsvg fired')
+
+    var zoom = d3.zoom()
+      .scaleExtent([1, 10])
+      .on("zoom", zoomed);
+
+    var svg = d3.select("#forcegraph")
+      .append("svg")
+      .attr("class", "forcegraph")
+      .style("width", "600")
+      .style("height", "600")
+      .style("border", "1px solid black")
+      .call(zoom).append("g")
+    svg.append("g").attr("class", "links")
+    svg.append("g").attr("class", "nodescircle")
+    svg.append("g").attr("class", "nodestext")
+    svg.append("g").attr("class", "linkstext")
+    svg.append("defs").attr("class", "defs")
+    //this.createSimulation()
+
+
+
+    function zoomed() {
+      const currentTransform = d3.event.transform;
+      svg.attr("transform", currentTransform);
+      //slider.property("value", currentTransform.k);
+    }
+
+    // function slided(d) {
+    //   zoom.scaleTo(svg, d3.select(this).property("value"));
+    // }
+
+    // var slider = d3.select("#forcegraph").append("p").append("input")
+    //   .datum({})
+    //   .attr("type", "range")
+    //   .attr("value", zoom.scaleExtent()[0])
+    //   .attr("min", zoom.scaleExtent()[0])
+    //   .attr("max", zoom.scaleExtent()[1])
+    //   .attr("step", (zoom.scaleExtent()[1] - zoom.scaleExtent()[0]) / 100)
+    //   .on("input", slided);
+  }
+
+  componentDidUpdate() {
+    console.log('did update' + this.props.nodes)
+    this.removeGraph()
+    this.createSimulation(this.props.nodes, this.props.links)
+  }
+
+  removeGraph() {
+    d3.select('.nodestext').selectAll('text').remove();
+    d3.select('.nodescircle').selectAll('circle').remove();
+    d3.select('.links').selectAll('path').remove();
+    d3.select('.linkstext').selectAll('text').remove();
+
+  }
+
+  createSimulation(
+    nodes,
+    links,
+
+  ) {
+
+
     //simulation
-    var simulation = d3.forceSimulation(props.nodes)
+    var simulation = d3.forceSimulation(nodes)
       .force('charge', d3.forceManyBody().strength(-30)) //defaul -30
       // TODO: linkdistance
       .force('center', d3.forceCenter(this.width / 2, this.height / 2))
-      .force('link', d3.forceLink().links(props.links).distance(200).id(function (d) { return d.id; }))
+      .force('link', d3.forceLink().links(links).distance(200).id(function (d) { return d.id; }))
       .on('tick', ticked);
 
     //node properties
     function updateNodesText() {
       var selection = d3.select('.nodestext')
         .selectAll('text')
-        .data(props.nodes)                        //bind data
+        .data(nodes)                        //bind data
         .call(drag(simulation));            //allow dragging  
 
       selection.enter()                     //for each row in the data do...
@@ -43,7 +112,7 @@ class ForceGraph extends React.Component {
     function updateNodesCircle() {
       var selection = d3.select('.nodescircle')
         .selectAll('circle')
-        .data(props.nodes)             //bind data
+        .data(nodes)             //bind data
         .call(drag(simulation));            //allow dragging  
 
       selection.enter()                     //for each row in the data do...
@@ -62,7 +131,7 @@ class ForceGraph extends React.Component {
     function updateLinks() {
       var selection = d3.select('.links')
         .selectAll('path')
-        .data(props.links)
+        .data(links)
 
       selection.enter()
         .append('path')
@@ -86,7 +155,7 @@ class ForceGraph extends React.Component {
     function updateLinksText() {
       var selection = d3.select('.linkstext')
         .selectAll('text')
-        .data(props.links)
+        .data(links)
 
       selection.enter()
         .append("text")
@@ -126,7 +195,7 @@ class ForceGraph extends React.Component {
     function getAllLinkPropertys() {
 
       var linkpropertys = []
-      props.links.forEach(element => {
+      links.forEach(element => {
         linkpropertys.push(element.property.replace(/\s/g, ''))
       });
       return linkpropertys
@@ -175,17 +244,11 @@ class ForceGraph extends React.Component {
         .on("end", dragended);
     };
 
+
   }
 
   render() {
     return <div id="forcegraph">
-      <svg width={this.width} height={this.height} style={{ border: "1px solid black" }}>
-        <g class="links"></g>
-        <g class="nodescircle"></g>
-        <g class="nodestext"></g>
-        <g class="linkstext"></g>
-        <defs class="defs"></defs>
-      </svg>
     </div >;
   }
 }
