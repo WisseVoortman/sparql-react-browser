@@ -4,16 +4,31 @@ import React from 'react'
 class ForceGraph extends React.Component {
   constructor(props) {
     super();
-    this.width = 600
-    this.height = 600
     console.log('ForceGraph rerendered')
-
-
   }
 
   componentDidMount() {
+    var element = document.getElementById('forcegraph');
 
+    // Redraw based on the new size whenever the browser window is resized.
+    window.addEventListener("resize", () => {
+      this.removeSVG()
+      this.createSVG(element.offsetWidth, element.offsetHeight)
+      this.createSimulation(this.props.nodes, this.props.links, element.offsetWidth, element.offsetHeight)
+    });
 
+    this.createSVG(element.offsetWidth, element.offsetHeight)
+    this.createSimulation(this.props.nodes, this.props.links, element.offsetWidth, element.offsetHeight)
+
+  }
+
+  componentDidUpdate() {
+    this.removeSimulation()
+    var element = document.getElementById('forcegraph');
+    this.createSimulation(this.props.nodes, this.props.links, element.offsetWidth, element.offsetHeight)
+  }
+
+  createSVG(width, height) {
     console.log('createsvg fired')
 
     var zoom = d3.zoom()
@@ -23,8 +38,8 @@ class ForceGraph extends React.Component {
     var svg = d3.select("#forcegraph")
       .append("svg")
       .attr("class", "forcegraph")
-      .style("width", "600")
-      .style("height", "600")
+      .style("width", width * 0.8)
+      .style("height", height * 0.8)
       .style("border", "1px solid black")
       .call(zoom).append("g")
     svg.append("g").attr("class", "links")
@@ -32,9 +47,6 @@ class ForceGraph extends React.Component {
     svg.append("g").attr("class", "nodestext")
     svg.append("g").attr("class", "linkstext")
     svg.append("defs").attr("class", "defs")
-    //this.createSimulation()
-
-
 
     function zoomed() {
       const currentTransform = d3.event.transform;
@@ -56,13 +68,11 @@ class ForceGraph extends React.Component {
     //   .on("input", slided);
   }
 
-  componentDidUpdate() {
-    console.log('did update' + this.props.nodes)
-    this.removeGraph()
-    this.createSimulation(this.props.nodes, this.props.links)
+  removeSVG() {
+    d3.select('#forcegraph').selectAll('svg').remove()
   }
 
-  removeGraph() {
+  removeSimulation() {
     d3.select('.nodestext').selectAll('text').remove();
     d3.select('.nodescircle').selectAll('circle').remove();
     d3.select('.links').selectAll('path').remove();
@@ -70,18 +80,12 @@ class ForceGraph extends React.Component {
 
   }
 
-  createSimulation(
-    nodes,
-    links,
-
-  ) {
-
-
+  createSimulation(nodes, links, width, height) {
     //simulation
     var simulation = d3.forceSimulation(nodes)
       .force('charge', d3.forceManyBody().strength(-30)) //defaul -30
       // TODO: linkdistance
-      .force('center', d3.forceCenter(this.width / 2, this.height / 2))
+      .force('center', d3.forceCenter((width * 0.8) / 2, (height * 0.8) / 2))
       .force('link', d3.forceLink().links(links).distance(200).id(function (d) { return d.id; }))
       .on('tick', ticked);
 
@@ -117,6 +121,10 @@ class ForceGraph extends React.Component {
 
       selection.enter()                     //for each row in the data do...
         .append('circle')
+        .on('click', function (d) {
+          alert(d.id)
+          d3.select(this).style("fill", "magenta")
+        })
         .attr("r", 20)
         .style("fill", "#FD8D3C")
         .merge(selection)
@@ -203,6 +211,7 @@ class ForceGraph extends React.Component {
 
     //update drawing nodes and links
     function ticked() {
+      console.log('ticked')
       updateNodesText()
       updateNodesCircle()
       updateLinks()
