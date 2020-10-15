@@ -31,9 +31,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-circle {
-  fill: cadetblue;
-}
 
 path.link {
   fill: none;
@@ -100,11 +97,32 @@ text {
    background-color: red;
 }
 
+.circle {
+  fill: cyan;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
 .uri {
-  fill: #FD8D3C;
+  fill: blue;
 }
 
 .literal {
-  fill: #f3a36a;
+  fill: red;
 }
 
+.circle_fade {
+  opacity: 0.2;
+}
+
+
+
+.circle_highlight {
+  fill: yellow;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+#forcegraph {
+  height: 800px;
+}

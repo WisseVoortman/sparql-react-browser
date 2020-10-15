@@ -97,7 +97,28 @@ class ForceGraph extends React.Component {
         .call(drag(simulation));            //allow dragging  
 
       selection.enter()                     //for each row in the data do...
-        .append('text')                     //add element
+        .append('text')
+        .on('click', function (d) {
+          //alert(d.id)
+          //d3.select(this).style("fill", "magenta")
+        })
+        .on("mouseover", function (d) {
+          var connectedNodes = get_connectedNodes(d)
+          set_highlight(d, connectedNodes);
+        })
+        .on("mouseout", function (d) {
+          exit_highlight(d);
+          exit_fade(d)
+        })
+        .on("mousedown", function (d) {
+
+          var connectedNodes = get_connectedNodes(d)
+          set_fade(d, connectedNodes);
+        })
+        .on("mouseup", function (d) {
+          console.log('mouseup')
+          exit_fade(d);
+        })                    //add element
         .text(function (d) {                // add attributes
           return d.id
         })
@@ -122,11 +143,30 @@ class ForceGraph extends React.Component {
       selection.enter()                     //for each row in the data do...
         .append('circle')
         .on('click', function (d) {
-          alert(d.id)
-          d3.select(this).style("fill", "magenta")
+          //alert(d.id)
+          //d3.select(this).style("fill", "magenta")
+        })
+        .on("mouseover", function (d) {
+          var connectedNodes = get_connectedNodes(d)
+          set_highlight(d, connectedNodes);
+        })
+        .on("mouseout", function (d) {
+          exit_highlight(d);
+          exit_fade(d)
+        })
+        .on("mousedown", function (d) {
+          var connectedNodes = get_connectedNodes(d)
+          set_fade(d, connectedNodes);
+        })
+        .on("mouseup", function (d) {
+          console.log('mouseup')
+          exit_fade(d);
         })
         .attr("r", 20)
-        .style("fill", "#FD8D3C")
+        .attr("class", "circle")
+        .classed('uri', function (d) { return d.type == 'uri' })
+        .classed('literal', function (d) { return d.type == 'literal' })
+        //.style("fill", "#FD8D3C")
         .merge(selection)
         .attr("transform", function (d) {
           return "translate(" + d.x + "," + d.y + ")";
@@ -250,9 +290,59 @@ class ForceGraph extends React.Component {
         .drag()
         .on("start", dragstarted)
         .on("drag", dragged)
-        .on("end", dragended);
+        .on("end", dragended)
     };
 
+    function get_connectedNodes(d) {
+      //get connected nodes of d
+      var connectedNodes = []
+
+      connectedNodes.push(d.id) //add the node that is being hoverd so that it is also highlighted
+
+      links.forEach(link => {
+        if (link.source.id == d.id) {
+          if (!connectedNodes.includes(link.target.id)) connectedNodes.push(link.target.id)
+        }
+        if (link.target.id == d.id) {
+          if (!connectedNodes.includes(link.source.id)) connectedNodes.push(link.source.id)
+        }
+      });
+      //console.log('connectedNodes: ' + connectedNodes)
+      return connectedNodes
+    }
+
+    function set_highlight(d, connectedNodes) {
+      // filter based on connectednodes
+      d3.select('.nodescircle').selectAll('circle')
+        .filter(function (circles) {
+          if (connectedNodes.includes(circles.id)) { return true }
+        })
+        // set class
+        .classed('circle_highlight', true);
+    }
+
+    function exit_highlight(d) {
+      //remove all highlights
+      d3.select('.nodescircle').selectAll('circle')
+        .filter(function (d) { return true })
+        .classed('circle_highlight', false);
+    }
+
+    function set_fade(d, connectedNodes) {
+      d3.select('.nodescircle').selectAll('circle')
+        .filter(function (circles) {
+          if (connectedNodes.includes(circles.id)) { return false }
+          else { return true }
+        })
+        // set class
+        .classed('circle_fade', true);
+    }
+
+    function exit_fade(d) {
+      //remove all highlights
+      d3.select('.nodescircle').selectAll('circle')
+        .classed('circle_fade', false);
+    }
 
   }
 
