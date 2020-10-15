@@ -12,6 +12,7 @@ export default function linkReducer(state = [
 
       NewState = [
         { source: "John", target: 'Fussbal', property: 'plays' },
+        { source: "John", target: 'Fussbal', property: 'loves' },
         { source: "John", target: 'Chip', property: 'Heeft vriend' },
         { source: "Eric", target: 'Footbal', property: 'Speelt' },
         { source: "John", target: 'Golf', property: 'Speelt' },
@@ -118,6 +119,29 @@ export default function linkReducer(state = [
         link.target = target.value
         link.property = property.value
         NewState.push(link)
+
+        //sort links by source then target --> sorteert goed.
+        NewState.sort(function (a, b) {
+          if (a.source > b.source) { return 1; }
+          else if (a.source < b.source) { return -1; }
+          else {
+            if (a.target > b.target) { return 1; }
+            if (a.target < b.target) { return -1; }
+            else { return 0; }
+          }
+        })
+
+        // set linknum for every link --> wordt in path gebruikt om duplicate links te kunnen leggen
+        for (var i = 0; i < NewState.length; i++) {
+          if (i != 0 &&
+            NewState[i].source == NewState[i - 1].source &&
+            NewState[i].target == NewState[i - 1].target) {
+            NewState[i].linknum = NewState[i - 1].linknum + 1;
+          }
+          else { NewState[i].linknum = 1; };
+        };
+
+
       });
       return NewState
     }

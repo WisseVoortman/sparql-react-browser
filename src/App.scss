@@ -97,7 +97,7 @@ text {
    background-color: red;
 }
 
-.circle {
+.ellipse {
   fill: cyan;
   stroke: #333;
   stroke-width: 1.5px;
@@ -111,16 +111,16 @@ text {
   fill: red;
 }
 
-.circle_fade {
+.ellipse_fade {
   opacity: 0.2;
 }
 
 
 
-.circle_highlight {
+.ellipse_highlight {
   fill: yellow;
-  stroke: #333;
-  stroke-width: 1.5px;
+  stroke: blue;
+  stroke-width: 2px;
 }
 
 #forcegraph {

@@ -29,7 +29,7 @@ class ForceGraph extends React.Component {
   }
 
   createSVG(width, height) {
-    console.log('createsvg fired')
+    console.log('createsvg')
 
     var zoom = d3.zoom()
       .scaleExtent([1, 10])
@@ -43,7 +43,7 @@ class ForceGraph extends React.Component {
       .style("border", "1px solid black")
       .call(zoom).append("g")
     svg.append("g").attr("class", "links")
-    svg.append("g").attr("class", "nodescircle")
+    svg.append("g").attr("class", "nodesellipse")
     svg.append("g").attr("class", "nodestext")
     svg.append("g").attr("class", "linkstext")
     svg.append("defs").attr("class", "defs")
@@ -74,7 +74,7 @@ class ForceGraph extends React.Component {
 
   removeSimulation() {
     d3.select('.nodestext').selectAll('text').remove();
-    d3.select('.nodescircle').selectAll('circle').remove();
+    d3.select('.nodesellipse').selectAll('ellipse').remove();
     d3.select('.links').selectAll('path').remove();
     d3.select('.linkstext').selectAll('text').remove();
 
@@ -134,14 +134,14 @@ class ForceGraph extends React.Component {
       selection.exit().remove()
     }
 
-    function updateNodesCircle() {
-      var selection = d3.select('.nodescircle')
-        .selectAll('circle')
+    function updateNodesellipse() {
+      var selection = d3.select('.nodesellipse')
+        .selectAll('ellipse')
         .data(nodes)             //bind data
         .call(drag(simulation));            //allow dragging  
 
       selection.enter()                     //for each row in the data do...
-        .append('circle')
+        .append('ellipse')
         .on('click', function (d) {
           //alert(d.id)
           //d3.select(this).style("fill", "magenta")
@@ -163,7 +163,9 @@ class ForceGraph extends React.Component {
           exit_fade(d);
         })
         .attr("r", 20)
-        .attr("class", "circle")
+        .attr("rx", 30)
+        .attr("ry", 30)
+        .attr("class", "ellipse")
         .classed('uri', function (d) { return d.type == 'uri' })
         .classed('literal', function (d) { return d.type == 'literal' })
         //.style("fill", "#FD8D3C")
@@ -189,9 +191,15 @@ class ForceGraph extends React.Component {
         .attr("marker-end", function (d) { return "url(#" + d.property.replace(/\s/g, '') + ")"; }) //removed to allow matching
         .merge(selection)
         .attr("d", function (d) {
-          var dx = d.target.x - d.source.x,
-            dy = d.target.y - d.source.y,
-            dr = 300 / 1;  //linknum is defined abov TODO: update to use linknum from the links 
+          var dx = d.target.x - d.source.x
+          var dy = d.target.y - d.source.y
+          if (d.linknum) {
+            var dr = d.linknum * 150 - 150;
+          }
+          else {
+            var dr = 0
+          }
+
           return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
         })
 
@@ -228,7 +236,7 @@ class ForceGraph extends React.Component {
         .append("marker")
         .attr("id", String)
         .attr("viewBox", "0 -5 10 10")
-        .attr("refX", 30) // distance from link
+        .attr("refX", 40) // distance from link
         .attr("refY", 0) //deviation from link linke
         .attr("markerWidth", 6)
         .attr("markerHeight", 6)
@@ -253,7 +261,7 @@ class ForceGraph extends React.Component {
     function ticked() {
       console.log('ticked')
       updateNodesText()
-      updateNodesCircle()
+      updateNodesellipse()
       updateLinks()
       updateLinksText()
       updateLinkMarkers()
@@ -307,41 +315,40 @@ class ForceGraph extends React.Component {
           if (!connectedNodes.includes(link.source.id)) connectedNodes.push(link.source.id)
         }
       });
-      //console.log('connectedNodes: ' + connectedNodes)
       return connectedNodes
     }
 
     function set_highlight(d, connectedNodes) {
       // filter based on connectednodes
-      d3.select('.nodescircle').selectAll('circle')
-        .filter(function (circles) {
-          if (connectedNodes.includes(circles.id)) { return true }
+      d3.select('.nodesellipse').selectAll('ellipse')
+        .filter(function (ellipses) {
+          if (connectedNodes.includes(ellipses.id)) { return true }
         })
         // set class
-        .classed('circle_highlight', true);
+        .classed('ellipse_highlight', true);
     }
 
     function exit_highlight(d) {
       //remove all highlights
-      d3.select('.nodescircle').selectAll('circle')
+      d3.select('.nodesellipse').selectAll('ellipse')
         .filter(function (d) { return true })
-        .classed('circle_highlight', false);
+        .classed('ellipse_highlight', false);
     }
 
     function set_fade(d, connectedNodes) {
-      d3.select('.nodescircle').selectAll('circle')
-        .filter(function (circles) {
-          if (connectedNodes.includes(circles.id)) { return false }
+      d3.select('.nodesellipse').selectAll('ellipse')
+        .filter(function (ellipses) {
+          if (connectedNodes.includes(ellipses.id)) { return false }
           else { return true }
         })
         // set class
-        .classed('circle_fade', true);
+        .classed('ellipse_fade', true);
     }
 
     function exit_fade(d) {
       //remove all highlights
-      d3.select('.nodescircle').selectAll('circle')
-        .classed('circle_fade', false);
+      d3.select('.nodesellipse').selectAll('ellipse')
+        .classed('ellipse_fade', false);
     }
 
   }
