@@ -59,18 +59,20 @@ export default function nodeReducer(state = [
 
       //distinct nodes
       var templist = []
+
+      var vars = action.result.data.head.vars
       action.result.data.results.bindings.forEach(element => {
 
         //add subject and object to templist
-        if (!templist.includes(element.sub.value)) {
-          NewState.push({ id: element.sub.value, type: element.sub.type })
+        if (!templist.includes(element[vars[0]].value)) {
+          NewState.push({ id: element[vars[0]].value, type: element[vars[0]].type })
         }
-        if (!templist.includes(element.obj.value)) {
-          NewState.push({ id: element.obj.value, type: element.obj.type })
+        if (!templist.includes(element[vars[2]].value)) {
+          NewState.push({ id: element[vars[2]].value, type: element[vars[2]].type })
         }
 
-        templist.push(element.sub.value)
-        templist.push(element.obj.value)
+        templist.push(element[vars[0]].value)
+        templist.push(element[vars[2]].value)
       })
       return NewState
     }

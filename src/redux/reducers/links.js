@@ -111,9 +111,9 @@ export default function linkReducer(state = [
 
       action.result.data.results.bindings.forEach(element => {
         //console.log(element)
-        var source = element.sub
-        var target = element.obj
-        var property = element.pred
+        var source = element[action.result.data.head.vars[0]]
+        var target = element[action.result.data.head.vars[2]]
+        var property = element[action.result.data.head.vars[1]]
         var link = {}
         link.source = source.value
         link.target = target.value
