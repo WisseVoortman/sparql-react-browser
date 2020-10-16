@@ -1,10 +1,5 @@
 import React from 'react';
-
-const Datasource = (props) => (
-  <button className="dropdown-item" onClick={props.onClick}>
-    {props.name}
-  </button>
-);
+import { Dropdown } from 'react-bootstrap'
 
 class DataSourceDropdown extends React.Component {
   constructor(props) {
@@ -12,24 +7,19 @@ class DataSourceDropdown extends React.Component {
   }
   render() {
     return (
-
-      <div className="setDataSourceDropdown">
-        <div className="dropdown show">
-          <button className="btn btn-secondary dropdown-toggle"
-            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">Specificeer bron: {this.props.datasource.currentDatasource.name}</button>
-          <div className="" aria-labelledby="dropdownMenuLink">
-            {
-              this.props.datasource.datasources.map((item, key) =>
-                <Datasource
-                  key={key}
-                  onClick={() => this.props.setCurrentDatasource(item)}
-                  name={item.name}
-                />
-              )
-            }
-          </div>
-        </div>
+      <div id="datasourceDropdown">
+        <Dropdown>
+          <Dropdown.Toggle >
+            Geselecteerde bron: {this.props.datasource.currentDatasource}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {this.props.datasource.datasources.map((item, key) =>
+              <Dropdown.Item key={key} onClick={() => this.props.setCurrentDatasource(item)}>
+                {item.name}
+              </Dropdown.Item>
+            )}
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
     )
   }

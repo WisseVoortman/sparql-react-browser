@@ -83,9 +83,8 @@ class ForceGraph extends React.Component {
   createSimulation(nodes, links, width, height) {
     //simulation
     var simulation = d3.forceSimulation(nodes)
-      .force('charge', d3.forceManyBody().strength(-30)) //defaul -30
-      // TODO: linkdistance
       .force('center', d3.forceCenter((width * 0.8) / 2, (height * 0.8) / 2))
+      .force('charge', d3.forceManyBody().strength(-50)) //defaul -30
       .force('link', d3.forceLink().links(links).distance(200).id(function (d) { return d.id; }))
       .on('tick', ticked);
 
@@ -162,9 +161,8 @@ class ForceGraph extends React.Component {
           console.log('mouseup')
           exit_fade(d);
         })
-        .attr("r", 20)
-        .attr("rx", 30)
-        .attr("ry", 30)
+        .attr("rx", function (d) { return 30 }) //d.id.length
+        .attr("ry", function (d) { return 30 }) //d.id.length
         .attr("class", "ellipse")
         .classed('uri', function (d) { return d.type == 'uri' })
         .classed('literal', function (d) { return d.type == 'literal' })
@@ -216,7 +214,6 @@ class ForceGraph extends React.Component {
       selection.enter()
         .append("text")
         .attr("x", "100")
-        .attr("y", "-20")
         .attr("class", "linklabel")
         .append("textPath")
         .attr("xlink:href", function (d, i) { return "#linkId_" + i; })

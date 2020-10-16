@@ -6,6 +6,14 @@ export default function datasourceReducer(state = {
   datasources: [
     {
       name: 'Onderwijsregistratie',
+      endpoint: 'https://lod.onderwijsregistratie.nl/rio/sparql',
+    },
+    {
+      name: 'dbpedia',
+      endpoint: 'http://dbpedia.org/sparql',
+    },
+    {
+      name: 'Onderwijsregistratie-localhost',
       endpoint: 'http://localhost:8080/rdf4j-workbench/repositories/rio/query',
     },
     {
@@ -25,7 +33,8 @@ export default function datasourceReducer(state = {
   let newState = Object.assign({}, state);
   switch (action.type) {
     case SET_CURRENT_DATASOURCE: {
-      newState.currentDatasource = action.datasource;
+      console.log(action.datasource)
+      newState.currentDatasource = action.datasource.endpoint;
       return newState;
     }
 
