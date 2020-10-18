@@ -44,10 +44,7 @@ class Search extends React.Component {
         <div id="buttons">
           <p>{this.props.datasource.currentDatasource.endpoint}</p>
           <button onClick={() => this.props.fetchTest()}>Fetch Test</button>
-          <button onClick={() => this.props.fetchAxiosGet()}>Fetch axios Get</button>
           <button onClick={() => this.props.fetchAxiosPost(this.state.query, this.props.datasource.currentDatasource)}>Fetch axios Post</button>
-          <button onClick={() => this.props.fetchSPARQL()}>Fetch SPARQL</button>
-          <button onClick={() => this.props.sparql()}>Fetch query</button>
           <button onClick={() => this.props.push('/graph')}>Ga naar graph</button>
         </div>
       </div >

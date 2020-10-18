@@ -43,65 +43,6 @@ export default function linkReducer(state = [
     }
     case FETCH_SPARQL_SUCCESS: {
       //LINK:
-      //{ source: "John", target: 'Fussbal', property: 'plays' }
-
-      //NODE
-      //{ id: 'John' }
-      var parseString = require('xml2js').parseString;
-      var xml = action.result.data
-      parseString(xml, function (err, result) {
-        console.dir(result);
-        NewState = []
-        result.sparql.results[0].result.forEach(result => { //element is a single result.
-
-          // 0 = p, 1 = s 2 = t
-          var obj = {
-            source: 'null',
-            target: 'null',
-            property: 'null',
-            targetIsURI: 'null',
-          }
-          result.binding.forEach(binding => {
-
-            switch (binding.$.name) {
-              case 'subject':
-                obj.source = binding.uri[0]
-                console.log('source: ' + obj.source)
-                break;
-              case 'predicate':
-                obj.property = binding.uri[0]._
-                //console.log('property: ' + obj.property)
-                break;
-              case 'object':
-                console.log(binding)
-
-                if (binding.literal) {
-                  console.log('literal')
-                }
-                if (binding.uri) {
-                  console.log('uri')
-                }
-
-                break;
-              default:
-              // code block
-            }
-
-            if (obj.source == 'null') {
-              obj.source = 'http://lod.onderwijsregistratie.nl/rio/id/Onderwijsbestuur/100B490'
-            }
-
-
-          })
-          NewState.push(obj)
-        });
-      });
-
-
-      return NewState
-    }
-    case FETCH_SPARQL_JSON_SUCCESS: {
-      //LINK:
       //[{ source: "John", target: 'Fussbal', property: 'plays' }]
 
       //NODE

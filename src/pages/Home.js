@@ -7,7 +7,6 @@ class Home extends React.Component {
     return (
       <div className="Home">
         <h2>home</h2>
-        <ConnectedSearch />
       </div>
 
     )

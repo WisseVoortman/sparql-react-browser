@@ -37,19 +37,6 @@ export default function nodeReducer(state = [
     }
     case FETCH_SPARQL_SUCCESS: {
       //LINK:
-      //{ source: "John", target: 'Fussbal', property: 'plays' }
-
-      //NODE
-      //{ id: 'John' }
-      // var parseString = require('xml2js').parseString;
-      // var xml = action.result.data
-      // parseString(xml, function (err, result) {
-      //   console.dir(result);
-      // });
-      return 'ok dan'
-    }
-    case FETCH_SPARQL_JSON_SUCCESS: {
-      //LINK:
       //[{ source: "John", target: 'Fussbal', property: 'plays' }]
 
       //NODE
