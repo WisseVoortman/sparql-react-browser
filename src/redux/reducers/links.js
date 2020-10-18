@@ -99,22 +99,39 @@ export default function linkReducer(state = [
 
       NewState = []
 
-      var subjectURL = action.result.config.subject.split('/')
-      //console.log(action.result.config.subject)
-      //console.log(subjectURL[2])
+      var urlParams = action.result.config.subject.split('/')
+      urlParams.splice(0, 3)
+      urlParams = urlParams.join('/')
+      console.log('urlParam: ' + urlParams)
 
       action.result.data.results.bindings.forEach(element => {
-        var source = action.result.config.subject
-        var target = element[action.result.data.head.vars[1]]
-        var property = element[action.result.data.head.vars[0]]
-        var link = {}
-        link.source = source
-        link.target = target.value
-        link.property = property.value
 
-        //console.log('test: ' + subjectURL[2])
-        //console.log('link.property: ' + link.property)
-        if (link.property.split('/')[2] == subjectURL[2]) {
+        var link = {}
+
+        link.source = urlParams
+
+        if (element[action.result.data.head.vars[1]].type == 'uri') {
+          var objParam = element[action.result.data.head.vars[1]].value.split('/')
+          objParam.splice(0, 3)
+          objParam = objParam.join('/')
+          console.log('objParam: ' + objParam)
+
+
+          link.target = objParam
+        }
+        else {
+          link.target = element[action.result.data.head.vars[1]].value
+        }
+
+
+        var propertyParam = element[action.result.data.head.vars[0]].value.split('/')
+        propertyParam.splice(0, 3)
+        propertyParam = propertyParam.join('/')
+        link.property = propertyParam
+
+        var subjectURL = action.result.config.subject.split('/')
+        //check if property comes from specific url to filter bad links
+        if (element[action.result.data.head.vars[0]].value.split('/')[2] == subjectURL[2]) {
           NewState.push(link)
         }
 

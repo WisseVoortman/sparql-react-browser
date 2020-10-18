@@ -81,7 +81,14 @@ export default function nodeReducer(state = [
 
       //distinct nodes
       var templist = []
-      NewState.push({ id: action.result.config.subject })
+
+      //add subject
+      var urlParams = action.result.config.subject.split('/')
+      urlParams.splice(0, 3)
+      urlParams = urlParams.join('/')
+      console.log('urlParam: ' + urlParams)
+
+      NewState.push({ id: urlParams })
 
       var vars = action.result.data.head.vars
       // console.log(vars)
@@ -91,10 +98,23 @@ export default function nodeReducer(state = [
       // console.log('shorturl ' + subjectURL[2])
 
       action.result.data.results.bindings.forEach(element => {
+
+        //check if property comes from specific url to filter bad nodes
+        var subjectURL = action.result.config.subject.split('/')
         if (element[vars[0]].value.split('/')[2] == subjectURL[2]) {
-          //add subject and object to templist
+          //add object
           if (!templist.includes(element[vars[1]].value)) {
-            NewState.push({ id: element[vars[1]].value, type: element[vars[1]].type })
+            if (element[vars[1]].type == 'uri') {
+              var objParam = element[action.result.data.head.vars[1]].value.split('/')
+              objParam.splice(0, 3)
+              objParam = objParam.join('/')
+              console.log('objParam: ' + objParam)
+              NewState.push({ id: objParam, type: element[vars[1]].type })
+            }
+            else {
+              NewState.push({ id: element[vars[1]].value, type: element[vars[1]].type })
+            }
+
           }
           templist.push(element[vars[1]].value)
         }

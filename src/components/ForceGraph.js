@@ -85,7 +85,7 @@ class ForceGraph extends React.Component {
     var simulation = d3.forceSimulation(nodes)
       .force('center', d3.forceCenter((width * 1) / 2, (height * 1) / 2))
       .force('charge', d3.forceManyBody().strength(-1000)) //defaul -30
-      .force('link', d3.forceLink().links(links).distance(200).id(function (d) { return d.id; }))
+      .force('link', d3.forceLink().links(links).distance(400).id(function (d) { return d.id; }))
       .on('tick', ticked);
 
     //node properties
@@ -214,7 +214,7 @@ class ForceGraph extends React.Component {
 
       selection.enter()
         .append("text")
-        .attr("x", "100")
+        .attr("x", "200")
         .attr("class", "linklabel")
         .append("textPath")
         .attr("xlink:href", function (d, i) { return "#linkId_" + i; })
