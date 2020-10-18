@@ -110,7 +110,7 @@ class ForceGraph extends React.Component {
           exit_fade(d)
         })
         .on("mousedown", function (d) {
-
+          console.log('d nodetext:' + d.id)
           var connectedNodes = get_connectedNodes(d)
           set_fade(d, connectedNodes);
         })
@@ -154,6 +154,7 @@ class ForceGraph extends React.Component {
           exit_fade(d)
         })
         .on("mousedown", function (d) {
+          console.log('d nodeellipse:' + d.id)
           var connectedNodes = get_connectedNodes(d)
           set_fade(d, connectedNodes);
         })
@@ -333,19 +334,74 @@ class ForceGraph extends React.Component {
     }
 
     function set_fade(d, connectedNodes) {
+      //nodesellipse
       d3.select('.nodesellipse').selectAll('ellipse')
-        .filter(function (ellipses) {
-          if (connectedNodes.includes(ellipses.id)) { return false }
+        .filter(function (d) {
+          if (connectedNodes.includes(d.id)) { return false }
           else { return true }
         })
         // set class
-        .classed('ellipse_fade', true);
+        .classed('faded', true);
+
+      //nodestext
+      d3.select('.nodestext').selectAll('text')
+        .filter(function (d) {
+          if (connectedNodes.includes(d.id)) { return false }
+          else { return true }
+        })
+        // set class
+        .classed('faded', true);
+
+      //link
+      d3.select('.links').selectAll('path')
+        .filter(function (d) {
+          if (connectedNodes.includes(d.id)) { return false }
+          else { return true }
+        })
+        // set class
+        .classed('faded', true);
+
+      //linktext
+      d3.select('.linkstext').selectAll('text')
+        .filter(function (d) {
+          if (connectedNodes.includes(d.id)) { return false }
+          else { return true }
+        })
+        // set class
+        .classed('faded', true);
+
+      //marker
+      d3.select('.defs').selectAll('marker')
+        .filter(function (d) {
+          if (connectedNodes.includes(d.id)) { return false }
+          else { return true }
+        })
+        // set class
+        .classed('faded', true);
+
     }
 
     function exit_fade(d) {
       //remove all highlights
+      //nodesellipse
       d3.select('.nodesellipse').selectAll('ellipse')
-        .classed('ellipse_fade', false);
+        .classed('faded', false);
+      //nodestext
+      d3.select('.nodestext').selectAll('text')
+        .classed('faded', false);
+
+
+      //link
+      d3.select('.links').selectAll('path')
+        .classed('faded', false);
+
+      //linktext
+      d3.select('.linkstext').selectAll('text')
+        .classed('faded', false);
+
+      //marker
+      d3.select('.defs').selectAll('marker')
+        .classed('faded', false);
     }
 
   }
