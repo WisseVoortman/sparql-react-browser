@@ -32,14 +32,14 @@ class ForceGraph extends React.Component {
     console.log('createsvg')
 
     var zoom = d3.zoom()
-      .scaleExtent([1, 10])
+      .scaleExtent([.5, 10])
       .on("zoom", zoomed);
 
     var svg = d3.select("#forcegraph")
       .append("svg")
       .attr("class", "forcegraph")
-      .style("width", width * 0.8)
-      .style("height", height * 0.8)
+      .style("width", width * 1)   // set size of svg in relation to parent
+      .style("height", height * 1) // set size of svg in relation to parent
       .style("border", "1px solid black")
       .call(zoom).append("g")
     svg.append("g").attr("class", "links")
@@ -83,7 +83,7 @@ class ForceGraph extends React.Component {
   createSimulation(nodes, links, width, height) {
     //simulation
     var simulation = d3.forceSimulation(nodes)
-      .force('center', d3.forceCenter((width * 0.8) / 2, (height * 0.8) / 2))
+      .force('center', d3.forceCenter((width * 1) / 2, (height * 1) / 2))
       .force('charge', d3.forceManyBody().strength(-50)) //defaul -30
       .force('link', d3.forceLink().links(links).distance(200).id(function (d) { return d.id; }))
       .on('tick', ticked);

@@ -7,13 +7,8 @@ import { history } from './redux/store/middleware'
 //bootstrap stylesheet
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 //custom stylesheet
 import './App.scss';
-
-import ConnectedForceGraph from './containers/ConnectedForceGraph';
-import ConnectedSearch from './containers/ConnectedSearch'
-import ConnectedDataSourceDropdown from './containers/ConnectedDataSourceDropdown'
 
 //devtools
 import DevTools from './containers/DevTools.jsx'
@@ -21,6 +16,9 @@ import DevTools from './containers/DevTools.jsx'
 import { Provider } from 'react-redux'
 
 import configureStore from './redux/store/index'
+
+//Bootrap components
+import Container from 'react-bootstrap/Container'
 
 // Layout components
 import Header from './components/Header'
@@ -47,9 +45,12 @@ const App = () => (
     <div className="App">
       <ConnectedRouter history={history}>
         <Header />
-        <PageContent />
-        <ConnectedLoading />
-        <ConnectedError />
+        <Container>
+          <PageContent />
+          <ConnectedLoading />
+          <ConnectedError />
+        </Container>
+
         <Footer />
       </ConnectedRouter>
       {/* exclude devtools in production */}
