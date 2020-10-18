@@ -1,36 +1,42 @@
 import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_JSON_SUCCESS } from '../actionTypes'
 
 export default function nodeReducer(state = [
-  { id: 'John' },
-  { id: 'Chip' },
-  { id: 'Voetbal' },
+  { id: 'Subject', type: 'uri' },
+  { id: 'Object', type: 'uri' },
 ], action) {
   let NewState = Object.assign({}, state);
   switch (action.type) {
     case FETCH_TEST_SUCCESS: {
 
       var links = [
-        { source: "John", target: 'Fussbal', property: 'plays' },
-        { source: "John", target: 'Chip', property: 'Heeft vriend' },
-        { source: "Eric", target: 'Footbal', property: 'Speelt' },
-        { source: "John", target: 'Golf', property: 'Speelt' },
-        { source: "Eric", target: 'John', property: 'Heeft vriend' },
-        { source: "Eric", target: 'Chip', property: 'Heeft vriend' }]
+        { source: { value: "Wisse", type: "uri" }, target: { value: "DUO", type: "uri" }, property: "Is stagair bij" },
+        { source: { value: "Wisse", type: "uri" }, target: { value: "Adres1", type: "uri" }, property: "Heeft Woonadres" },
+        { source: { value: "Adres1", type: "uri" }, target: { value: "7913TH", type: "literal" }, property: "Postcode" },
+        { source: { value: "Adres1", type: "uri" }, target: { value: "25", type: "literal" }, property: "Nummer" },
+        { source: { value: "Adres1", type: "uri" }, target: { value: "Zuideropgaande", type: "literal" }, property: "Straatnaam" },
+        { source: { value: "Adres1", type: "uri" }, target: { value: "Hollandscheveld", type: "literal" }, property: "Plaatsnaam" },
+        { source: { value: "DUO", type: "uri" }, target: { value: "Adres2", type: "uri" }, property: "Heeft adres" },
+        { source: { value: "Adres2", type: "uri" }, target: { value: "9722TB", type: "literal" }, property: "Postcode" },
+        { source: { value: "Adres2", type: "uri" }, target: { value: "12", type: "literal" }, property: "Nummer" },
+        { source: { value: "Adres2", type: "uri" }, target: { value: "Kempkensberg", type: "literal" }, property: "Straatnaam" },
+        { source: { value: "Adres2", type: "uri" }, target: { value: "Groningen", type: "literal" }, property: "Plaatsnaam" },
+        { source: { value: "Wisse", type: "uri" }, target: { value: "Adres2", type: "uri" }, property: "Werkadres" },
+      ]
 
       NewState = []
 
       //distinct nodes
       var templist = []
       links.forEach(link => {
-        if (!templist.includes(link.source)) {
-          NewState.push({ id: link.source })
+        if (!templist.includes(link.source.value)) {
+          NewState.push({ id: link.source.value, type: link.source.type })
         }
-        if (!templist.includes(link.target)) {
-          NewState.push({ id: link.target })
+        if (!templist.includes(link.target.value)) {
+          NewState.push({ id: link.target.value, type: link.target.type })
         }
 
-        templist.push(link.source)
-        templist.push(link.target)
+        templist.push(link.source.value)
+        templist.push(link.target.value)
       })
       console.log('node NewState: ' + NewState)
       return NewState

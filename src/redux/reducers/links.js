@@ -1,23 +1,26 @@
 import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_JSON_SUCCESS } from '../actionTypes'
 
 export default function linkReducer(state = [
-  { source: "John", target: "Voetbal", property: "Speelt" },
-  { source: "Voetbal", target: "John", property: "Gespeeld door" },
-  { source: "John", target: "Chip", property: "Heeft vriend" },
-  { source: "Chip", target: "Voetbal", property: "Speelt" }
+  { source: "Subject", target: "Object", property: "Property" },
 ], action) {
   let NewState = Object.assign({}, state);
   switch (action.type) {
     case FETCH_TEST_SUCCESS: {
 
       NewState = [
-        { source: "John", target: 'Fussbal', property: 'plays' },
-        { source: "John", target: 'Fussbal', property: 'loves' },
-        { source: "John", target: 'Chip', property: 'Heeft vriend' },
-        { source: "Eric", target: 'Footbal', property: 'Speelt' },
-        { source: "John", target: 'Golf', property: 'Speelt' },
-        { source: "Eric", target: 'John', property: 'Heeft vriend' },
-        { source: "Eric", target: 'Chip', property: 'Heeft vriend' }]
+        { source: "Wisse", target: "DUO", property: "Is stagair bij" },
+        { source: "Wisse", target: "Adres1", property: "Heeft Woonadres" },
+        { source: "Adres1", target: "7913TH", property: "Postcode" },
+        { source: "Adres1", target: "25", property: "Nummer" },
+        { source: "Adres1", target: "Zuideropgaande", property: "Straatnaam" },
+        { source: "Adres1", target: "Hollandscheveld", property: "Plaatsnaam" },
+        { source: "DUO", target: "Adres2", property: "Heeft adres" },
+        { source: "Adres2", target: "9722TB", property: "Postcode" },
+        { source: "Adres2", target: "12", property: "Nummer" },
+        { source: "Adres2", target: "Kempkensberg", property: "Straatnaam" },
+        { source: "Adres2", target: "Groningen", property: "Plaatsnaam" },
+        { source: "Wisse", target: "Adres2", property: "Werkadres" },
+      ]
 
       //sort links by source then target --> sorteert goed.
       NewState.sort(function (a, b) {
