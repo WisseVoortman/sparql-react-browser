@@ -7,34 +7,64 @@ class Search extends React.Component {
     super();
     this.state = {
       query: "SELECT * WHERE" + "{" + "?sub ?pred ?obj ." + "}" + "LIMIT 10",
+      subject: "http://lod.onderwijsregistratie.nl/rio/id/Onderwijsbestuur/100B490",
     }
-    this.query = "SELECT * WHERE" + "{" + "?sub ?pred ?obj ." + "}" + "LIMIT 10";
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleQueryChange = this.handleQueryChange.bind(this);
+    this.handleQuerySubmit = this.handleQuerySubmit.bind(this);
+
+    this.handleSubjectChange = this.handleSubjectChange.bind(this)
+    this.handleSubjectDetailsQuerySubmit = this.handleSubjectDetailsQuerySubmit.bind(this)
+
   }
 
-  handleChange(event) {
+  handleQueryChange(event) {
     console.log(event.target.value)
     this.setState({ query: event.target.value });
   }
 
-  handleSubmit(event) {
-    this.props.fetchAxiosPost(this.state.query, this.props.datasource.currentDatasource)
+  handleQuerySubmit(event) {
+    this.props.fetchSparql(this.state.query, this.props.datasource.currentDatasource)
+    event.preventDefault();
+  }
+
+  handleSubjectChange(event) {
+    console.log(event.target.value)
+    this.setState({ subject: event.target.value });
+  }
+
+  handleSubjectDetailsQuerySubmit(event) {
+    var uri = this.state.subject
+    const query = 'SELECT * ' +
+      'WHERE { <' + uri + '> ?property ?object }' +
+      'limit 20';
+    this.props.fetchAboutSubject(query, uri, this.props.datasource.currentDatasource)
+
     event.preventDefault();
   }
 
   render() {
-
     return (
       <div>
 
         <div id="queryform">
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleQuerySubmit}>
 
             <Form.Group controlId="QueryInput">
               <Form.Label>Query input:</Form.Label>
-              <Form.Control as="textarea" rows="5" placeholder="Input query" value={this.state.query} onChange={this.handleChange} />
+              <Form.Control as="textarea" rows="5" placeholder="Input query" value={this.state.query} onChange={this.handleQueryChange} />
+            </Form.Group>
+
+            <Button variant="primary" type="submit">Submit</Button>
+          </Form>
+        </div>
+
+        <div id="querysubjectdetails form">
+          <Form onSubmit={this.handleSubjectDetailsQuerySubmit}>
+
+            <Form.Group controlId="SubjectInput">
+              <Form.Label>Query input:</Form.Label>
+              <Form.Control as="textarea" rows="5" placeholder="Input subject" value={this.state.subject} onChange={this.handleSubjectChange} />
             </Form.Group>
 
             <Button variant="primary" type="submit">Submit</Button>
@@ -44,13 +74,11 @@ class Search extends React.Component {
         <div id="buttons">
           <p>{this.props.datasource.currentDatasource.endpoint}</p>
           <button onClick={() => this.props.fetchTest()}>Fetch Test</button>
-          <button onClick={() => this.props.fetchAxiosPost(this.state.query, this.props.datasource.currentDatasource)}>Fetch axios Post</button>
+          <button onClick={() => this.props.fetchSparql(this.state.query, this.props.datasource.currentDatasource)}>Fetch Sparql</button>
           <button onClick={() => this.props.push('/graph')}>Ga naar graph</button>
         </div>
       </div >
-
     )
-
   }
 }
 

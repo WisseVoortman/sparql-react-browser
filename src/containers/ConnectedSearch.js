@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import Search from '../components/Search'
-import { fetchTest, fetchAxiosPost } from '../redux/actions/index'
+import { fetchTest, fetchSparql, fetchAboutSubject } from '../redux/actions/index'
 import { push } from 'connected-react-router'
 
 
@@ -17,7 +17,7 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapDispatchToProps = (dispatch, props) =>
-  bindActionCreators({ fetchTest, fetchAxiosPost, push }, dispatch)
+  bindActionCreators({ fetchTest, fetchSparql, fetchAboutSubject, push }, dispatch)
 
 const ConnectedSearch = connect(mapStateToProps, mapDispatchToProps)(Search)
 

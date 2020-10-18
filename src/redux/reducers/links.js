@@ -1,4 +1,5 @@
-import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_JSON_SUCCESS } from '../actionTypes'
+import { fetchAboutSubject } from '../actions';
+import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_JSON_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS } from '../actionTypes'
 
 export default function linkReducer(state = [
   { source: "Subject", target: "Object", property: "Property" },
@@ -60,6 +61,51 @@ export default function linkReducer(state = [
         var property = element[action.result.data.head.vars[1]]
         var link = {}
         link.source = source.value
+        link.target = target.value
+        link.property = property.value
+        NewState.push(link)
+
+        //sort links by source then target --> sorteert goed.
+        NewState.sort(function (a, b) {
+          if (a.source > b.source) { return 1; }
+          else if (a.source < b.source) { return -1; }
+          else {
+            if (a.target > b.target) { return 1; }
+            if (a.target < b.target) { return -1; }
+            else { return 0; }
+          }
+        })
+
+        // set linknum for every link --> wordt in path gebruikt om duplicate links te kunnen leggen
+        for (var i = 0; i < NewState.length; i++) {
+          if (i != 0 &&
+            NewState[i].source == NewState[i - 1].source &&
+            NewState[i].target == NewState[i - 1].target) {
+            NewState[i].linknum = NewState[i - 1].linknum + 1;
+          }
+          else { NewState[i].linknum = 1; };
+        };
+
+
+      });
+      return NewState
+    }
+    case FETCH_SPARQL_ABOUTSUBJECT_SUCCESS: {
+      //LINK:
+      //[{ source: "John", target: 'Fussbal', property: 'plays' }]
+
+      //NODE
+      //[{ id: 'John' }]
+
+      NewState = []
+
+      action.result.data.results.bindings.forEach(element => {
+        //console.log(element)
+        var source = action.result.config.subject
+        var target = element[action.result.data.head.vars[1]]
+        var property = element[action.result.data.head.vars[0]]
+        var link = {}
+        link.source = source
         link.target = target.value
         link.property = property.value
         NewState.push(link)

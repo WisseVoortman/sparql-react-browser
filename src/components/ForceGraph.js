@@ -84,7 +84,7 @@ class ForceGraph extends React.Component {
     //simulation
     var simulation = d3.forceSimulation(nodes)
       .force('center', d3.forceCenter((width * 1) / 2, (height * 1) / 2))
-      .force('charge', d3.forceManyBody().strength(-50)) //defaul -30
+      .force('charge', d3.forceManyBody().strength(-1000)) //defaul -30
       .force('link', d3.forceLink().links(links).distance(200).id(function (d) { return d.id; }))
       .on('tick', ticked);
 

@@ -1,4 +1,4 @@
-import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_JSON_SUCCESS } from '../actionTypes'
+import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_JSON_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS } from '../actionTypes'
 
 export default function nodeReducer(state = [
   { id: 'Subject', type: 'uri' },
@@ -42,6 +42,7 @@ export default function nodeReducer(state = [
       return NewState
     }
     case FETCH_SPARQL_SUCCESS: {
+      console.log(action.result.config.url)
       //LINK:
       //[{ source: "John", target: 'Fussbal', property: 'plays' }]
 
@@ -66,6 +67,31 @@ export default function nodeReducer(state = [
 
         templist.push(element[vars[0]].value)
         templist.push(element[vars[2]].value)
+      })
+      return NewState
+    }
+    case FETCH_SPARQL_ABOUTSUBJECT_SUCCESS: {
+      //LINK:
+      //[{ source: "John", target: 'Fussbal', property: 'plays' }]
+
+      //NODE
+      //[{ id: 'John' }]
+
+      NewState = []
+
+      //distinct nodes
+      var templist = []
+      NewState.push({ id: action.result.config.subject })
+
+      var vars = action.result.data.head.vars
+      console.log(vars)
+      action.result.data.results.bindings.forEach(element => {
+
+        //add subject and object to templist
+        if (!templist.includes(element[vars[1]].value)) {
+          NewState.push({ id: element[vars[1]].value, type: element[vars[1]].type })
+        }
+        templist.push(element[vars[1]].value)
       })
       return NewState
     }
