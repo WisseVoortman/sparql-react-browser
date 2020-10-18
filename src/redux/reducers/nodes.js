@@ -84,14 +84,20 @@ export default function nodeReducer(state = [
       NewState.push({ id: action.result.config.subject })
 
       var vars = action.result.data.head.vars
-      console.log(vars)
-      action.result.data.results.bindings.forEach(element => {
+      // console.log(vars)
 
-        //add subject and object to templist
-        if (!templist.includes(element[vars[1]].value)) {
-          NewState.push({ id: element[vars[1]].value, type: element[vars[1]].type })
+      // console.log('longurl' + action.result.config.subject)
+      var subjectURL = action.result.config.subject.split('/')
+      // console.log('shorturl ' + subjectURL[2])
+
+      action.result.data.results.bindings.forEach(element => {
+        if (element[vars[0]].value.split('/')[2] == subjectURL[2]) {
+          //add subject and object to templist
+          if (!templist.includes(element[vars[1]].value)) {
+            NewState.push({ id: element[vars[1]].value, type: element[vars[1]].type })
+          }
+          templist.push(element[vars[1]].value)
         }
-        templist.push(element[vars[1]].value)
       })
       return NewState
     }

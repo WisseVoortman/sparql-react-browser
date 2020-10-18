@@ -99,8 +99,11 @@ export default function linkReducer(state = [
 
       NewState = []
 
+      var subjectURL = action.result.config.subject.split('/')
+      //console.log(action.result.config.subject)
+      //console.log(subjectURL[2])
+
       action.result.data.results.bindings.forEach(element => {
-        //console.log(element)
         var source = action.result.config.subject
         var target = element[action.result.data.head.vars[1]]
         var property = element[action.result.data.head.vars[0]]
@@ -108,7 +111,14 @@ export default function linkReducer(state = [
         link.source = source
         link.target = target.value
         link.property = property.value
-        NewState.push(link)
+
+        //console.log('test: ' + subjectURL[2])
+        //console.log('link.property: ' + link.property)
+        if (link.property.split('/')[2] == subjectURL[2]) {
+          NewState.push(link)
+        }
+
+
 
         //sort links by source then target --> sorteert goed.
         NewState.sort(function (a, b) {
