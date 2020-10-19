@@ -61,9 +61,3 @@ const App = () => (
 
 export default App;
 
-
-{/* <ConnectedSearch />
-        <ConnectedDataSourceDropdown />
-        <ConnectedForceGraph /> */}
-
-
