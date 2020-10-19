@@ -8,7 +8,7 @@ import { history } from './redux/store/middleware'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 //custom stylesheet
-import './App.scss';
+import './css/App.scss';
 
 //devtools
 import DevTools from './containers/DevTools.jsx'
