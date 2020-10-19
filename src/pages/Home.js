@@ -10,15 +10,13 @@ class Home extends React.Component {
   render() {
     return (
       <div className="Home">
-        <h2>home</h2>
         <Jumbotron>
           <h1>Sparql-React-Browser</h1>
           <p>
-            This is a simple hero unit, a simple jumbotron-style component for calling
-            extra attention to featured content or information.
-  </p>
+            Welkom bij de Sparql-React-Browser. Via deze applicatie kunt u open onderwijsdata opvragen en visualiseren. Met onderstaande zoekmogelijkheid komt u snel bij de data die u zoekt. Data wordt weergegeven in een graph JSON. Het gaat om open informatie.
+          </p>
           <p>
-            <Button variant="primary">Learn more</Button>
+            <Button variant="primary" onClick={() => this.props.history.push('/graph')}>Probeer uit!</Button>
           </p>
         </Jumbotron>
       </div>
