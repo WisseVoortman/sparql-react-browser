@@ -102,8 +102,7 @@ class ForceGraph extends React.Component {
           //d3.select(this).style("fill", "magenta")
         })
         .on("mouseover", function (d) {
-          var connectedNodes = get_connectedNodes(d)
-          set_highlight(d, connectedNodes);
+          set_highlight(d, get_connectedNodes(d), get_connectedLinks(d));
         })
         .on("mouseout", function (d) {
           exit_highlight(d);
@@ -111,12 +110,11 @@ class ForceGraph extends React.Component {
         })
         .on("mousedown", function (d) {
           console.log('d nodetext:' + d.id)
-          var connectedNodes = get_connectedNodes(d)
-          set_fade(d, connectedNodes);
+          set_fade(d, get_connectedNodes(d));
+
         })
         .on("mouseup", function (d) {
           console.log('mouseup')
-          exit_fade(d);
         })                    //add element
         .text(function (d) {                // add attributes
           return d.id
@@ -146,21 +144,18 @@ class ForceGraph extends React.Component {
           //d3.select(this).style("fill", "magenta")
         })
         .on("mouseover", function (d) {
-          var connectedNodes = get_connectedNodes(d)
-          set_highlight(d, connectedNodes);
+          set_highlight(d, get_connectedNodes(d), get_connectedLinks(d));
         })
         .on("mouseout", function (d) {
           exit_highlight(d);
-          exit_fade(d)
+          exit_fade(d);
         })
         .on("mousedown", function (d) {
           console.log('d nodeellipse:' + d.id)
-          var connectedNodes = get_connectedNodes(d)
-          set_fade(d, connectedNodes);
+          set_fade(d, get_connectedNodes(d));
         })
         .on("mouseup", function (d) {
           console.log('mouseup')
-          exit_fade(d);
         })
         .attr("rx", function (d) { return 30 }) //d.id.length
         .attr("ry", function (d) { return 30 }) //d.id.length
@@ -313,7 +308,23 @@ class ForceGraph extends React.Component {
           if (!connectedNodes.includes(link.source.id)) connectedNodes.push(link.source.id)
         }
       });
+      console.log('connectedNodes: ')
+      console.log(connectedNodes)
       return connectedNodes
+    }
+
+    function get_connectedLinks(d) {
+      //get connected links of d
+      var connectedLinks = []
+
+      links.forEach(link => {
+        if (link.source.id == d.id || link.target.id == d.id) {
+          connectedLinks.push({ source: link.source.id, target: link.target.id })
+        }
+      });
+      console.log('connectedLinks: ')
+      console.log(connectedLinks)
+      return connectedLinks
     }
 
     function set_highlight(d, connectedNodes) {
@@ -334,74 +345,35 @@ class ForceGraph extends React.Component {
     }
 
     function set_fade(d, connectedNodes) {
-      //nodesellipse
+      console.log('setting fade')
       d3.select('.nodesellipse').selectAll('ellipse')
-        .filter(function (d) {
-          if (connectedNodes.includes(d.id)) { return false }
-          else { return true }
+        .filter(function (ellipses) {
+          if (!(connectedNodes.includes(ellipses.id))) { return true }
         })
         // set class
         .classed('faded', true);
 
-      //nodestext
+
       d3.select('.nodestext').selectAll('text')
-        .filter(function (d) {
-          if (connectedNodes.includes(d.id)) { return false }
-          else { return true }
+        .filter(function (ellipses) {
+          if (!(connectedNodes.includes(ellipses.id))) { return true }
         })
         // set class
         .classed('faded', true);
 
-      //link
-      d3.select('.links').selectAll('path')
-        .filter(function (d) {
-          if (connectedNodes.includes(d.id)) { return false }
-          else { return true }
-        })
-        // set class
-        .classed('faded', true);
-
-      //linktext
-      d3.select('.linkstext').selectAll('text')
-        .filter(function (d) {
-          if (connectedNodes.includes(d.id)) { return false }
-          else { return true }
-        })
-        // set class
-        .classed('faded', true);
-
-      //marker
-      d3.select('.defs').selectAll('marker')
-        .filter(function (d) {
-          if (connectedNodes.includes(d.id)) { return false }
-          else { return true }
-        })
-        // set class
-        .classed('faded', true);
 
     }
-
     function exit_fade(d) {
       //remove all highlights
-      //nodesellipse
       d3.select('.nodesellipse').selectAll('ellipse')
+        .filter(function (d) { return true })
         .classed('faded', false);
-      //nodestext
+
       d3.select('.nodestext').selectAll('text')
+        .filter(function (d) { return true })
         .classed('faded', false);
 
 
-      //link
-      d3.select('.links').selectAll('path')
-        .classed('faded', false);
-
-      //linktext
-      d3.select('.linkstext').selectAll('text')
-        .classed('faded', false);
-
-      //marker
-      d3.select('.defs').selectAll('marker')
-        .classed('faded', false);
     }
 
   }
