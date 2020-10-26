@@ -92,43 +92,19 @@ export default function linkReducer(state = [
     case FETCH_SPARQL_ABOUTSUBJECT_SUCCESS: {
       NewState = []
 
-      var urlParams = action.result.config.subject.split('/')
-      urlParams.splice(0, 3)
-      urlParams = urlParams.join('/')
-      console.log('urlParam: ' + urlParams)
-
       action.result.data.results.bindings.forEach(element => {
 
         var link = {}
 
         link.source = action.result.config.subject
-
-        if (element[action.result.data.head.vars[1]].type === 'uri') {
-          var objParam = element[action.result.data.head.vars[1]].value.split('/')
-          objParam.splice(0, 3)
-          objParam = objParam.join('/')
-          console.log('objParam: ' + objParam)
-
-
-          link.target = element[action.result.data.head.vars[1]].value
-        }
-        else {
-          link.target = element[action.result.data.head.vars[1]].value
-        }
-
-
-        var propertyParam = element[action.result.data.head.vars[0]].value.split('/')
-        propertyParam.splice(0, 3)
-        propertyParam = propertyParam.join('/')
+        link.target = element[action.result.data.head.vars[1]].value
         link.property = element[action.result.data.head.vars[0]].value
 
-        var subjectURL = action.result.config.subject.split('/')
         //check if property comes from specific url to filter bad links
+        var subjectURL = action.result.config.subject.split('/')
         if (element[action.result.data.head.vars[0]].value.split('/')[2] === subjectURL[2]) {
           NewState.push(link)
         }
-
-
 
         //sort links by source then target --> sorteert goed.
         NewState.sort(function (a, b) {
