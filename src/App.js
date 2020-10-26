@@ -29,13 +29,12 @@ import ConnectedError from './containers/ConnectedError'
 
 //init redux store
 const store = configureStore()
-const initialState = store.getState()
 
 console.log('initializing store: ', store.getState())
 
-const unsubscribe = store.subscribe(() => {
-  //console.log('state changed: ', store.getState())
-})
+// const unsubscribe = store.subscribe(() => {
+//   //console.log('state changed: ', store.getState())
+// })
 
 
 

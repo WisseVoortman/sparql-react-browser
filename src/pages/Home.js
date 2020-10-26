@@ -3,8 +3,6 @@ import React from 'react'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button'
 
-import ConnectedSearch from '../containers/ConnectedSearch'
-
 class Home extends React.Component {
 
   render() {

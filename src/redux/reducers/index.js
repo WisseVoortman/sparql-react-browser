@@ -2,24 +2,30 @@
 
 import { combineReducers } from 'redux'
 
+
+// reducer for updating forcegraph based on meaningfull changes.
+import dataReducer from './data'
+
+//sparql endpoint data reducers
 import nodesReducer from './nodes'
 import linkesReducer from './links'
-import axiosReducer from './axios'
+
+
 import datasourceReducer from './datasource'
+
+//utility reducers
 import loadingReducer from './loading'
 import errorReducer from './error'
-import testReducer from './test'
 
 import { connectRouter } from 'connected-react-router'
 
 const appReducer = (history) => combineReducers({
+  data: dataReducer,
   nodes: nodesReducer,
   links: linkesReducer,
-  axios: axiosReducer,
   datasource: datasourceReducer,
   loading: loadingReducer,
   error: errorReducer,
-  test: testReducer,
   router: connectRouter(history)
 })
 
