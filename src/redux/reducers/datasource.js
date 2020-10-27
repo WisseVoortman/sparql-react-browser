@@ -1,4 +1,4 @@
-import { SET_CURRENT_DATASOURCE, TOGGLE_SEARCHALL } from '../actionTypes';
+import { SET_CURRENT_DATASOURCE, TOGGLE_SEARCHALL, TOGGLE_BLOCK_DATASOURCE, DELETE_DATASOURCE } from '../actionTypes';
 
 
 export default function datasourceReducer(state = {
@@ -8,37 +8,43 @@ export default function datasourceReducer(state = {
     {
       name: 'Onderwijsregistratie',
       endpoint: 'https://lod.onderwijsregistratie.nl/rio/sparql',
+      active: true,
     },
     {
       name: 'dbpedia',
       endpoint: 'http://dbpedia.org/sparql',
+      active: true,
     },
     {
       name: 'Basisregistratie adressen en gebouwen (alle voorkomens)',
       endpoint: 'https://bag.basisregistraties.overheid.nl/sparql',
+      active: true,
     },
     {
       name: 'Basisregistratie adressen en gebouwen (nu geldige voorkomens)',
       endpoint: 'https://bag.basisregistraties.overheid.nl/sparql/now',
+      active: true,
     },
     {
       name: 'Basisregistratie Kadaster - Digitale Kadastrale Kaart',
       endpoint: 'https://brk.basisregistraties.overheid.nl/sparql',
+      active: true,
     },
     {
       name: 'Basisregitratie Topografie - Top10NL',
       endpoint: 'https://brt.basisregistraties.overheid.nl/sparql',
+      active: true,
     },
     {
       name: 'Cultuurhistorische objecten',
       endpoint: 'https://linkeddata.cultureelerfgoed.nl/sparql',
+      active: true,
     },
   ],
 }, action) {
   let newState = Object.assign({}, state);
   switch (action.type) {
     case SET_CURRENT_DATASOURCE: {
-      console.log(action.datasource)
       newState.currentDatasource = action.datasource.endpoint;
       return newState;
     }
@@ -50,6 +56,18 @@ export default function datasourceReducer(state = {
         newState.searchAll = 'Aan'
       }
 
+      return newState
+    }
+    case TOGGLE_BLOCK_DATASOURCE: {
+      var index = state.datasources.indexOf(action.datasource)
+      newState.datasources[index].active = !newState.datasources[index].active
+
+      return newState
+    }
+    case DELETE_DATASOURCE: {
+      const name = action.datasource.name
+      var index = state.datasources.indexOf(action.datasource)
+      newState.datasources.splice(index, 1)
       return newState
     }
 
