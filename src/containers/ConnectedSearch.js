@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import Search from '../components/Search'
+import QueryForm from '../components/QueryForm'
 import { fetchTest, fetchSparql, fetchAboutSubject } from '../redux/actions/index'
 import { push } from 'connected-react-router'
 
@@ -19,6 +19,6 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({ fetchTest, fetchSparql, fetchAboutSubject, push }, dispatch)
 
-const ConnectedSearch = connect(mapStateToProps, mapDispatchToProps)(Search)
+const ConnectedQueryForm = connect(mapStateToProps, mapDispatchToProps)(QueryForm)
 
-export default ConnectedSearch
+export default ConnectedQueryForm

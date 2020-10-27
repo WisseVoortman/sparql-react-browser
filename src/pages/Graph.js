@@ -13,7 +13,7 @@ import {
 
 
 import ConnectedForceGraph from '../containers/ConnectedForceGraph';
-import ConnectedSearch from '../containers/ConnectedSearch'
+import ConnectedQueryForm from '../containers/ConnectedSearch'
 import ConnectedDataSourceDropdown from '../containers/ConnectedDataSourceDropdown'
 import ConnectedExamples from '../containers/ConnectedExamples';
 
@@ -34,7 +34,7 @@ class Graph extends React.Component {
 
         <Switch>
           <Route exact path={`${this.props.match.path}/examples`} component={ConnectedExamples} />
-          <Route exact path={`${this.props.match.path}/queryform`} component={ConnectedSearch} />
+          <Route exact path={`${this.props.match.path}/queryform`} component={ConnectedQueryForm} />
         </Switch>
 
         <ConnectedDataSourceDropdown />
