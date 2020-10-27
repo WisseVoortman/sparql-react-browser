@@ -71,12 +71,6 @@ class Search extends React.Component {
           </Form>
         </div>
 
-        <div id="buttons">
-          <p>{this.props.datasource.currentDatasource.endpoint}</p>
-          <button onClick={() => this.props.fetchTest()}>Fetch Test</button>
-          <button onClick={() => this.props.fetchSparql(this.state.query, this.props.datasource.currentDatasource)}>Fetch Sparql</button>
-          <button onClick={() => this.props.push('/graph')}>Ga naar graph</button>
-        </div>
       </div >
     )
   }
