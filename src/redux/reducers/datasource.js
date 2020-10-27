@@ -14,20 +14,24 @@ export default function datasourceReducer(state = {
       endpoint: 'http://dbpedia.org/sparql',
     },
     {
-      name: 'Onderwijsregistratie-localhost',
-      endpoint: 'http://localhost:8080/rdf4j-workbench/repositories/rio/query',
+      name: 'Basisregistratie adressen en gebouwen (alle voorkomens)',
+      endpoint: 'https://bag.basisregistraties.overheid.nl/sparql',
     },
     {
-      name: 'Basisregistraties',
-      endpoint: 'https://data.pdok.nl/sparql',
+      name: 'Basisregistratie adressen en gebouwen (nu geldige voorkomens)',
+      endpoint: 'https://bag.basisregistraties.overheid.nl/sparql/now',
     },
     {
-      name: 'Onderwijsinspectie',
-      endpoint: 'http://localhost:8080/rdf4j-workbench/repositories/ivho/query',
+      name: 'Basisregistratie Kadaster - Digitale Kadastrale Kaart',
+      endpoint: 'https://brk.basisregistraties.overheid.nl/sparql',
     },
     {
-      name: 'Kennisnet',
-      endpoint: 'http://localhost:8080/rdf4j-workbench/repositories/kennisnet/query',
+      name: 'Basisregitratie Topografie - Top10NL',
+      endpoint: 'https://brt.basisregistraties.overheid.nl/sparql',
+    },
+    {
+      name: 'Cultuurhistorische objecten',
+      endpoint: 'https://linkeddata.cultureelerfgoed.nl/sparql',
     },
   ],
 }, action) {
