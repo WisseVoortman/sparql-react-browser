@@ -23,7 +23,7 @@ class Graph extends React.Component {
     return (
       <div className="Graph">
         <h2>Graph</h2>
-        <Nav fill variant="tabs" defaultActiveKey="/examples">
+        <Nav fill variant="tabs" defaultActiveKey="/sparql-react-browser/graph/examples">
           <Nav.Item>
             <Nav.Link as={NavLink} activeClassName="active" to="/sparql-react-browser/graph/examples">Examples</Nav.Link>
           </Nav.Item>

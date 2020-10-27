@@ -24,7 +24,7 @@ class Navigation extends React.Component {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav.Link as={NavLink} exact activeClassName="active" to="/">Home</Nav.Link>
             <Nav.Link as={NavLink} activeClassName="active" to="/sparql-react-browser/contact">Contact</Nav.Link>
-            <Nav.Link as={NavLink} activeClassName="active" to="/sparql-react-browser/graph">Graph</Nav.Link>
+            <Nav.Link as={NavLink} activeClassName="active" to="/sparql-react-browser/graph/examples">Graph</Nav.Link>
           </Navbar.Collapse>
         </Navbar>
       </div>
