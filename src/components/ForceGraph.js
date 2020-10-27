@@ -178,7 +178,10 @@ class ForceGraph extends React.Component {
     selection.enter()                     //for each row in the data do...
       .append('ellipse')
       .on('click', function (d) {
-
+        if (d.type === 'uri') {
+          //window.location.href = d.id // opens in the same page
+          window.open(d.id)           // opens in a new page
+        }
       })
       .on("mouseover", function (d) {
         console.log('mouseover')
@@ -217,7 +220,10 @@ class ForceGraph extends React.Component {
       .append('text')
 
       .on('click', function (d) {
-
+        if (d.type === 'uri') {
+          //window.location.href = d.id // opens in the same page
+          window.open(d.id)           // opens in a new page
+        }
       })
       .on("mouseover", function (d) {
         console.log('mouseover')
@@ -260,6 +266,10 @@ class ForceGraph extends React.Component {
 
     selection.enter()
       .append("text")
+      .on('click', function (d) {
+        //window.location.href = d.id // opens in the same page
+        window.open(d.id)           // opens in a new page
+      })
       .attr("x", "200")
       .attr("class", "linklabel")
       .append("textPath")
