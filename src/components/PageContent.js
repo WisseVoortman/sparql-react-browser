@@ -19,10 +19,10 @@ class PageContent extends React.Component {
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/home" component={Home} />
-            <Route path="/sparql-react-browser/" component={Home} />
-            <Route path="/graph" component={Graph} />
-            <Route path="/contact" component={Contact} />
+            <Route exact path="/sparql-react-browser/home" component={Home} />
+            <Route exact path="/sparql-react-browser/" component={Home} />
+            <Route exact path="/sparql-react-browser/graph" component={Graph} />
+            <Route exact path="/sparql-react-browser/contact" component={Contact} />
 
             <Route component={Notfound} />
           </Switch>

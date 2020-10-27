@@ -14,7 +14,7 @@ class Home extends React.Component {
             Welkom bij de Sparql-React-Browser. Via deze applicatie kunt u open onderwijsdata opvragen en visualiseren. Met onderstaande zoekmogelijkheid komt u snel bij de data die u zoekt. Data wordt weergegeven in een graph JSON. Het gaat om open informatie.
           </p>
           <p>
-            <Button variant="primary" onClick={() => this.props.history.push('/graph')}>Probeer uit!</Button>
+            <Button variant="primary" onClick={() => this.props.history.push('/sparql-react-browser/graph')}>Probeer uit!</Button>
           </p>
         </Jumbotron>
       </div>
