@@ -32,12 +32,14 @@ class Graph extends React.Component {
           </Nav.Item>
         </Nav>
 
+        <ConnectedDataSourceDropdown />
+
         <Switch>
           <Route exact path={`${this.props.match.path}/examples`} component={ConnectedExamples} />
           <Route exact path={`${this.props.match.path}/queryform`} component={ConnectedQueryForm} />
         </Switch>
 
-        <ConnectedDataSourceDropdown />
+
         <ConnectedForceGraph />
       </div>
     )

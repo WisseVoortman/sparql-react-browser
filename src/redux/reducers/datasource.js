@@ -1,7 +1,8 @@
-import { SET_CURRENT_DATASOURCE } from '../actionTypes';
+import { SET_CURRENT_DATASOURCE, TOGGLE_SEARCHALL } from '../actionTypes';
 
 
 export default function datasourceReducer(state = {
+  searchAll: 'Uit',
   currentDatasource: 'https://lod.onderwijsregistratie.nl/rio/sparql',
   datasources: [
     {
@@ -36,6 +37,16 @@ export default function datasourceReducer(state = {
       console.log(action.datasource)
       newState.currentDatasource = action.datasource.endpoint;
       return newState;
+    }
+    case TOGGLE_SEARCHALL: {
+      if (state.searchAll === 'Aan') {
+        newState.searchAll = 'Uit'
+      }
+      if (state.searchAll === 'Uit') {
+        newState.searchAll = 'Aan'
+      }
+
+      return newState
     }
 
     default:
