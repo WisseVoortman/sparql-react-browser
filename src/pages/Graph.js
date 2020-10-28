@@ -25,7 +25,7 @@ class Graph extends React.Component {
         <h2>Graph</h2>
         <Nav fill variant="tabs" defaultActiveKey="/sparql-react-browser/graph/examples">
           <Nav.Item>
-            <Nav.Link as={NavLink} activeClassName="active" to="/sparql-react-browser/graph/examples">Examples</Nav.Link>
+            <Nav.Link as={NavLink} activeClassName="active" to="/sparql-react-browser/graph/examples">Voorbeelden</Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link as={NavLink} activeClassName="active" to="/sparql-react-browser/graph/queryform">Query</Nav.Link>

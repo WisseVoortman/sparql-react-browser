@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button'
+import { Button, Card, CardDeck } from 'react-bootstrap'
 
 class Example extends React.Component {
   constructor(props) {
@@ -13,10 +13,41 @@ class Example extends React.Component {
 
   render() {
     return (
-      <div id="buttons">
-        <p>{this.props.datasource.currentDatasource.endpoint}</p>
-        <button onClick={() => this.props.fetchTest()}>Fetch Test</button>
-      </div>
+      <>
+        <CardDeck>
+          <Card>
+            <Card.Body>
+              <Card.Title>Persoon & relevante adressen</Card.Title>
+              <Card.Text>
+                Dit voorbeeld laat zien hoe de applicatie een persoon visualiseerd met de bijbehorende relevante adressen</Card.Text>
+            </Card.Body>
+            <Card.Footer>
+              <Button onClick={() => this.props.fetchTest()}>Bekijk voorbeeld</Button>
+            </Card.Footer>
+          </Card>
+          <Card>
+            <Card.Body>
+              <Card.Title>Voorbeeld 2</Card.Title>
+              <Card.Text>
+                Indien mogelijk iets dat demonstreert dat dat vanaf meerdere bronnen afkomstig kan zijn</Card.Text>
+            </Card.Body>
+            <Card.Footer>
+              <Button onClick={() => this.props.fetchTest()}>Bekijk voorbeeld</Button>
+            </Card.Footer>
+          </Card>
+          <Card>
+            <Card.Body>
+              <Card.Title>Voorbeeld 3</Card.Title>
+              <Card.Text>
+                Dit voorbeeld laat zien hoe de applicatie een persoon visualiseerd met de bijbehorende relevante adressen</Card.Text>
+            </Card.Body>
+            <Card.Footer>
+              <Button onClick={() => this.props.fetchTest()}>Bekijk voorbeeld</Button>
+            </Card.Footer>
+          </Card>
+
+        </CardDeck>
+      </>
     )
   }
 }
