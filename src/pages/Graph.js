@@ -13,7 +13,7 @@ import {
 
 
 import ConnectedForceGraph from '../containers/ConnectedForceGraph';
-import ConnectedQueryForm from '../containers/ConnectedSearch'
+import ConnectedQueryForm from '../containers/ConnectedQueryForm'
 import ConnectedDataSource from '../containers/ConnectedDataSource'
 import ConnectedExamples from '../containers/ConnectedExamples';
 

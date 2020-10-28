@@ -8,11 +8,7 @@ import { push } from 'connected-react-router'
 
 const mapStateToProps = (state, props) => {
   return {
-    nodes: state.nodes,
-    links: state.links,
     datasource: state.datasource,
-    history: state.router
-
   }
 }
 
