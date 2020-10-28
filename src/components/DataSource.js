@@ -24,7 +24,7 @@ class DataSourceDropdown extends React.Component {
     const renderDatasourceDropdown = () => {
       if (this.props.datasource.searchAll === 'Uit') {
         return (
-          <Dropdown>
+          <Dropdown className="w-100">
             <Dropdown.Toggle >Geselecteerde bron: {this.props.datasource.currentDatasource}</Dropdown.Toggle>
             <Dropdown.Menu>
               {this.props.datasource.datasources.map((item, key) =>
@@ -51,8 +51,15 @@ class DataSourceDropdown extends React.Component {
 
     return (
       <div id="Datasource">
-        <Button onClick={() => this.props.toggleSearchAll()}>Doorzoek alle bronnen: {this.props.datasource.searchAll}</Button>
-        {renderDatasourceDropdown()}
+        <Row>
+          <Col sm={3}>
+            <Button className="w-100" onClick={() => this.props.toggleSearchAll()}>Doorzoek alle bronnen: {this.props.datasource.searchAll}</Button>
+          </Col>
+          <Col sm={9}>
+            {renderDatasourceDropdown()}
+          </Col>
+        </Row>
+
       </div>
     )
   }
