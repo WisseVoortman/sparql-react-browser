@@ -1,6 +1,8 @@
 import React from 'react';
 import { ButtonGroup, Button, Dropdown, Row, Col } from 'react-bootstrap'
 
+import ConnectedAddDatasource from '../containers/ConnectedAddDatasource'
+
 class DataSourceDropdown extends React.Component {
   constructor(props) {
     super();
@@ -41,6 +43,7 @@ class DataSourceDropdown extends React.Component {
                   </Row>
                 </Dropdown.Item>
               )}
+              {<ConnectedAddDatasource />}
             </Dropdown.Menu>
           </Dropdown>)
       }

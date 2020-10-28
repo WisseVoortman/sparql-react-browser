@@ -1,4 +1,4 @@
-import { SET_CURRENT_DATASOURCE, TOGGLE_SEARCHALL, TOGGLE_BLOCK_DATASOURCE, DELETE_DATASOURCE } from '../actionTypes'
+import { SET_CURRENT_DATASOURCE, TOGGLE_SEARCHALL, TOGGLE_BLOCK_DATASOURCE, DELETE_DATASOURCE, ADD_DATASOURCE } from '../actionTypes'
 
 export const setCurrentDatasource = (datasource) => {
   return {
@@ -26,3 +26,13 @@ export const deleteDatasource = (datasource) => {
     datasource
   }
 }
+
+export const addDatasource = (name, endpoint) => {
+  return {
+    type: ADD_DATASOURCE,
+    name,
+    endpoint,
+  }
+}
+
+

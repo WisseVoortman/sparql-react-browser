@@ -1,4 +1,4 @@
-import { SET_CURRENT_DATASOURCE, TOGGLE_SEARCHALL, TOGGLE_BLOCK_DATASOURCE, DELETE_DATASOURCE } from '../actionTypes';
+import { SET_CURRENT_DATASOURCE, TOGGLE_SEARCHALL, TOGGLE_BLOCK_DATASOURCE, DELETE_DATASOURCE, ADD_DATASOURCE } from '../actionTypes';
 
 
 export default function datasourceReducer(state = {
@@ -68,6 +68,16 @@ export default function datasourceReducer(state = {
       const name = action.datasource.name
       var index = state.datasources.indexOf(action.datasource)
       newState.datasources.splice(index, 1)
+      return newState
+    }
+    case ADD_DATASOURCE: {
+      const name = action.name
+      const endpoint = action.endpoint
+      newState.datasources.push({
+        name: name,
+        endpoint: endpoint,
+        active: true,
+      })
       return newState
     }
 
