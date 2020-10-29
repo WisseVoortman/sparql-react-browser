@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "145de3cff17f4363f17ad5792db897f8",
+    "revision": "fe72cd3c079b201d3d9ad54eb59c2918",
     "url": "/sparql-react-browser/index.html"
   },
   {
-    "revision": "cc78bd101ef1bcdf42db",
+    "revision": "64e160aaee2f3ded1f3a",
     "url": "/sparql-react-browser/static/css/2.5b44f0a0.chunk.css"
   },
   {
-    "revision": "686c82606a561ffe1161",
+    "revision": "e96df0646ef14acee668",
     "url": "/sparql-react-browser/static/css/main.5c88953a.chunk.css"
   },
   {
-    "revision": "cc78bd101ef1bcdf42db",
-    "url": "/sparql-react-browser/static/js/2.c0bd35a9.chunk.js"
+    "revision": "64e160aaee2f3ded1f3a",
+    "url": "/sparql-react-browser/static/js/2.468a5c21.chunk.js"
   },
   {
     "revision": "3453b8997016469371284a28c0e873e2",
-    "url": "/sparql-react-browser/static/js/2.c0bd35a9.chunk.js.LICENSE.txt"
+    "url": "/sparql-react-browser/static/js/2.468a5c21.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "686c82606a561ffe1161",
-    "url": "/sparql-react-browser/static/js/main.bcd17780.chunk.js"
+    "revision": "e96df0646ef14acee668",
+    "url": "/sparql-react-browser/static/js/main.15a5a410.chunk.js"
   },
   {
     "revision": "6e45e6a6286fd13fba83",
