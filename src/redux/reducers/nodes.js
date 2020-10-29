@@ -1,38 +1,52 @@
+import { SET_SELECTED_NODE, REMOVE_SELECTED_NODE } from '../actionTypes'
 import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS } from '../actionTypes'
 
-export default function nodeReducer(state = [
-  { id: 'Subject', type: 'literal' },
-  { id: 'Object', type: 'literal' },
-], action) {
+export default function nodeReducer(state = {
+  selectedNode: null,
+  nodesList: [
+    { id: 'Subject', type: 'literal' },
+    { id: 'Object', type: 'literal' },
+  ]
+}, action) {
   let NewState = Object.assign({}, state);
   switch (action.type) {
+    case SET_SELECTED_NODE: {
+      const node = action.node
+      NewState.selectedNode = node
+      return NewState
+    }
+    case REMOVE_SELECTED_NODE: {
+      NewState.selectedNode = null
+      return NewState
+    }
+
     case FETCH_TEST_SUCCESS: {
 
       var links = [
-        { source: { value: "http://example.nl/persoon/Wisse", type: "uri" }, target: { value: "http://example.nl/bedrijf/DUO", type: "uri" }, property: "Is stagair bij" },
-        { source: { value: "http://example.nl/persoon/Wisse", type: "uri" }, target: { value: "http://example.nl/adres/Adres1", type: "uri" }, property: "Heeft Woonadres" },
-        { source: { value: "http://example.nl/adres/Adres1", type: "uri" }, target: { value: "7913TH", type: "literal" }, property: "Postcode" },
-        { source: { value: "http://example.nl/adres/Adres1", type: "uri" }, target: { value: "25", type: "literal" }, property: "Nummer" },
-        { source: { value: "http://example.nl/adres/Adres1", type: "uri" }, target: { value: "Zuideropgaande", type: "literal" }, property: "Straatnaam" },
-        { source: { value: "http://example.nl/adres/Adres1", type: "uri" }, target: { value: "Hollandscheveld", type: "literal" }, property: "Plaatsnaam" },
-        { source: { value: "http://example.nl/bedrijf/DUO", type: "uri" }, target: { value: "http://example.nl/adres/Adres2", type: "uri" }, property: "Heeft adres" },
-        { source: { value: "http://example.nl/adres/Adres2", type: "uri" }, target: { value: "9722TB", type: "literal" }, property: "Postcode" },
-        { source: { value: "http://example.nl/adres/Adres2", type: "uri" }, target: { value: "12", type: "literal" }, property: "Nummer" },
-        { source: { value: "http://example.nl/adres/Adres2", type: "uri" }, target: { value: "Kempkensberg", type: "literal" }, property: "Straatnaam" },
+        { source: { value: "http://example.nl/persoon/Wisse", type: "uri" }, target: { value: "http://example.nl/bedrijf/DUO", type: "uri" }, property: "http://example.nl/Is stagair bij" },
+        { source: { value: "http://example.nl/persoon/Wisse", type: "uri" }, target: { value: "http://example.nl/adres/Adres1", type: "uri" }, property: "http://example.nl/Heeft Woonadres" },
+        { source: { value: "http://example.nl/adres/Adres1", type: "uri" }, target: { value: "7913TH", type: "literal" }, property: "http://example.nl/Postcode" },
+        { source: { value: "http://example.nl/adres/Adres1", type: "uri" }, target: { value: "25", type: "literal" }, property: "http://example.nl/Nummer" },
+        { source: { value: "http://example.nl/adres/Adres1", type: "uri" }, target: { value: "Zuideropgaande", type: "literal" }, property: "http://example.nl/Straatnaam" },
+        { source: { value: "http://example.nl/adres/Adres1", type: "uri" }, target: { value: "Hollandscheveld", type: "literal" }, property: "http://example.nl/Plaatsnaam" },
+        { source: { value: "http://example.nl/bedrijf/DUO", type: "uri" }, target: { value: "http://example.nl/adres/Adres2", type: "uri" }, property: "http://example.nl/Heeft adres" },
+        { source: { value: "http://example.nl/adres/Adres2", type: "uri" }, target: { value: "9722TB", type: "literal" }, property: "http://example.nl/Postcode" },
+        { source: { value: "http://example.nl/adres/Adres2", type: "uri" }, target: { value: "12", type: "literal" }, property: "http://example.nl/Nummer" },
+        { source: { value: "http://example.nl/adres/Adres2", type: "uri" }, target: { value: "Kempkensberg", type: "literal" }, property: "http://example.nl/Straatnaam" },
         { source: { value: "http://example.nl/adres/Adres2", type: "uri" }, target: { value: "Groningen", type: "literal" }, property: "Plaatsnaam" },
         { source: { value: "http://example.nl/persoon/Wisse", type: "uri" }, target: { value: "http://example.nl/adres/Adres2", type: "uri" }, property: "Werkadres" },
       ]
 
-      NewState = []
+      NewState.nodesList = []
 
       //distinct nodes
       var templist = []
       links.forEach(link => {
         if (!templist.includes(link.source.value)) {
-          NewState.push({ id: link.source.value, type: link.source.type })
+          NewState.nodesList.push({ id: link.source.value, type: link.source.type })
         }
         if (!templist.includes(link.target.value)) {
-          NewState.push({ id: link.target.value, type: link.target.type })
+          NewState.nodesList.push({ id: link.target.value, type: link.target.type })
         }
 
         templist.push(link.source.value)
@@ -49,7 +63,7 @@ export default function nodeReducer(state = [
       //NODE
       //[{ id: 'John' }]
 
-      NewState = []
+      NewState.nodesList = []
 
       //distinct nodes
       var templist = []
@@ -59,10 +73,10 @@ export default function nodeReducer(state = [
 
         //add subject and object to templist
         if (!templist.includes(element[vars[0]].value)) {
-          NewState.push({ id: element[vars[0]].value, type: element[vars[0]].type })
+          NewState.nodesList.push({ id: element[vars[0]].value, type: element[vars[0]].type })
         }
         if (!templist.includes(element[vars[2]].value)) {
-          NewState.push({ id: element[vars[2]].value, type: element[vars[2]].type })
+          NewState.nodesList.push({ id: element[vars[2]].value, type: element[vars[2]].type })
         }
 
         templist.push(element[vars[0]].value)
@@ -77,7 +91,7 @@ export default function nodeReducer(state = [
       //NODE
       //[{ id: 'John' }]
 
-      NewState = []
+      NewState.nodesList = []
 
       //distinct nodes
       var templist = []
@@ -88,7 +102,7 @@ export default function nodeReducer(state = [
       urlParams = urlParams.join('/')
       console.log('urlParam: ' + urlParams)
 
-      NewState.push({ id: action.result.config.subject, type: 'uri' })
+      NewState.nodesList.push({ id: action.result.config.subject, type: 'uri' })
 
       var vars = action.result.data.head.vars
       // console.log(vars)
@@ -109,10 +123,10 @@ export default function nodeReducer(state = [
               objParam.splice(0, 3)
               objParam = objParam.join('/')
               console.log('objParam: ' + objParam)
-              NewState.push({ id: element[action.result.data.head.vars[1]].value, type: element[vars[1]].type })
+              NewState.nodesList.push({ id: element[action.result.data.head.vars[1]].value, type: element[vars[1]].type })
             }
             else {
-              NewState.push({ id: element[vars[1]].value, type: element[vars[1]].type })
+              NewState.nodesList.push({ id: element[vars[1]].value, type: element[vars[1]].type })
             }
 
           }

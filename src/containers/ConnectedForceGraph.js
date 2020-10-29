@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux'
 import ForceGraph from '../components/ForceGraph'
 import ForceGraphOld from '../components/ForceGraphOld'
 
+import { setSelectedNode, removeSelectedNode } from '../redux/actions/index'
+
 const mapStateToProps = (state, props) => {
   return {
     nodes: state.nodes,
@@ -14,7 +16,10 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapDispatchToProps = (dispatch, props) =>
-  bindActionCreators({}, dispatch)
+  bindActionCreators({
+    setSelectedNode,
+    removeSelectedNode,
+  }, dispatch)
 
 const ConnectedForceGraph = connect(mapStateToProps, mapDispatchToProps)(ForceGraph)
 

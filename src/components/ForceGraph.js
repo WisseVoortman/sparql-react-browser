@@ -58,7 +58,7 @@ class ForceGraph extends React.Component {
     this.forceCharge = d3.forceManyBody().strength(-3000) //defaul -30
 
     //simulation --> simulation gets updated upon interaction
-    this.simulation = d3.forceSimulation(this.props.nodes)
+    this.simulation = d3.forceSimulation(this.props.nodes.nodesList)
       .force('center', this.forceCenter)
       .force('charge', this.forceCharge)
       .force('link', this.forceLink)
@@ -68,7 +68,7 @@ class ForceGraph extends React.Component {
   }
 
   componentDidUpdate(prevprops) {
-    this.simulation.nodes(this.props.nodes) // load new nodes
+    this.simulation.nodes(this.props.nodes.nodesList) // load new nodes
     this.simulation.force('link').links(this.props.links) // load new links
 
 
@@ -170,7 +170,7 @@ class ForceGraph extends React.Component {
   nodesellipse() {
     var selection = d3.select('.nodesellipse')
       .selectAll('ellipse')
-      .data(this.props.nodes)             //bind data
+      .data(this.props.nodes.nodesList)             //bind data
       .call(this.drag(this.simulation));            //allow dragging  
 
     selection.enter()                     //for each row in the data do...
@@ -213,7 +213,7 @@ class ForceGraph extends React.Component {
   nodestext() {
     var selection = d3.select('.nodestext')
       .selectAll('text')
-      .data(this.props.nodes)                        //bind data
+      .data(this.props.nodes.nodesList)                        //bind data
       .call(this.drag(this.simulation));            //allow dragging  
 
     selection.enter()                     //for each row in the data do...
@@ -374,9 +374,9 @@ class ForceGraph extends React.Component {
 
     return (
       <div id="forcegraph">
-        {this.props.nodes.map((node, index) => (
+        {/* {this.props.nodes.nodesList.map((node, index) => (
           <Circle node={node} index={index}></Circle>
-        ))}
+        ))} */}
         {/* {this.props.links.map((link, index) => (
             <Link link={link} index={index}></Link>
           ))} */}
