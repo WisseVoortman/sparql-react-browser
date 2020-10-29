@@ -12,6 +12,7 @@ class ForceGraph extends React.Component {
     // dragging
     this.drag = (simulation) => {
       const dragstarted = (d) => {
+        d3.select("#forcegraph").selectAll(".tooltip").remove()
         if (!d3.event.active) simulation.alphaTarget(0.3).restart();
         d.fx = d.x;
         d.fy = d.y;
@@ -70,17 +71,13 @@ class ForceGraph extends React.Component {
     this.simulation.nodes(this.props.nodes) // load new nodes
     this.simulation.force('link').links(this.props.links) // load new links
 
-    //console.log('hier')
-    //console.log(prevprops.data.id)
-    //console.log(this.props.data.id)
-    if (this.props.data.id !== prevprops.data.id) { // check if any data has changed and restart the simulation if so currently based on id in linkreducer
-      //d3.selectAll("svg > *").remove()
 
+    if (this.props.data.id !== prevprops.data.id) { // check if any data has changed and restart the simulation if so currently based on id in linkreducer
       d3.select('.links').selectAll('path').remove()
       d3.select('.nodesellipse').selectAll('ellipse').remove()
       d3.select('.nodestext').selectAll('text').remove()
       d3.select('.linkstext').selectAll('text').remove()
-      // d3.select('.defs').selectAll('path').remove()
+      d3.select('.defs').selectAll('path').remove()
 
       console.log('restartSimulation')
       this.restartSimulation()
@@ -110,6 +107,7 @@ class ForceGraph extends React.Component {
     svg.append("g").attr("class", "nodestext")
     svg.append("g").attr("class", "linkstext")
     svg.append("defs").attr("class", "defs")
+    svg.append("g").attr("class", "tooltips")
 
     function zoomed() {
       const currentTransform = d3.event.transform;
@@ -185,6 +183,8 @@ class ForceGraph extends React.Component {
       })
       .on("mouseover", function (d) {
         console.log('mouseover')
+        console.log(d)
+        console.log(this)
       })
       .on("mouseout", function (d) {
         console.log('mouseout')
@@ -220,13 +220,56 @@ class ForceGraph extends React.Component {
       .append('text')
 
       .on('click', function (d) {
-        if (d.type === 'uri') {
-          //window.location.href = d.id // opens in the same page
-          window.open(d.id)           // opens in a new page
+        var div = d3.select("#forcegraph")
+          .append("div")
+          .attr("class", "tooltip dropdown")
+          .style("opacity", 0)
+          .style("left", (d3.event.pageX + 28) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+
+        var button = d3.select("#forcegraph").selectAll(".tooltip")
+          .append("button")
+          .attr("class", "btn btn-secondary dropdown-toggle")
+          .attr("type", "button")
+          .attr("id", "dropdownMenuButton")
+          .attr("data-toggle", "dropdown")
+          .attr("aria-haspopup", "true")
+          .attr("aria-expanded", "false")
+          .text(d.id)
+
+        var dropdownMenu = d3.select("#forcegraph").selectAll(".tooltip")
+          .append("div")
+          .attr("class", "dropdown-menu")
+          .attr("aria-labelledby", "dropdownMenuButton")
+
+        if (d.type === "uri") {
+          dropdownMenu.append("a")
+            .attr("class", "dropdown-item")
+            .attr("href", d.id)
+            .text("go to uri")
         }
+        dropdownMenu.append("a")
+          .attr("class", "dropdown-item")
+        dropdownMenu.append("a")
+          .attr("class", "dropdown-item")
+
+
+        d3.select(".tooltip").transition()
+          .duration(200)
+          .style("opacity", .9)
+          .style("left", (d3.event.pageX + 28) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+        // if (d.type === 'uri') {
+        //   //window.location.href = d.id // opens in the same page
+        //   window.open(d.id)           // opens in a new page
+        // }
       })
       .on("mouseover", function (d) {
         console.log('mouseover')
+
+
+
+
       })
       .on("mouseout", function (d) {
         console.log('mouseout')
@@ -331,10 +374,10 @@ class ForceGraph extends React.Component {
 
     return (
       <div id="forcegraph">
-        {/* {this.props.nodes.map((node, index) => (
-            <Circle node={node} index={index}></Circle>
-          ))}
-          {this.props.links.map((link, index) => (
+        {this.props.nodes.map((node, index) => (
+          <Circle node={node} index={index}></Circle>
+        ))}
+        {/* {this.props.links.map((link, index) => (
             <Link link={link} index={index}></Link>
           ))} */}
       </div >
