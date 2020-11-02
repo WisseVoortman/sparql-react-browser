@@ -1,6 +1,8 @@
 import * as d3 from 'd3'
 import React from 'react'
 
+import D3NodeGenerator from './D3NodeGenerator'
+
 class ForceGraph extends React.Component {
   constructor(props) {
     super(props);
@@ -35,6 +37,9 @@ class ForceGraph extends React.Component {
         .on("drag", dragged)
         .on("end", dragended)
     };
+
+    this.rs = this.restartSimulation.bind(this)
+    this.ssn = this.props.setSelectedNode.bind(this)
   }
 
   componentDidMount() {
@@ -62,9 +67,12 @@ class ForceGraph extends React.Component {
       .force('center', this.forceCenter)
       .force('charge', this.forceCharge)
       .force('link', this.forceLink)
-    this.simulation.on('tick', () => this.setState({
-      //call this.setstate to rerender with react.
-    }));
+    this.simulation.on('tick', () => {
+      console.log('tick')
+      this.setState({
+        //call this.setstate to rerender with react.
+      })
+    });
   }
 
   componentDidUpdate(prevprops) {
@@ -78,6 +86,7 @@ class ForceGraph extends React.Component {
       d3.select('.nodestext').selectAll('text').remove()
       d3.select('.linkstext').selectAll('text').remove()
       d3.select('.defs').selectAll('path').remove()
+      d3.select('.tooltips').selectAll('circle').remove()
 
       console.log('restartSimulation')
       this.restartSimulation()
@@ -365,7 +374,7 @@ class ForceGraph extends React.Component {
 
   render() {
     this.links()
-    this.nodesellipse()
+    //this.nodesellipse()
     this.nodestext()
     this.linktext()
     this.linkmarker()
@@ -374,12 +383,7 @@ class ForceGraph extends React.Component {
 
     return (
       <div id="forcegraph">
-        {/* {this.props.nodes.nodesList.map((node, index) => (
-          <Circle node={node} index={index}></Circle>
-        ))} */}
-        {/* {this.props.links.map((link, index) => (
-            <Link link={link} index={index}></Link>
-          ))} */}
+        <D3NodeGenerator nodesList={this.props.nodes.nodesList} action={this.rs} ssn={this.ssn}></D3NodeGenerator>
       </div >
     );
   }
@@ -393,30 +397,9 @@ ForceGraph.defaultProps = {
 
 export default ForceGraph
 
+/*
+can dispatch actions from child component
 
-class Circle extends React.Component {
-  render() {
-    return (
-      <g>
-        <circle r={20} cx={this.props.node.x} cy={this.props.node.y} fill="red" key={this.props.index} onClick={() => alert('You have clicked the circle.')} />
-        <text>{this.props.node.id}</text>
-      </g>
-
-
-    )
-  }
-
-}
-
-class Link extends React.Component {
-  render() {
-    return (<line
-      x1={this.props.link.source.x}
-      y1={this.props.link.source.y}
-      x2={this.props.link.target.x}
-      y2={this.props.link.target.y}
-      key={`line-${this.props.index}`}
-      stroke="black" />)
-  }
-
-}
+try passing drag in the same way
+d3 select .call in react component maybe?
+*/
