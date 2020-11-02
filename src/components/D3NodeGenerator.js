@@ -58,11 +58,9 @@ class D3NodeGenerator extends React.Component {
       })
 
     selection.exit().remove()
-
     return (
-      <button onClick={() => this.props.action()}> logtest button </button >
+      null
     )
   }
 }
-
 export default D3NodeGenerator
