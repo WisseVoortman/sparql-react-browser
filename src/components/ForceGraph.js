@@ -2,6 +2,7 @@ import * as d3 from 'd3'
 import React from 'react'
 
 import D3NodeGenerator from './D3NodeGenerator'
+import D3LinkGenerator from './D3LinkGenerator'
 
 class ForceGraph extends React.Component {
   constructor(props) {
@@ -146,109 +147,14 @@ class ForceGraph extends React.Component {
     this.simulation.alpha(1).restart()
   }
 
-  links() {
-    var selection = d3.select('.links')
-      .selectAll('path')
-      .data(this.props.links)
-
-    selection.enter()
-      .append('path')
-      .attr("class", function (d) { return "link" })
-      .attr("class", function (d) { return "link " + d.property; })
-      .attr("id", function (d, i) { return "linkId_" + i; })
-      .attr("marker-end", function (d) { return "url(#" + d.property.replace(/\s/g, '') + ")"; }) //removed to allow matching
-      .merge(selection)
-      .attr("d", function (d) {
-        var dx = d.target.x - d.source.x
-        var dy = d.target.y - d.source.y
-        if (d.linknum) {
-          var dr = d.linknum * 150 - 150;
-        }
-        else {
-          var dr = 0
-        }
-
-        return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
-      })
 
 
-
-    selection.exit().remove()
-  }
-
-  linktext() {
-    var selection = d3.select('.linkstext')
-      .selectAll('text')
-      .data(this.props.links)
-
-    selection.enter()
-      .append("text")
-      .on('click', function (d) {
-        //window.location.href = d.id // opens in the same page
-        window.open(d.id)           // opens in a new page
-      })
-      .attr("x", "200")
-      .attr("class", "linklabel")
-      .append("textPath")
-      .attr("xlink:href", function (d, i) { return "#linkId_" + i; })
-      .text(function (d) {
-        var propertyURL = d.property.split('/')
-        propertyURL.splice(0, 3)
-        propertyURL = propertyURL.join('/')
-        console.log('propertyURL: ' + propertyURL)
-        return propertyURL;
-      })
-
-    selection.exit().remove()
-
-  }
-
-  linkmarker() {
-    var selection = d3.select('.defs')
-      .selectAll('marker')
-      .data(this.getAllLinkPropertys())
-
-    selection.enter()
-      .append("marker")
-      .attr("id", String)
-      .attr("viewBox", "0 -5 10 10")
-      .attr("refX", 40) // distance from link
-      .attr("refY", 0) //deviation from link linke
-      .attr("markerWidth", 6)
-      .attr("markerHeight", 6)
-      .attr("orient", "auto")
-      .append("svg:path")
-      .attr("d", "M0,-5L10,0L0,5");
-
-
-    selection.exit().remove()
-  }
-
-  getAllLinkPropertys() {
-
-    var linkpropertys = []
-    this.props.links.forEach(element => {
-      linkpropertys.push(element.property.replace(/\s/g, ''))
-    });
-    return linkpropertys
-  }
-
-  getConNodes() {
-    console.log('conNodes')
-  }
 
   render() {
-    this.links()
-    //this.nodesellipse()
-    //this.nodestext()
-    this.linktext()
-    this.linkmarker()
-
-
-
     return (
       <div id="forcegraph">
         <D3NodeGenerator nodesList={this.props.nodes.nodesList} action={this.rs} ssn={this.ssn}></D3NodeGenerator>
+        <D3LinkGenerator linksList={this.props.links} action={this.rs} ssn={this.ssn}></D3LinkGenerator>
       </div >
     );
   }
