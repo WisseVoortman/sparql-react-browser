@@ -41,12 +41,9 @@ const App = () => (
     <div className="App">
       <ConnectedRouter history={history}>
         <Header />
-        <Container>
-          <PageContent />
-          <ConnectedLoading />
-          <ConnectedError />
-        </Container>
-
+        <PageContent />
+        <ConnectedLoading />
+        <ConnectedError />
         <Footer />
       </ConnectedRouter>
       {/* exclude devtools in production */}

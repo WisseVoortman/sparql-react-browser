@@ -11,11 +11,12 @@ import Home from '../pages/Home'
 import Graph from '../pages/Graph'
 import Contact from '../pages/Contact'
 import Notfound from '../pages/NotFound'
+import { Container } from 'react-bootstrap'
 
 class PageContent extends React.Component {
   render() {
     return (
-      <div className="PageContent">
+      <Container id="PageContent">
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
@@ -27,7 +28,7 @@ class PageContent extends React.Component {
             <Route component={Notfound} />
           </Switch>
         </div>
-      </div>
+      </Container>
     )
   }
 }

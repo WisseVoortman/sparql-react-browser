@@ -1,3 +1,16 @@
+$uricolor: cyan;
+$literalcolor: red;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#forcegraph {
+  height: 800px;
+  background-color: white;
+}
+
 .ellipse {
   fill: cyan;
   stroke: #333;
@@ -5,18 +18,16 @@
 }
 
 .uri {
-  fill: cyan;
+  fill: $uricolor;
 }
 
 .literal {
-  fill: red;
+  fill: $literalcolor;
 }
 
 .faded {
   opacity: 0.3;
 }
-
-
 
 .ellipse_highlight {
   fill: yellow;

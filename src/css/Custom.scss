@@ -1,5 +1,11 @@
 $nodecolor: black; 
 
+$font-stack:    Helvetica, sans-serif;
+
+body{
+    background-color: #ebebeb !important;
+}
+
 path.link {
   fill: none;
   stroke: #666;
@@ -11,13 +17,6 @@ text {
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   fill: #666;
   font-size: 16px;
-}
-
-.active{
-   // color: green;
-   // background-color: red;
-   border-bottom: 3px solid blue;
-   font-weight: bold;
 }
 
 .nav-link{
@@ -47,26 +46,11 @@ text {
    color: black;
 }
 
-.PageContent{
-   padding-top: 50px;
-   min-height: 100vh;
-}
-
-.Footer{
-   background-color: #222222;
-   color: white;
-   text-align: center;
-}
-
 .textarea{
    min-width: 100%;
 
    min-height: 300px;
    background-color: red;
-}
-
-#forcegraph {
-  height: 800px;
 }
 
 div.tooltip {	
@@ -75,6 +59,8 @@ div.tooltip {
     		
   }
 
+  @import '_Layout';
+  @import '_Navigation';
   @import '_responsive';
   @import '_forcegraph';
 

@@ -3,15 +3,15 @@ import {
   NavLink,
 } from 'react-router-dom'
 
-import { Navbar, Nav } from 'react-bootstrap'
+import { Navbar, Nav, Container } from 'react-bootstrap'
 
 //import Logo from '../assets/img/logo.svg'
 
 class Navigation extends React.Component {
   render() {
     return (
-      <div className="Navigation">
-        <Navbar expand="lg" fixed="top">
+      <Navbar id="main-navigation" expand="lg">
+        <Container>
           <Navbar.Brand as={NavLink} activeClassName="notactive" to="/">
             <img
               // src={Logo}
@@ -26,8 +26,8 @@ class Navigation extends React.Component {
             <Nav.Link as={NavLink} activeClassName="active" to="/sparql-react-browser/contact">Contact</Nav.Link>
             <Nav.Link as={NavLink} activeClassName="active" to="/sparql-react-browser/graph/examples">Graph</Nav.Link>
           </Navbar.Collapse>
-        </Navbar>
-      </div>
+        </Container>
+      </Navbar>
     )
   }
 }
