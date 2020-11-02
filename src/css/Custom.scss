@@ -1,3 +1,5 @@
+$nodecolor: black; 
+
 path.link {
   fill: none;
   stroke: #666;
@@ -63,32 +65,6 @@ text {
    background-color: red;
 }
 
-.ellipse {
-  fill: cyan;
-  stroke: #333;
-  stroke-width: 1.5px;
-}
-
-.uri {
-  fill: cyan;
-}
-
-.literal {
-  fill: red;
-}
-
-.faded {
-  opacity: 0.3;
-}
-
-
-
-.ellipse_highlight {
-  fill: yellow;
-  stroke: blue;
-  stroke-width: 2px;
-}
-
 #forcegraph {
   height: 800px;
 }
@@ -98,3 +74,9 @@ div.tooltip {
     text-align: center;			
     		
   }
+
+  @import '_responsive';
+  @import '_forcegraph';
+
+// Bootstrap and its default variables
+@import "node_modules/bootstrap/scss/bootstrap";

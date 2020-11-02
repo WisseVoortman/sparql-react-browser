@@ -4,11 +4,8 @@ import React from 'react';
 import { ConnectedRouter } from 'connected-react-router'
 import { history } from './redux/store/middleware'
 
-//bootstrap stylesheet
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 //custom stylesheet
-import './css/App.scss';
+import './css/Custom.scss';
 
 //devtools
 import DevTools from './containers/DevTools.jsx'
