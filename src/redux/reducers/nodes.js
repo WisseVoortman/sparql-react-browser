@@ -56,19 +56,15 @@ export default function nodeReducer(state = {
       return NewState
     }
     case FETCH_SPARQL_SUCCESS: {
-      console.log(action.result.config.url)
-      //LINK:
-      //[{ source: "John", target: 'Fussbal', property: 'plays' }]
-
-      //NODE
-      //[{ id: 'John' }]
-
       NewState.nodesList = []
 
       //distinct nodes
       var templist = []
 
+      //var names from the result
       var vars = action.result.data.head.vars
+
+
       action.result.data.results.bindings.forEach(element => {
 
         //add subject and object to templist
@@ -85,48 +81,36 @@ export default function nodeReducer(state = {
       return NewState
     }
     case FETCH_SPARQL_ABOUTSUBJECT_SUCCESS: {
-      //LINK:
-      //[{ source: "John", target: 'Fussbal', property: 'plays' }]
-
-      //NODE
-      //[{ id: 'John' }]
 
       NewState.nodesList = []
 
       //distinct nodes
       var templist = []
 
-      //add subject
-      var urlParams = action.result.config.subject.split('/')
-      urlParams.splice(0, 3)
-      urlParams = urlParams.join('/')
-      console.log('urlParam: ' + urlParams)
-
+      // add main subject to nodeslist
       NewState.nodesList.push({ id: action.result.config.subject, type: 'uri' })
 
+      //var names from the result
       var vars = action.result.data.head.vars
-      // console.log(vars)
 
-      // console.log('longurl' + action.result.config.subject)
-      var subjectURL = action.result.config.subject.split('/')
-      // console.log('shorturl ' + subjectURL[2])
-
+      // for each triple
       action.result.data.results.bindings.forEach(element => {
+        console.log('hier: ')
+        console.log(element[action.result.data.head.vars[1]]['xml:lang'])
 
-        //check if property comes from specific url to filter bad nodes
-        var subjectURL = action.result.config.subject.split('/')
-        if (element[vars[0]].value.split('/')[2] === subjectURL[2]) {
-          //add object
+        //check if property comes from the same base URL as the subject
+        if (element[vars[0]].value.split('/')[2] === action.result.config.subject.split('/')[2]) {
+
+          //add targets to nodeslist
           if (!templist.includes(element[vars[1]].value)) {
-            if (element[vars[1]].type === 'uri') {
-              var objParam = element[action.result.data.head.vars[1]].value.split('/')
-              objParam.splice(0, 3)
-              objParam = objParam.join('/')
-              console.log('objParam: ' + objParam)
+
+            //xml lang set
+            if (element[action.result.data.head.vars[1]]['xml:lang'] && (element[action.result.data.head.vars[1]]['xml:lang'] === 'en' || element[action.result.data.head.vars[1]]['xml:lang'] === 'nl')) {
               NewState.nodesList.push({ id: element[action.result.data.head.vars[1]].value, type: element[vars[1]].type })
             }
-            else {
-              NewState.nodesList.push({ id: element[vars[1]].value, type: element[vars[1]].type })
+            //xml lang not set
+            if (!element[action.result.data.head.vars[1]]['xml:lang']) {
+              NewState.nodesList.push({ id: element[action.result.data.head.vars[1]].value, type: element[vars[1]].type })
             }
 
           }

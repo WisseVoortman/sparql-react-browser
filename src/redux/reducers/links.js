@@ -100,10 +100,18 @@ export default function linkReducer(state = [
         link.target = element[action.result.data.head.vars[1]].value
         link.property = element[action.result.data.head.vars[0]].value
 
-        //check if property comes from specific url to filter bad links
-        var subjectURL = action.result.config.subject.split('/')
-        if (element[action.result.data.head.vars[0]].value.split('/')[2] === subjectURL[2]) {
-          NewState.push(link)
+        //check if property comes from the same base URL as the subject
+        if (element[action.result.data.head.vars[0]].value.split('/')[2] === action.result.config.subject.split('/')[2]) {
+
+          // add links to linklist
+          //xml lang set --> used to set language of a literal
+          if (element[action.result.data.head.vars[1]]['xml:lang'] && (element[action.result.data.head.vars[1]]['xml:lang'] === 'en' || element[action.result.data.head.vars[1]]['xml:lang'] === 'nl')) {
+            NewState.push(link)
+          }
+          //xml lang not set
+          if (!element[action.result.data.head.vars[1]]['xml:lang']) {
+            NewState.push(link)
+          }
         }
 
         //sort links by source then target --> sorteert goed.

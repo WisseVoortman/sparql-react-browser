@@ -64,7 +64,7 @@ class D3NodeGenerator extends React.Component {
       .attr("ry", function (d) { return 30 }) //d.id.length
       .attr("class", "ellipse")
       .classed('uri', function (d) { return d.type === 'uri' })
-      .classed('literal', function (d) { return d.type === 'literal' })
+      .classed('literal', function (d) { return d.type === 'literal' || d.type === 'typed-literal' })
       //.style("fill", "#FD8D3C")
       .merge(selection)
       .attr("transform", function (d) {

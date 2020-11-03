@@ -90,11 +90,10 @@ class D3LinkGenerator extends React.Component {
       .append("textPath")
       .attr("xlink:href", function (d, i) { return "#linkId_" + i; })
       .text(function (d) {
-        var propertyURL = d.property.split('/')
-        propertyURL.splice(0, 3)
-        propertyURL = propertyURL.join('/')
-        console.log('propertyURL: ' + propertyURL)
-        return propertyURL;
+        var text = d.property.split('/')
+        text.splice(0, 3)
+        text = text.join('/')
+        return text;
       })
 
     selection.exit().remove()

@@ -37,7 +37,7 @@ class QueryForm extends React.Component {
     var uri = this.state.subject
     const query = 'SELECT * ' +
       'WHERE { <' + uri + '> ?property ?object }' +
-      'limit 20';
+      'limit 200';
     this.props.fetchAboutSubject(query, uri, this.props.datasource.currentDatasource)
 
     event.preventDefault();
