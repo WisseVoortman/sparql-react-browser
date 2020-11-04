@@ -12,6 +12,7 @@ import linkesReducer from './links'
 
 
 import datasourceReducer from './datasource'
+import forcegraphSettingsReducer from './forcegraphSettings'
 
 //utility reducers
 import loadingReducer from './loading'
@@ -24,6 +25,7 @@ const appReducer = (history) => combineReducers({
   nodes: nodesReducer,
   links: linkesReducer,
   datasource: datasourceReducer,
+  forcegraphsettings: forcegraphSettingsReducer,
   loading: loadingReducer,
   error: errorReducer,
   router: connectRouter(history)
