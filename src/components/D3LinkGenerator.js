@@ -85,7 +85,7 @@ class D3LinkGenerator extends React.Component {
         //window.location.href = d.id // opens in the same page
         window.open(d.id)           // opens in a new page
       })
-      .attr("x", "200")
+      .attr("x", (d) => this.props.forcegraphSettings.linkDistance.value / 2)
       .attr("class", "linklabel")
       .append("textPath")
       .attr("xlink:href", function (d, i) { return "#linkId_" + i; })

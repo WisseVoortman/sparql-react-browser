@@ -12,6 +12,7 @@ const mapStateToProps = (state, props) => {
     datasource: state.datasource,
     links: state.links,
     data: state.data,
+    settings: state.forcegraphsettings,
     history: state.router
   }
 }

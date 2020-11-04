@@ -8,7 +8,7 @@ class Slider extends React.Component {
     this.state = {
       linkDistance: {
         min: 0,
-        max: 400,
+        max: 800,
         value: 400,
       },
       forceCharge: {

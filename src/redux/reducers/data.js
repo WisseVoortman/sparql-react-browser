@@ -1,4 +1,4 @@
-import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS } from '../actionTypes'
+import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS, FETCH_ABOUT_CLICKED_NODE_SUCCESS } from '../actionTypes'
 
 export default function dataReducer(state = {
   id: 1,
@@ -16,6 +16,10 @@ export default function dataReducer(state = {
       return NewState
     }
     case FETCH_SPARQL_ABOUTSUBJECT_SUCCESS: {
+      NewState.id = state.id + 1
+      return NewState
+    }
+    case FETCH_ABOUT_CLICKED_NODE_SUCCESS: {
       NewState.id = state.id + 1
       return NewState
     }

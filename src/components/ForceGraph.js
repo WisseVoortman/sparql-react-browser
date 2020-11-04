@@ -32,17 +32,20 @@ class ForceGraph extends React.Component {
     //initial forcegraph
     this.createSVG(element.offsetWidth, element.offsetHeight)
 
-
     //initial forces
-    this.forceLink = d3.forceLink().links(this.props.links).distance(400).id(function (d) { return d.id; })
+    this.forceLink = d3.forceLink()
+      .links(this.props.links)
+      .distance(this.props.settings.linkDistance.value).id(function (d) { return d.id; })
     this.forceCenter = d3.forceCenter((element.offsetWidth * 1) / 2, (element.offsetHeight * 1) / 2)
-    this.forceCharge = d3.forceManyBody().strength(-3000) //defaul -30
+    this.forceCharge = d3.forceManyBody()
+      .strength(this.props.settings.forceCharge.value) //defaul -30
 
     //simulation --> simulation gets updated upon interaction
     this.simulation = d3.forceSimulation(this.props.nodes.nodesList)
       .force('center', this.forceCenter)
       .force('charge', this.forceCharge)
       .force('link', this.forceLink)
+
     this.simulation.on('tick', () => {
       console.log('tick')
       this.setState({
@@ -52,10 +55,6 @@ class ForceGraph extends React.Component {
   }
 
   componentDidUpdate(prevprops) {
-    this.simulation.nodes(this.props.nodes.nodesList) // load new nodes
-    this.simulation.force('link').links(this.props.links) // load new links
-
-
     if (this.props.data.id !== prevprops.data.id) { // check if any data has changed and restart the simulation if so currently based on id in linkreducer
       d3.select('.links').selectAll('path').remove()
       d3.select('.nodesellipse').selectAll('ellipse').remove()
@@ -64,9 +63,27 @@ class ForceGraph extends React.Component {
       d3.select('.defs').selectAll('path').remove()
       d3.select('.tooltips').selectAll('circle').remove()
 
-      console.log('restartSimulation')
+      this.simulation.nodes(this.props.nodes.nodesList) // load new nodes
+      this.simulation.force('link').links(this.props.links) // load new links
       this.restartSimulation()
     }
+
+    if (this.props.settings !== prevprops.settings) {
+      d3.select('.links').selectAll('path').remove()
+      d3.select('.nodesellipse').selectAll('ellipse').remove()
+      d3.select('.nodestext').selectAll('text').remove()
+      d3.select('.linkstext').selectAll('text').remove()
+      d3.select('.defs').selectAll('path').remove()
+      d3.select('.tooltips').selectAll('circle').remove()
+
+      //apply new linkDistance
+      this.simulation.force("link")
+        .distance(this.props.settings.linkDistance.value)
+
+
+      this.restartSimulation()
+    }
+
   }
 
   componentWillUnmount() {
@@ -129,7 +146,7 @@ class ForceGraph extends React.Component {
     return (
       <div id="forcegraph">
         <D3NodeGenerator nodesList={this.props.nodes.nodesList} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></D3NodeGenerator>
-        <D3LinkGenerator linksList={this.props.links} action={this.rs} ssn={this.ssn}></D3LinkGenerator>
+        <D3LinkGenerator linksList={this.props.links} forcegraphSettings={this.props.settings} action={this.rs} ssn={this.ssn}></D3LinkGenerator>
       </div >
     );
   }
