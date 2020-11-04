@@ -12,35 +12,10 @@ class ForceGraph extends React.Component {
       links: props.links
     };
 
-    // dragging
-    this.drag = (simulation) => {
-      const dragstarted = (d) => {
-        d3.select("#forcegraph").selectAll(".tooltip").remove()
-        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-        d.fx = d.x;
-        d.fy = d.y;
-      };
-
-      const dragged = (d) => {
-        d.fx = d3.event.x;
-        d.fy = d3.event.y;
-      };
-
-      const dragended = (d) => {
-        if (!d3.event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
-      };
-
-      return d3
-        .drag()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended)
-    };
-
     this.rs = this.restartSimulation.bind(this)
     this.ssn = this.props.setSelectedNode.bind(this)
+    this.rsn = this.props.removeSelectedNode.bind(this)
+    this.facn = this.props.fetchAboutClickedNode.bind(this)
   }
 
   componentDidMount() {
@@ -153,7 +128,7 @@ class ForceGraph extends React.Component {
   render() {
     return (
       <div id="forcegraph">
-        <D3NodeGenerator nodesList={this.props.nodes.nodesList} action={this.rs} ssn={this.ssn}></D3NodeGenerator>
+        <D3NodeGenerator nodesList={this.props.nodes.nodesList} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></D3NodeGenerator>
         <D3LinkGenerator linksList={this.props.links} action={this.rs} ssn={this.ssn}></D3LinkGenerator>
       </div >
     );

@@ -10,7 +10,7 @@ class D3NodeGenerator extends React.Component {
     this.drag = (simulation) => {
       const dragstarted = (d) => {
         d3.select("#forcegraph").selectAll(".tooltip").remove()
-        this.props.action()
+        this.props.rs()
         d.fx = d.x;
         d.fy = d.y;
       };
@@ -37,7 +37,7 @@ class D3NodeGenerator extends React.Component {
   componentDidMount() {
   }
 
-  render() {
+  renderNodeEllipse() {
     var selection = d3.select('.nodesellipse')
       .selectAll('ellipse')
       .data(this.props.nodesList)             //bind data
@@ -45,11 +45,18 @@ class D3NodeGenerator extends React.Component {
 
     selection.enter()                     //for each row in the data do...
       .append('ellipse')
-      .on('click', () => this.props.ssn('d.id'))
+      .on('click', (d) => {
+        this.props.ssn(d.id)
+        this.props.rsn()
+        if (d.type === 'uri') {
+          this.props.facn(d.id, this.props.datasource)
+        }
+      })
       .on("mouseover", function (d) {
         console.log('mouseover')
         console.log(d)
         console.log(this)
+
       })
       .on("mouseout", function (d) {
         console.log('mouseout')
@@ -72,7 +79,9 @@ class D3NodeGenerator extends React.Component {
       })
 
     selection.exit().remove()
+  }
 
+  renderNodeText() {
     var selection = d3.select('.nodestext')
       .selectAll('text')
       .data(this.props.nodesList)                        //bind data
@@ -162,6 +171,13 @@ class D3NodeGenerator extends React.Component {
     // .attr('dy', function (d) { return 5 })
 
     selection.exit().remove()
+  }
+
+  render() {
+    this.renderNodeEllipse()
+    this.renderNodeText()
+
+
 
     return (
       null

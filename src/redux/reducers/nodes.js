@@ -1,5 +1,5 @@
 import { SET_SELECTED_NODE, REMOVE_SELECTED_NODE } from '../actionTypes'
-import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS } from '../actionTypes'
+import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS, FETCH_ABOUT_CLICKED_NODE_SUCCESS } from '../actionTypes'
 
 export default function nodeReducer(state = {
   selectedNode: null,
@@ -118,6 +118,40 @@ export default function nodeReducer(state = {
         }
       })
       return NewState
+    }
+    case FETCH_ABOUT_CLICKED_NODE_SUCCESS: {
+      NewState.nodesList = state.nodesList
+
+      //distinct nodes
+      var templist = []
+
+      //var names from the result
+      var vars = action.result.data.head.vars
+
+      // for each triple
+      action.result.data.results.bindings.forEach(element => {
+
+        //check if property comes from the same base URL as the subject
+        if (element[vars[0]].value.split('/')[2] === action.result.config.subject.split('/')[2]) {
+
+          //add targets to nodeslist
+          if (!templist.includes(element[vars[1]].value)) {
+
+            //xml lang set
+            if (element[action.result.data.head.vars[1]]['xml:lang'] && (element[action.result.data.head.vars[1]]['xml:lang'] === 'en' || element[action.result.data.head.vars[1]]['xml:lang'] === 'nl')) {
+              NewState.nodesList.push({ id: element[action.result.data.head.vars[1]].value, type: element[vars[1]].type })
+            }
+            //xml lang not set
+            if (!element[action.result.data.head.vars[1]]['xml:lang']) {
+              NewState.nodesList.push({ id: element[action.result.data.head.vars[1]].value, type: element[vars[1]].type })
+            }
+
+          }
+          templist.push(element[vars[1]].value)
+        }
+      })
+      return NewState
+
     }
     default:
       return state
