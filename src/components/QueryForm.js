@@ -1,6 +1,7 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Gui from './Yasgui'
 
 class QueryForm extends React.Component {
   constructor(props) {
@@ -70,7 +71,7 @@ class QueryForm extends React.Component {
             <Button variant="primary" type="submit">Submit</Button>
           </Form>
         </div>
-
+        <Gui></Gui>
       </div >
     )
   }
