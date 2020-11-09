@@ -2,8 +2,6 @@ $nodecolor: black;
 
 $font-stack:    Helvetica, sans-serif;
 
-$enable-rounded:   false;
-
 body{
     background-color: #ebebeb !important;
 }
@@ -61,6 +59,7 @@ div.tooltip {
     		
   }
 
+  @import '_yasgui';
   @import '_Layout';
   @import '_Navigation';
   @import '_responsive';

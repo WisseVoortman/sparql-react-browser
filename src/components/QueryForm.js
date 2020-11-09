@@ -71,7 +71,6 @@ class QueryForm extends React.Component {
             <Button variant="primary" type="submit">Submit</Button>
           </Form>
         </div>
-        <Gui></Gui>
       </div >
     )
   }
