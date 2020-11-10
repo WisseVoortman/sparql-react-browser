@@ -34,7 +34,7 @@ export const fetchSparql = (query, datasource) => thunkCreator({
   // .catch(error => { console.log(error) })
 })
 
-export const fetchAboutSubject = (query, subject, datasource) => thunkCreator({
+export const fetchAboutSubject = (query, datasource) => thunkCreator({
   types: [FETCH_SPARQL_ABOUTSUBJECT_REQUEST, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_FAILURE],
   promise: axios({
     method: 'post',
@@ -48,7 +48,7 @@ export const fetchAboutSubject = (query, subject, datasource) => thunkCreator({
     headers: {
       Accept: 'application/sparql-results+json'
     },
-    subject: subject
+    subject: query.substring(query.lastIndexOf("<") + 1, query.lastIndexOf(">")) // get the subject from the querystring
 
   })
   //  .then(response => console.log(response))

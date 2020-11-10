@@ -16,7 +16,6 @@ import ConnectedForceGraph from '../containers/ConnectedForceGraph';
 import ConnectedQueryForm from '../containers/ConnectedQueryForm'
 import ConnectedDataSource from '../containers/ConnectedDataSource'
 import ConnectedExamples from '../containers/ConnectedExamples';
-import Yasgui from '../components/Yasgui'
 
 class Graph extends React.Component {
   render() {
@@ -31,9 +30,6 @@ class Graph extends React.Component {
           <Nav.Item>
             <Nav.Link as={NavLink} activeClassName="active" to="/sparql-react-browser/graph/queryform">Queryform</Nav.Link>
           </Nav.Item>
-          <Nav.Item>
-            <Nav.Link as={NavLink} activeClassName="active" to="/sparql-react-browser/graph/yasgui">Yasgui</Nav.Link>
-          </Nav.Item>
         </Nav>
 
         <ConnectedDataSource />
@@ -41,7 +37,6 @@ class Graph extends React.Component {
         <Switch>
           <Route exact path={`${this.props.match.path}/examples`} component={ConnectedExamples} />
           <Route exact path={`${this.props.match.path}/queryform`} component={ConnectedQueryForm} />
-          <Route exact path={`${this.props.match.path}/yasgui`} component={Yasgui} />
         </Switch>
 
 
