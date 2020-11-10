@@ -52,10 +52,10 @@ class DataSourceDropdown extends React.Component {
     return (
       <div id="Datasource">
         <Row>
-          <Col sm={3}>
+          <Col sm={4}>
             <Button className="w-100" onClick={() => this.props.toggleSearchAll()}>Doorzoek alle bronnen: {this.props.datasource.searchAll}</Button>
           </Col>
-          <Col sm={9}>
+          <Col sm={8}>
             {renderDatasourceDropdown()}
           </Col>
         </Row>
