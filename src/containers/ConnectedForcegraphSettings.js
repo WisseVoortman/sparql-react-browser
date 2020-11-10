@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import Slider from '../components/Slider'
+import ForcegraphSettings from '../components/forcegraphSettings'
 
 import { setForcegraphSettings } from '../redux/actions/forcegraphSettings'
 
@@ -16,6 +16,6 @@ const mapDispatchToProps = (dispatch, props) =>
     setForcegraphSettings,
   }, dispatch)
 
-const ConnectedSlider = connect(mapStateToProps, mapDispatchToProps)(Slider)
+const ConnectedSlider = connect(mapStateToProps, mapDispatchToProps)(ForcegraphSettings)
 
 export default ConnectedSlider

@@ -1,6 +1,10 @@
 import * as d3 from 'd3'
 import React from 'react'
 
+import { Row, Col, } from 'react-bootstrap'
+
+import ConnectedForcegraphSettings from '../containers/ConnectedForcegraphSettings'
+
 import D3NodeGenerator from './D3NodeGenerator'
 import D3LinkGenerator from './D3LinkGenerator'
 
@@ -144,10 +148,18 @@ class ForceGraph extends React.Component {
 
   render() {
     return (
-      <div id="forcegraph">
-        <D3NodeGenerator nodesList={this.props.nodes.nodesList} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></D3NodeGenerator>
-        <D3LinkGenerator linksList={this.props.links} forcegraphSettings={this.props.settings} action={this.rs} ssn={this.ssn}></D3LinkGenerator>
-      </div >
+      <Row>
+        <Col sm={2}>
+          <ConnectedForcegraphSettings />
+        </Col>
+        <Col>
+          <div id="forcegraph">
+            <D3NodeGenerator nodesList={this.props.nodes.nodesList} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></D3NodeGenerator>
+            <D3LinkGenerator linksList={this.props.links} forcegraphSettings={this.props.settings} action={this.rs} ssn={this.ssn}></D3LinkGenerator>
+          </div >
+        </Col>
+      </Row>
+
     );
   }
 }
