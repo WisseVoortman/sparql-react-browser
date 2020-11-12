@@ -19,19 +19,19 @@ class Gui extends React.Component {
       requestConfig: { endpoint: "https://lod.onderwijsregistratie.nl/rio/sparql" }, // this is not used
       persistencyExpire: 0,
       copyEndpointOnNewTab: false,
+      persistentConfig: {
+        storageId: "yagui__config" + this.props.prop
+      }
+
     })
 
-    // Fires when a query is executed
-    this.yasgui.on("query", (instance: Yasgui, tab: Tab) => { console.log(tab) });
+    this.yasgui.on("tabChange", (instance: Yasgui, tab: Tab) => {
+      console.log('the tab has changed')
+      var selectedtab = this.yasgui.tabElements._selectedTab
+      //this.yasgui._tabs[selectedtab].yasqe.on("change", () => { console.log('ok man') });
+    });
 
-    // Get query value from editor
-    console.log(this.yasgui)
-    console.log('value', this.yasgui.config.yasqe.getValue)
-
-    var selectedtab = this.yasgui.tabElements._selectedTab
-    console.log(selectedtab)
-    console.log('tabValue', this.yasgui._tabs[selectedtab].yasqe.config.value)
-    console.log(this.yasgui.config.yasqe)
+    console.log(this)
   }
 
   submitquery() {
