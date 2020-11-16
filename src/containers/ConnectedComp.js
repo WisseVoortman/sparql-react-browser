@@ -9,7 +9,6 @@ const mapStateToProps = (state, props) => {
   return {
     nodes: state.nodes,
     datasource: state.datasource,
-    classes: state.classes
   }
 }
 
