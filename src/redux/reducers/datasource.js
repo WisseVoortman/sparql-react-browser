@@ -1,4 +1,8 @@
-import { SET_CURRENT_DATASOURCE, TOGGLE_SEARCHALL, TOGGLE_BLOCK_DATASOURCE, DELETE_DATASOURCE, ADD_DATASOURCE, FETCH_CLASSES_SUCCESS } from '../actionTypes';
+import {
+  SET_CURRENT_DATASOURCE, TOGGLE_SEARCHALL, TOGGLE_BLOCK_DATASOURCE, DELETE_DATASOURCE, ADD_DATASOURCE,
+  FETCH_CLASSES_SUCCESS, FETCH_INSTANCES_OF_CLASS_SUCCESS,
+  SET_SELECTED_CLASS, SET_SELECTED_INSTANCE
+} from '../actionTypes';
 
 
 export default function datasourceReducer(state = {
@@ -41,7 +45,10 @@ export default function datasourceReducer(state = {
       active: true,
     },
   ],
-  classes: []
+  classes: [],
+  selectedClass: '',
+  instances: [],
+  selectedInstance: '',
 }, action) {
   let newState = Object.assign({}, state);
   switch (action.type) {
@@ -83,6 +90,18 @@ export default function datasourceReducer(state = {
     }
     case FETCH_CLASSES_SUCCESS: {
       newState.classes = action.result.data.results.bindings
+      return newState
+    }
+    case SET_SELECTED_CLASS: {
+      newState.selectedClass = action.myclass
+      return newState
+    }
+    case SET_SELECTED_INSTANCE: {
+      newState.selectedInstance = action.instance
+      return newState
+    }
+    case FETCH_INSTANCES_OF_CLASS_SUCCESS: {
+      newState.instances = action.result.data.results.bindings
       return newState
     }
 

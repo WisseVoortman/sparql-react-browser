@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 
 import Comp from '../components/Comp'
 
-import { fetchClasses, toggleSearchAll } from '../redux/actions/index'
+import { fetchClasses, fetchInstances, setSelectedClass, setSelectedInstance } from '../redux/actions/index'
 
 const mapStateToProps = (state, props) => {
   return {
@@ -15,7 +15,9 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, props, state) =>
   bindActionCreators({
     fetchClasses,
-    toggleSearchAll,
+    fetchInstances,
+    setSelectedClass,
+    setSelectedInstance,
   }, dispatch)
 
 const ConnectedComp = connect(mapStateToProps, mapDispatchToProps)(Comp)

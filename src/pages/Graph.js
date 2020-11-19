@@ -16,6 +16,7 @@ import ConnectedForceGraph from '../containers/ConnectedForceGraph';
 import ConnectedQueryForm from '../containers/ConnectedQueryForm'
 import ConnectedDataSource from '../containers/ConnectedDataSource'
 import ConnectedExamples from '../containers/ConnectedExamples';
+import ConnectedComp from '../containers/ConnectedComp';
 
 class Graph extends React.Component {
   render() {
@@ -23,6 +24,7 @@ class Graph extends React.Component {
     return (
       <div className="Graph">
         <h2>Graph</h2>
+        <ConnectedComp></ConnectedComp>
         <Nav fill variant="tabs" defaultActiveKey="/sparql-react-browser/graph/examples">
           <Nav.Item>
             <Nav.Link as={NavLink} activeClassName="active" to="/sparql-react-browser/graph/examples">Voorbeelden</Nav.Link>
