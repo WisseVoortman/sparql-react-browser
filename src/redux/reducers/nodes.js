@@ -123,8 +123,7 @@ export default function nodeReducer(state = {
       NewState.nodesList = state.nodesList
 
       //distinct nodes
-      var templist = []
-
+      
       //var names from the result
       var vars = action.result.data.head.vars
 
@@ -134,8 +133,13 @@ export default function nodeReducer(state = {
         //check if property comes from the same base URL as the subject
         if (element[vars[0]].value.split('/')[2] === action.result.config.subject.split('/')[2]) {
 
+
+
+
           //add targets to nodeslist
-          if (!templist.includes(element[vars[1]].value)) {
+          const contains = (node) => node.id === element[action.result.data.head.vars[1]].value
+          if (!NewState.nodesList.some(contains)) {
+            console.log('didnotcontain')
 
             //xml lang set
             if (element[action.result.data.head.vars[1]]['xml:lang'] && (element[action.result.data.head.vars[1]]['xml:lang'] === 'en' || element[action.result.data.head.vars[1]]['xml:lang'] === 'nl')) {
@@ -147,7 +151,6 @@ export default function nodeReducer(state = {
             }
 
           }
-          templist.push(element[vars[1]].value)
         }
       })
       return NewState
