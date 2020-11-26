@@ -1,0 +1,16 @@
+.SearchForm:focus-within {
+  min-width: 500px;
+  position: relative;
+  z-index: 4000;
+}
+
+.SearchForm:hover {
+  min-width: 500px;
+  position: relative;
+  z-index: 4000;
+}
+
+.active {
+  color: white;
+  background-color: #007bff;
+}

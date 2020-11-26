@@ -1,9 +1,9 @@
-$nodecolor: black; 
+$nodecolor: black;
 
-$font-stack:    Helvetica, sans-serif;
+$font-stack: Helvetica, sans-serif;
 
-body{
-    background-color: #ebebeb !important;
+body {
+  background-color: #ebebeb !important;
 }
 
 path.link {
@@ -19,51 +19,49 @@ text {
   font-size: 16px;
 }
 
-.nav-link{
-   
+.nav-link {
 }
 
-.navbar-toggler{
-   border-bottom: none;
+.navbar-toggler {
+  border-bottom: none;
 }
-  
+
 .nav-link:hover {
   border-bottom: 3px solid ligh;
   //font-weight: bold;
 }
 
-.navbar{
-   padding-left: 5%;
-   padding-right: 5%;
-   padding-top: 0px;
-   padding-bottom: 0px;
-   background-color: white;
-   box-shadow: 0 0 15px ;   
+.navbar {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: white;
+  box-shadow: 0 0 15px;
 }
 
-.dropdown-item.active{
-   background-color: white;
-   color: black;
+.dropdown-item.active {
+  background-color: white;
+  color: black;
 }
 
-.textarea{
-   min-width: 100%;
+.textarea {
+  min-width: 100%;
 
-   min-height: 300px;
-   background-color: red;
+  min-height: 300px;
+  background-color: red;
 }
 
-div.tooltip {	
-    position: absolute;			
-    text-align: center;			
-    		
-  }
+div.tooltip {
+  position: absolute;
+  text-align: center;
+}
 
-  @import '_yasgui';
-  @import '_Layout';
-  @import '_Navigation';
-  @import '_responsive';
-  @import '_forcegraph';
+@import "_yasgui";
+@import "_Layout";
+@import "_Navigation";
+@import "_responsive";
+@import "_forcegraph";
 
 // Bootstrap and its default variables
 @import "node_modules/bootstrap/scss/bootstrap";

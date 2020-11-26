@@ -27,7 +27,7 @@ class Example extends React.Component {
           </Card>
           <Card>
             <Card.Body>
-              <Card.Title>Extra gevens opvragen  2</Card.Title>
+              <Card.Title>Extra gevens opvragen </Card.Title>
               <Card.Text>
                 Een blauwe node representeerd een uri, door hierop te klikken kan extra informatie over deze uri worden opgevraagd en toegeveogd aan de visualisatie.</Card.Text>
             </Card.Body>
@@ -39,9 +39,9 @@ class Example extends React.Component {
           </Card>
           <Card>
             <Card.Body>
-              <Card.Title>Voorbeeld 3</Card.Title>
+              <Card.Title>zoeken op basis van text input</Card.Title>
               <Card.Text>
-                Dit voorbeeld laat zien hoe de applicatie een persoon visualiseerd met de bijbehorende relevante adressen</Card.Text>
+                Dit voorbeeld laat zien hoe je in de applicatie kunt zoeken naar bepaalde klasses.</Card.Text>
             </Card.Body>
             <Card.Footer>
               <Button onClick={() => this.props.fetchTest()}>Bekijk voorbeeld</Button>

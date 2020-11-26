@@ -5,6 +5,7 @@ import { Row, Col, } from 'react-bootstrap'
 
 import ConnectedForcegraphSettings from '../containers/ConnectedForcegraphSettings'
 import ConnectedDataSource from '../containers/ConnectedDataSource'
+import ConnectedSearch from  '../containers/ConnectedSearch'
 
 import D3NodeGenerator from './D3NodeGenerator'
 import D3LinkGenerator from './D3LinkGenerator'
@@ -160,6 +161,7 @@ class ForceGraph extends React.Component {
         <Row>
           <Col sm={2}>
             <ConnectedForcegraphSettings />
+            <ConnectedSearch></ConnectedSearch>
           </Col>
           <Col>
             <div id="forcegraph">
