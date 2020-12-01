@@ -12,22 +12,32 @@ class Link extends React.Component {
 
   componentDidUpdate() {
     this.d3Link.datum(this.props.data)
-      .call(this.updateLink);
+      .call(this.enterLink);
   }
 
   enterLink = (selection) => {
-    selection.attr("stroke-width", (d) => d.size);
-  };
+    selection
+    .attr("class", function (d) { return "link" })
+      .attr("class", function (d) { return "link " + d.property; })
+      .attr("id", function (d, i) { return "linkId_" + i; })
+      .attr("marker-end", function (d) { return "url(#black-arrow)"; }) //removed to allow matching
+      .merge(selection)
+      .attr("d", function (d) {
+        var dx = d.target.x - d.source.x
+        var dy = d.target.y - d.source.y
+        if (d.linknum) {
+          var dr = d.linknum * 150 - 150;
+        }
+        else {
+          var dr = 0
+        }
 
-  updateLink = (selection) => {
-    selection.attr("x1", (d) => d.source.x)
-      .attr("y1", (d) => d.source.y)
-      .attr("x2", (d) => d.target.x)
-      .attr("y2", (d) => d.target.y);
+        return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+      })
   };
 
   render() {
-    return (<line className='link' />);
+    return (<path className='link' marker-end="url(#black-arrow)"/>);
   }
 }
 

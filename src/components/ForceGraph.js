@@ -1,6 +1,13 @@
 import * as d3 from 'd3'
 import React from 'react'
 
+import Node from './Node'
+import NodeLabel from './NodeLabel'
+import Link from './Link'
+import LinkLabel from './LinkLabel'
+import Marker from './Marker'
+
+
 import { Row, Col, } from 'react-bootstrap'
 
 import ConnectedForcegraphSettings from '../containers/ConnectedForcegraphSettings'
@@ -30,13 +37,12 @@ class ForceGraph extends React.Component {
 
     // Redraw based on the new size whenever the browser window is resized.
     window.addEventListener("resize", () => {
-      this.removeSVG()
-      this.createSVG(element.offsetWidth, element.offsetHeight)
+      this.initializeSVG(element.offsetWidth, element.offsetHeight)
       this.restartSimulation()
     });
 
     //initial forcegraph
-    this.createSVG(element.offsetWidth, element.offsetHeight)
+    this.initializeSVG(element.offsetWidth, element.offsetHeight)
 
     //initial forces
     this.forceLink = d3.forceLink()
@@ -61,31 +67,18 @@ class ForceGraph extends React.Component {
   }
 
   componentDidUpdate(prevprops) {
-    if (this.props.data.id !== prevprops.data.id) { // check if any data has changed and restart the simulation if so currently based on id in linkreducer
-      d3.select('.links').selectAll('path').remove()
-      d3.select('.nodesellipse').selectAll('ellipse').remove()
-      d3.select('.nodestext').selectAll('text').remove()
-      d3.select('.linkstext').selectAll('text').remove()
-      d3.select('.defs').selectAll('path').remove()
-      d3.select('.tooltips').selectAll('circle').remove()
-
+    if (this.props.data.id !== prevprops.data.id) { // check if any data has changed and restart the simulation with new nodes and links
+      
       this.simulation.nodes(this.props.nodes.nodesList) // load new nodes
       this.simulation.force('link').links(this.props.links) // load new links
       this.restartSimulation()
     }
 
-    if (this.props.settings !== prevprops.settings) {
-      d3.select('.links').selectAll('path').remove()
-      d3.select('.nodesellipse').selectAll('ellipse').remove()
-      d3.select('.nodestext').selectAll('text').remove()
-      d3.select('.linkstext').selectAll('text').remove()
-      d3.select('.defs').selectAll('path').remove()
-      d3.select('.tooltips').selectAll('circle').remove()
-
+    if (this.props.settings !== prevprops.settings) { // check if settings have changed
+      
       //apply new linkDistance
       this.simulation.force("link")
         .distance(this.props.settings.linkDistance.value)
-
 
       this.restartSimulation()
     }
@@ -96,27 +89,18 @@ class ForceGraph extends React.Component {
     this.simulation.stop();
   }
 
-  createSVG(width, height) {
-    console.log('createsvg')
-
+  initializeSVG(width, height) {
     var zoom = d3.zoom()
       .scaleExtent([.5, 10])
       .on("zoom", zoomed);
 
-    var svg = d3.select("#forcegraph")
-      .append("svg")
+    var svg = d3.select("#forcegraph").select("svg")
       .attr("class", "forcegraph")
       .style("width", width * 1)   // set size of svg in relation to parent
       .style("height", height * 1) // set size of svg in relation to parent
       .style("border", "1px solid black")
-      .call(zoom).append("g")
-    svg.append("g").attr("class", "links")
-    svg.append("g").attr("class", "nodesellipse")
-    svg.append("g").attr("class", "nodestext")
-    svg.append("g").attr("class", "linkstext")
-    svg.append("defs").attr("class", "defs")
-    svg.append("g").attr("class", "tooltips")
-
+      .call(zoom).select("g").attr("transform", "")
+    
     function zoomed() {
       const currentTransform = d3.event.transform;
       svg.attr("transform", currentTransform);
@@ -137,16 +121,10 @@ class ForceGraph extends React.Component {
     //   .on("input", slided);
   }
 
-  removeSVG() {
-    d3.select('#forcegraph').selectAll('svg').remove()
-  }
 
   restartSimulation() {
     this.simulation.alpha(1).restart()
   }
-
-
-
 
   render() {
     return (
@@ -165,8 +143,26 @@ class ForceGraph extends React.Component {
           </Col>
           <Col>
             <div id="forcegraph">
-              <D3NodeGenerator nodesList={this.props.nodes.nodesList} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></D3NodeGenerator>
-              <D3LinkGenerator linksList={this.props.links} forcegraphSettings={this.props.settings} action={this.rs} ssn={this.ssn}></D3LinkGenerator>
+              <svg>
+                  <g class="zoom">
+                      <g class="links">
+                        {this.props.links.map((link, index) => <Link data={link} key={index}></Link>)}
+                      </g>
+                      <g class="nodesellipse">
+                        {this.props.nodes.nodesList.map((node, index) => <Node data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></Node>)}
+                      </g>
+                      <g class="nodestext">
+                        {this.props.nodes.nodesList.map((node, index) => <NodeLabel data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></NodeLabel>)}
+                      </g>
+                      <g class="linkstext">
+                        {this.props.links.map((link, index) => <LinkLabel data={link} key={index} forcegraphSettings={this.props.settings}></LinkLabel>)}
+                      </g>
+                      <g class="defs">
+                        <Marker linksList={this.props.links}/>
+                      </g>
+                  </g>
+              </svg>
+              
             </div >
           </Col>
         </Row>
@@ -176,17 +172,7 @@ class ForceGraph extends React.Component {
   }
 }
 
-ForceGraph.defaultProps = {
-  width: 600,
-  height: 600,
-  forceStrength: -10
-};
-
 export default ForceGraph
 
-/*
-can dispatch actions from child component
-
-try passing drag in the same way
-d3 select .call in react component maybe?
-*/
+{/* <D3NodeGenerator nodesList={this.props.nodes.nodesList} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></D3NodeGenerator>
+              <D3LinkGenerator linksList={this.props.links} forcegraphSettings={this.props.settings} action={this.rs} ssn={this.ssn}></D3LinkGenerator> */}

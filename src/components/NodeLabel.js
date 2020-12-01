@@ -2,9 +2,7 @@ import * as d3 from 'd3'
 import React from 'react'
 import ReactDOM from 'react-dom';
 
-import { setSelectedNode, removeSelectedNode, fetchAboutClickedNode } from '../redux/actions/index'
-
-class Node extends React.Component {
+class NodeLabel extends React.Component {
   constructor() {
     super()
 
@@ -40,24 +38,17 @@ class Node extends React.Component {
   componentDidMount() {
     this.d3Node = d3.select(ReactDOM.findDOMNode(this))
       .datum(this.props.data)
-      .call(this.enterNode);
+      .call(this.enterNodeLabel);
   }
 
   componentDidUpdate() {
     this.d3Node.datum(this.props.data)
-      .call(this.enterNode);
+      .call(this.enterNodeLabel);
   }
 
-  enterNode = (selection) => {
-    selection
-      .on('click', (d) => {
-        console.log('igotclicked')
-        this.props.ssn(d.id)
-        this.props.rsn()
-        if (d.type === 'uri') {
-          this.props.facn(d.id, this.props.datasource)
-        }
-        
+  enterNodeLabel = (selection) => {
+    selection.select('text')
+      .on('click', function (d) {
       })
       .on("mouseover", function (d) {
         console.log('mouseover')
@@ -71,25 +62,37 @@ class Node extends React.Component {
       .on("mouseup", function (d) {
         console.log('mouseup')
       })
-      .attr("rx", function (d) { return 30 }) //d.id.length
-      .attr("ry", function (d) { return 30 }) //d.id.length
-      .attr("transform", (d) => "translate(" + d.x + "," + d.y + ")")
-      .attr("class", "ellipse")
-      .classed('uri', function (d) { return d.type === 'uri' })
-      .classed('literal', function (d) { return d.type === 'literal' || d.type === 'typed-literal' })
-      .call(this.drag(this.simulation))
-
+      .text(function (d) {
+        if (d.type === 'uri') {
+          var nodeURL = d.id.split('/')
+          nodeURL.splice(0, 3)
+          nodeURL = nodeURL.join('/')
+          console.log('nodeURL: ' + nodeURL)
+          return nodeURL;
+        }
+        return d.id;
+      })
+      .merge(selection)
+      .attr("transform", function (d) {
+        return "translate(" + d.x + "," + d.y + ")";
+      });
+    // 2nd way of doing it
+    // .attr('x', function (d) { return d.x })
+    // .attr('y', function (d) { return d.y })
+    // .attr('dy', function (d) { return 5 })
 
   };
 
   render() {
     return (
-        <ellipse className='ellipse' />
+      <g>
+        <text/>
+      </g>
     );
   }
 };
 
-export default Node
+export default NodeLabel
 
 // {
 //   <svg width='1110' height='800'>
