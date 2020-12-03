@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 
 import { setSelectedNode, removeSelectedNode, fetchAboutClickedNode } from '../redux/actions/index'
 
+import ConnectedTooltip from '../containers/ConnectedTooltip'
+
 class Node extends React.Component {
   constructor() {
     super()
@@ -49,11 +51,11 @@ class Node extends React.Component {
   }
 
   enterNode = (selection) => {
-    selection
+    selection.select("ellipse")
       .on('click', (d) => {
         console.log('igotclicked')
-        this.props.ssn(d.id)
-        this.props.rsn()
+        this.props.ssn(d)
+        //this.props.rsn()
         if (d.type === 'uri') {
           this.props.facn(d.id, this.props.datasource)
         }
@@ -84,7 +86,10 @@ class Node extends React.Component {
 
   render() {
     return (
+      <g>
         <ellipse className='ellipse' />
+        <ConnectedTooltip />
+      </g>
     );
   }
 };

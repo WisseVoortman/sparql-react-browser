@@ -7,6 +7,8 @@ import Link from './Link'
 import LinkLabel from './LinkLabel'
 import Marker from './Marker'
 
+import ConnectedTooltip from '../containers/ConnectedTooltip'
+
 
 import { Row, Col, } from 'react-bootstrap'
 
@@ -144,7 +146,7 @@ class ForceGraph extends React.Component {
           <Col>
             <div id="forcegraph">
               <svg>
-                  <g class="zoom">
+                  <g class="zoom"> 
                       <g class="links">
                         {this.props.links.map((link, index) => <Link data={link} key={index}></Link>)}
                       </g>
@@ -160,6 +162,10 @@ class ForceGraph extends React.Component {
                       <g class="defs">
                         <Marker linksList={this.props.links}/>
                       </g>
+                      <g class="tt">
+                        <ConnectedTooltip/>
+                      </g>
+                      
                   </g>
               </svg>
               
