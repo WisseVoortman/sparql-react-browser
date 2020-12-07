@@ -61,11 +61,13 @@ class Node extends React.Component {
         }
         
       })
-      .on("mouseover", function (d) {
+      .on("mouseover", (d) => {
         console.log('mouseover')
+        //this.props.ssn(d)
       })
-      .on("mouseout", function (d) {
+      .on("mouseout", (d) => {
         console.log('mouseout')
+        //this.props.rsn()
       })
       .on("mousedown", function (d) {
         console.log('mousedown')
@@ -79,6 +81,24 @@ class Node extends React.Component {
       .attr("class", "ellipse")
       .classed('uri', function (d) { return d.type === 'uri' })
       .classed('literal', function (d) { return d.type === 'literal' || d.type === 'typed-literal' })
+      .classed('selected', (d) => { return d.id === this.props.selectedNode.id})
+      .classed('faded', (d) =>  {return this.props.selectedNode})
+      .classed('ellipse_highlight', (d) => {
+        // check if there is a direct link between this node and the selectedNode
+        var nodeIsConnected = (link) => {
+          if((link.source.id === d.id || link.target.id === d.id) && (link.source.id === this.props.selectedNode.id || link.target.id === this.props.selectedNode.id) ){
+            return true
+          }
+          else {
+            return false
+          }  
+        }
+        
+        var found = this.props.linksList.find(nodeIsConnected);
+        if(found){
+          return true
+        }
+      })
       .call(this.drag(this.simulation))
 
 

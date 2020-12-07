@@ -6,12 +6,6 @@ body {
   background-color: #ebebeb !important;
 }
 
-path.link {
-  fill: none;
-  stroke: #666;
-  stroke-width: 1.5px;
-}
-
 text {
   text-anchor: middle;
   font-family: "Helvetica Neue", Helvetica, sans-serif;
@@ -57,6 +51,8 @@ div.tooltip {
   text-align: center;
 }
 
+@import "_Node";
+@import "_Link";
 @import "_yasgui";
 @import "_Layout";
 @import "_Navigation";

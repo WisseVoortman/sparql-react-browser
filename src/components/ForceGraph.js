@@ -148,16 +148,16 @@ class ForceGraph extends React.Component {
               <svg>
                   <g class="zoom"> 
                       <g class="links">
-                        {this.props.links.map((link, index) => <Link data={link} key={index}></Link>)}
+                        {this.props.links.map((link, index) => <Link data={link} key={index} selectedNode={this.props.nodes.selectedNode}></Link>)}
                       </g>
                       <g class="nodesellipse">
-                        {this.props.nodes.nodesList.map((node, index) => <Node data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></Node>)}
+                        {this.props.nodes.nodesList.map((node, index) => <Node data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn} selectedNode={this.props.nodes.selectedNode} linksList={this.props.links} ></Node>)}
                       </g>
                       <g class="nodestext">
                         {this.props.nodes.nodesList.map((node, index) => <NodeLabel data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></NodeLabel>)}
                       </g>
                       <g class="linkstext">
-                        {this.props.links.map((link, index) => <LinkLabel data={link} key={index} forcegraphSettings={this.props.settings}></LinkLabel>)}
+                        {this.props.links.map((link, index) => <LinkLabel data={link} key={index}></LinkLabel>)}
                       </g>
                       <g class="defs">
                         <Marker linksList={this.props.links}/>

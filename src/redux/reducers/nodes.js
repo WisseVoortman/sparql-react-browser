@@ -2,7 +2,7 @@ import { SET_SELECTED_NODE, REMOVE_SELECTED_NODE } from '../actionTypes'
 import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS, FETCH_ABOUT_CLICKED_NODE_SUCCESS } from '../actionTypes'
 
 export default function nodeReducer(state = {
-  selectedNode: null,
+  selectedNode: "",
   nodesList: [
     { id: 'Subject', type: 'literal' },
     { id: 'Object', type: 'literal' },
@@ -16,7 +16,7 @@ export default function nodeReducer(state = {
       return NewState
     }
     case REMOVE_SELECTED_NODE: {
-      NewState.selectedNode = null
+      NewState.selectedNode = ""
       return NewState
     }
 
@@ -132,9 +132,6 @@ export default function nodeReducer(state = {
 
         //check if property comes from the same base URL as the subject
         if (element[vars[0]].value.split('/')[2] === action.result.config.subject.split('/')[2]) {
-
-
-
 
           //add targets to nodeslist
           const contains = (node) => node.id === element[action.result.data.head.vars[1]].value

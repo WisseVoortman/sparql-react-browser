@@ -10,28 +10,3 @@ $literalcolor: red;
   height: 800px;
   background-color: white;
 }
-
-.ellipse {
-  fill: cyan;
-  stroke: #333;
-  stroke-width: 1.5px;
-  background-color: blue;
-}
-
-.uri {
-  fill: $uricolor;
-}
-
-.literal {
-  fill: $literalcolor;
-}
-
-.faded {
-  opacity: 0.3;
-}
-
-.ellipse_highlight {
-  fill: yellow;
-  stroke: blue;
-  stroke-width: 2px;
-}
