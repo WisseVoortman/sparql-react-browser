@@ -7,9 +7,8 @@ class NodeLabel extends React.Component {
     super()
 
     // dragging
-    this.drag = (simulation) => {
+    this.drag = () => {
       const dragstarted = (d) => {
-        d3.select("#forcegraph").selectAll(".tooltip").remove()
         this.props.rs()
         d.fx = d.x;
         d.fy = d.y;
@@ -21,7 +20,6 @@ class NodeLabel extends React.Component {
       };
 
       const dragended = (d) => {
-        //if (!d3.event.active) simulation.alphaTarget(0);
         d.fx = null;
         d.fy = null;
       };
@@ -82,7 +80,7 @@ class NodeLabel extends React.Component {
     // .attr('x', function (d) { return d.x })
     // .attr('y', function (d) { return d.y })
     // .attr('dy', function (d) { return 5 })
-    .call(this.drag(this.simulation))
+    .call(this.drag())
 
   };
 
@@ -96,10 +94,3 @@ class NodeLabel extends React.Component {
 };
 
 export default NodeLabel
-
-// {
-//   <svg width='1110' height='800'>
-//   {this.props.nodes.nodesList.map((node, index) => <Node data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></Node>)}
-//   {this.props.links.map((link, index) => <Link data={link} key={index}></Link>)}
-
-// </svg>}

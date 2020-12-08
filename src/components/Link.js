@@ -22,7 +22,6 @@ class Link extends React.Component {
     selection
     .on('click', (d) => {
         console.log('igotclicked')
-        console.log(this)        
       })
     .attr("class", function (d) { return "link" })
       //.attr("class", function (d) { return "link " + d.property; })

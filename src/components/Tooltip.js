@@ -10,9 +10,8 @@ class Tooltip extends React.Component {
     super()
 
     // dragging
-    this.drag = (simulation) => {
+    this.drag = () => {
       const dragstarted = (d) => {
-        d3.select("#forcegraph").selectAll(".tooltip").remove()
         this.props.rs()
         d.fx = d.x;
         d.fy = d.y;
@@ -24,7 +23,6 @@ class Tooltip extends React.Component {
       };
 
       const dragended = (d) => {
-        //if (!d3.event.active) simulation.alphaTarget(0);
         d.fx = null;
         d.fy = null;
       };
@@ -56,10 +54,8 @@ class Tooltip extends React.Component {
         //this.props.rsn()
       })
     .attr("transform", (d) => "translate(" + (d.x+25) + "," + (d.y-10) + ")")
-    .classed("none", (d) => { 
-      console.log(d)
-      return (d.id !== this.props.selectedNode.id)})
-    .call(this.drag(this.simulation))
+    .classed("none", (d) => { return (d.id !== this.props.selectedNode.id)})
+    .call(this.drag())
 
   };
 
@@ -69,13 +65,15 @@ class Tooltip extends React.Component {
       return (
         <Scrollbox orientation="scrollbox-x">
         <Table>
-    <tr>
-      <th>property</th>
-      <th>value</th>
-    </tr>
-      {renderlinks()}
-    </Table>
-    </Scrollbox>
+          <tr>
+            <th>property</th>
+            <th>value</th>
+          </tr>
+          
+          {renderlinks()}
+        
+        </Table>
+        </Scrollbox>
       ) 
   }
 

@@ -11,9 +11,8 @@ class Node extends React.Component {
     super()
 
     // dragging
-    this.drag = (simulation) => {
+    this.drag = () => {
       const dragstarted = (d) => {
-        d3.select("#forcegraph").selectAll(".tooltip").remove()
         this.props.rs()
         d.fx = d.x;
         d.fy = d.y;
@@ -25,7 +24,6 @@ class Node extends React.Component {
       };
 
       const dragended = (d) => {
-        //if (!d3.event.active) simulation.alphaTarget(0);
         d.fx = null;
         d.fy = null;
       };
