@@ -80,7 +80,7 @@ class Search extends React.Component {
         <Form.Label>Zoek Classe:</Form.Label>
         <Form.Control as="input" type="text" placeholder="zoek classen" name="class" onChange={this.handleChange}></Form.Control>
         <div id='classSelector'>
-          <ScrollBox>
+          <ScrollBox orientation="scrollbox-y">
             <ListGroup as="ul">
               {this.props.datasource.classes.filter((c) => { return this.filterClassHelper(c) }).map((c, index) => {
                 if (this.props.datasource.selectedClass === c) {

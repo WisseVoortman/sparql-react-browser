@@ -49,6 +49,8 @@ class NodeLabel extends React.Component {
   enterNodeLabel = (selection) => {
     selection.select('text')
       .on('click', function (d) {
+        //window.location.href = d.id // opens in the same page
+        window.open(d.id)           // opens in a new page
       })
       .on("mouseover", function (d) {
         console.log('mouseover')
@@ -75,11 +77,12 @@ class NodeLabel extends React.Component {
       .merge(selection)
       .attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
-      });
+      })
     // 2nd way of doing it
     // .attr('x', function (d) { return d.x })
     // .attr('y', function (d) { return d.y })
     // .attr('dy', function (d) { return 5 })
+    .call(this.drag(this.simulation))
 
   };
 

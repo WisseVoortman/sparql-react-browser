@@ -6,8 +6,7 @@ import NodeLabel from './NodeLabel'
 import Link from './Link'
 import LinkLabel from './LinkLabel'
 import Marker from './Marker'
-
-import ConnectedTooltip from '../containers/ConnectedTooltip'
+import Tooltip from './Tooltip'
 
 
 import { Row, Col, } from 'react-bootstrap'
@@ -163,7 +162,8 @@ class ForceGraph extends React.Component {
                         <Marker linksList={this.props.links}/>
                       </g>
                       <g class="tt">
-                        <ConnectedTooltip/>
+                        {/* <ConnectedTooltip selectedNode={this.props.nodes.selectedNode}/> */}
+                        {this.props.nodes.nodesList.map((node, index) => <Tooltip data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn} selectedNode={this.props.nodes.selectedNode} linksList={this.props.links} ></Tooltip>)}
                       </g>
                       
                   </g>

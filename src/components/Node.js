@@ -53,9 +53,7 @@ class Node extends React.Component {
   enterNode = (selection) => {
     selection.select("ellipse")
       .on('click', (d) => {
-        console.log('igotclicked')
         this.props.ssn(d)
-        //this.props.rsn()
         if (d.type === 'uri') {
           this.props.facn(d.id, this.props.datasource)
         }
@@ -63,11 +61,9 @@ class Node extends React.Component {
       })
       .on("mouseover", (d) => {
         console.log('mouseover')
-        //this.props.ssn(d)
       })
       .on("mouseout", (d) => {
         console.log('mouseout')
-        //this.props.rsn()
       })
       .on("mousedown", function (d) {
         console.log('mousedown')
@@ -108,7 +104,6 @@ class Node extends React.Component {
     return (
       <g>
         <ellipse className='ellipse' />
-        <ConnectedTooltip />
       </g>
     );
   }
