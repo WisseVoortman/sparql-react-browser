@@ -1,3 +1,8 @@
+.scrollbox-xy {
+  overflow: scroll;
+  max-height: 250px;
+}
+
 .scrollbox-y {
   overflow: scroll;
   overflow-x: hidden;

@@ -63,7 +63,7 @@ class Tooltip extends React.Component {
   render() {
     const renderTable = () => {
       return (
-        <Scrollbox orientation="scrollbox-x">
+        <Scrollbox orientation="scrollbox-xy">
         <Table>
           <tr>
             <th>property</th>
@@ -78,12 +78,13 @@ class Tooltip extends React.Component {
   }
 
   const linkBelongs = (link) => {
-    return true
+    return (link.source.id === this.props.data.id) 
   }
   
   const renderlinks = () => {
     var links = this.props.linksList.filter(linkBelongs)
-    return links.map((link) => <tr><td>{link.property}</td><td>{link.target.id}</td></tr>)
+    console.log("linkslenght:", links.length)
+    return links.map((link) => <tr><td><a href={link.property} target="_blank">{link.property}</a></td><td>{link.target.id}</td></tr>)
   }
 
     return (
@@ -91,7 +92,9 @@ class Tooltip extends React.Component {
         <foreignObject width="1" height="1" className={styles.tooltip}>
           <div>
             <Popover id="popover-basic" className={styles.popover}>
-              <Popover.Title as="h3">{this.props.data.id}
+              <Popover.Title as="h3">
+                {<a href={this.props.data.id} target="_blank">{this.props.data.id}</a>}
+                
               <button type="button" class="close" onClick={() => this.props.rsn()}><span>×</span></button>
               </Popover.Title>
               <Popover.Content>

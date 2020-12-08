@@ -27,7 +27,7 @@ class Link extends React.Component {
       //.attr("class", function (d) { return "link " + d.property; })
       .attr("id", function (d, i) { return "linkId_" + i; })
       .attr("marker-end", function (d) { return "url(#black-arrow)"; })
-      .classed('faded', (d) =>  {return this.props.selectedNode})
+      .classed('linkfaded', (d) =>  {return this.props.selectedNode})
       .classed("connectedLink", (d) => {return d.source.id === this.props.selectedNode.id || d.target.id === this.props.selectedNode.id}) //highlighting soorcelink and targetlink
       .merge(selection)
       .attr("d", function (d) {
