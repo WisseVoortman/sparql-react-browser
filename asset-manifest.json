@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/sparql-react-browser/static/css/main.389531a8.chunk.css",
-    "main.js": "/sparql-react-browser/static/js/main.8d0a817a.chunk.js",
-    "main.js.map": "/sparql-react-browser/static/js/main.8d0a817a.chunk.js.map",
+    "main.css": "/sparql-react-browser/static/css/main.66ee0dba.chunk.css",
+    "main.js": "/sparql-react-browser/static/js/main.6dde2147.chunk.js",
+    "main.js.map": "/sparql-react-browser/static/js/main.6dde2147.chunk.js.map",
     "runtime-main.js": "/sparql-react-browser/static/js/runtime-main.02568383.js",
     "runtime-main.js.map": "/sparql-react-browser/static/js/runtime-main.02568383.js.map",
     "static/css/2.519cbf87.chunk.css": "/sparql-react-browser/static/css/2.519cbf87.chunk.css",
-    "static/js/2.784027de.chunk.js": "/sparql-react-browser/static/js/2.784027de.chunk.js",
-    "static/js/2.784027de.chunk.js.map": "/sparql-react-browser/static/js/2.784027de.chunk.js.map",
+    "static/js/2.31713e58.chunk.js": "/sparql-react-browser/static/js/2.31713e58.chunk.js",
+    "static/js/2.31713e58.chunk.js.map": "/sparql-react-browser/static/js/2.31713e58.chunk.js.map",
     "index.html": "/sparql-react-browser/index.html",
-    "precache-manifest.22978d046ed2cc6ceaf336cc5bde3792.js": "/sparql-react-browser/precache-manifest.22978d046ed2cc6ceaf336cc5bde3792.js",
+    "precache-manifest.2c5b86a012dda3b8107449561d2ed93f.js": "/sparql-react-browser/precache-manifest.2c5b86a012dda3b8107449561d2ed93f.js",
     "service-worker.js": "/sparql-react-browser/service-worker.js",
     "static/css/2.519cbf87.chunk.css.map": "/sparql-react-browser/static/css/2.519cbf87.chunk.css.map",
-    "static/css/main.389531a8.chunk.css.map": "/sparql-react-browser/static/css/main.389531a8.chunk.css.map",
-    "static/js/2.784027de.chunk.js.LICENSE.txt": "/sparql-react-browser/static/js/2.784027de.chunk.js.LICENSE.txt"
+    "static/css/main.66ee0dba.chunk.css.map": "/sparql-react-browser/static/css/main.66ee0dba.chunk.css.map",
+    "static/js/2.31713e58.chunk.js.LICENSE.txt": "/sparql-react-browser/static/js/2.31713e58.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.02568383.js",
     "static/css/2.519cbf87.chunk.css",
-    "static/js/2.784027de.chunk.js",
-    "static/css/main.389531a8.chunk.css",
-    "static/js/main.8d0a817a.chunk.js"
+    "static/js/2.31713e58.chunk.js",
+    "static/css/main.66ee0dba.chunk.css",
+    "static/js/main.6dde2147.chunk.js"
   ]
 }
