@@ -67,7 +67,6 @@ class NodeLabel extends React.Component {
           var nodeURL = d.id.split('/')
           nodeURL.splice(0, 3)
           nodeURL = nodeURL.join('/')
-          console.log('nodeURL: ' + nodeURL)
           return nodeURL;
         }
         return d.id;

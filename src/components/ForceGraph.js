@@ -128,6 +128,16 @@ class ForceGraph extends React.Component {
   }
 
   render() {
+
+    const rendertooltip = () => {
+      if(this.props.nodes.selectedNode){
+        return (<Tooltip data={this.props.nodes.selectedNode} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn} selectedNode={this.props.nodes.selectedNode} linksList={this.props.links} ></Tooltip>)
+      }
+      else {
+        return
+      }
+    }
+
     return (
       <div>
         <Row>
@@ -161,9 +171,9 @@ class ForceGraph extends React.Component {
                       <g class="defs">
                         <Marker linksList={this.props.links}/>
                       </g>
-                      <g class="tt">
-                        {/* <ConnectedTooltip selectedNode={this.props.nodes.selectedNode}/> */}
-                        {this.props.nodes.nodesList.map((node, index) => <Tooltip data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn} selectedNode={this.props.nodes.selectedNode} linksList={this.props.links} ></Tooltip>)}
+                      <g class="tooltips">
+                        {/* {this.props.nodes.nodesList.map((node, index) => <Tooltip data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn} selectedNode={this.props.nodes.selectedNode} linksList={this.props.links} ></Tooltip>)} */}
+                        {rendertooltip()}
                       </g>
                       
                   </g>

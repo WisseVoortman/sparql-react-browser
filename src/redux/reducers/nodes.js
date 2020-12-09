@@ -136,7 +136,7 @@ export default function nodeReducer(state = {
           //add targets to nodeslist
           const contains = (node) => node.id === element[action.result.data.head.vars[1]].value
           if (!NewState.nodesList.some(contains)) {
-            console.log('didnotcontain')
+            //console.log('didnotcontain')
 
             //xml lang set
             if (element[action.result.data.head.vars[1]]['xml:lang'] && (element[action.result.data.head.vars[1]]['xml:lang'] === 'en' || element[action.result.data.head.vars[1]]['xml:lang'] === 'nl')) {

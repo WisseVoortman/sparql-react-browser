@@ -100,6 +100,19 @@ export default function linkReducer(state = [
         //check if property comes from the same base URL as the subject
         if (element[action.result.data.head.vars[0]].value.split('/')[2] === action.result.config.subject.split('/')[2]) {
 
+          // // check if link is already in the linklist otherwise add
+          // const contains = (e) => {
+          //   console.log('element: ', e)
+          //   console.log('link: ', link)
+          //   return e === link};
+
+          // if(!NewState.some(contains)) {
+          //   console.log('didnotontain')
+          // }
+          // else {
+          //   console.log('didcontain')
+          // }
+
           // add links to linklist
           //xml lang set --> used to set language of a literal
           if (element[action.result.data.head.vars[1]]['xml:lang'] && (element[action.result.data.head.vars[1]]['xml:lang'] === 'en' || element[action.result.data.head.vars[1]]['xml:lang'] === 'nl')) {
