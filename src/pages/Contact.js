@@ -1,11 +1,14 @@
 import React from 'react'
 
+import { Container } from 'react-bootstrap'
+
 class Contact extends React.Component {
   onSubmit = () => {
     this.props.history.push('/')
   }
   render() {
     return (
+      <Container id="contact">
       <div className="Contact">
         <h2>Contact form</h2>
         <form>
@@ -14,7 +17,7 @@ class Contact extends React.Component {
           <button onClick={this.onSubmit}>Submit</button>
         </form>
       </div>
-
+      </Container>
     )
   }
 }

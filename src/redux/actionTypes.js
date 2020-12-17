@@ -9,6 +9,10 @@ export const ADD_DATASOURCE = 'ADD_DATASOURCE'
 //forcegraph settings
 export const SET_FORCEGRAPH_SETTINGS = 'SET_FORCEGRAPH_SETTINGS'
 
+//error
+export const CREATE_ERROR = 'CREATE_ERROR'
+export const CLEAR_ERROR = 'CLEAR_ERROR'
+
 //classes
 export const FETCH_CLASSES_REQUEST = 'FETCH_CLASSES_REQUEST'
 export const FETCH_CLASSES_SUCCESS = 'FETCH_CLASSES_SUCCESS'

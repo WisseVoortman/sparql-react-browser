@@ -3,10 +3,13 @@ import React from 'react'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button'
 
+import { Container } from 'react-bootstrap'
+
 class Home extends React.Component {
 
   render() {
     return (
+      <Container id="Home">
       <div className="Home">
         <Jumbotron>
           <h1>Sparql-React-Browser</h1>
@@ -18,7 +21,7 @@ class Home extends React.Component {
           </p>
         </Jumbotron>
       </div>
-
+      </Container>
     )
   }
 }

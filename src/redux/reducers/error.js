@@ -7,5 +7,16 @@ export default function errorReducer(state = {}, action) {
     return {}
   }
 
+  if (action.type === 'CREATE_ERROR') {
+    console.log(action)
+    return action.error
+  }
+
+  if (action.type === 'CLEAR_ERROR') {
+    return {}
+  }
+
+  
+
   return state
 }

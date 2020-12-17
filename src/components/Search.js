@@ -61,22 +61,34 @@ class Search extends React.Component {
     }
   }
 
-  setSelectedClass() {
-    console.log('i got clicked')
-  }
-
   fetchAboutSubject() {
     this.props.fetchAboutSubject('SELECT * ' +
                 'WHERE { <' + this.props.datasource.selectedInstance.subject.value  + '> ?property ?object }' +
                 'limit 200', this.props.datasource.currentDatasource)
   }
 
+  renderKlasseLabel(value, valueName) {
+    if(value)
+  return <Form.Label>Geselecteerde {valueName}: {value.type.value}</Form.Label>
+    else {
+      return <Form.Label>Selecteer een {valueName}:</Form.Label>
+    }
+  }
+
+  renderInstanceLabel(value, valueName) {
+    if(value)
+  return <Form.Label>Geselecteerde {valueName}: {value.subject.value}</Form.Label>
+    else {
+      return <Form.Label>Selecteer een {valueName}:</Form.Label>
+    }
+  }
+
   render() {
     return (
       <div className={styles.SearchForm}>
       <Form>
-        <Form.Label>Zoek Classe:</Form.Label>
-        <Form.Control as="input" type="text" placeholder="zoek classen" name="class" onChange={this.handleChange}></Form.Control>
+      {this.renderKlasseLabel(this.props.datasource.selectedClass, 'klasse')}
+        <Form.Control as="input" type="text" placeholder="Vul een klassenaam in" name="class" onChange={this.handleChange}></Form.Control>
         <div id='classSelector'>
           <ScrollBox orientation="scrollbox-y">
             <ListGroup as="ul">
@@ -97,8 +109,8 @@ class Search extends React.Component {
           </ScrollBox>
         </div>
 
-        <Form.Label>zoek Instance:</Form.Label>
-        <Form.Control as="input" type="text" placeholder="zoek instance" name="instance" onChange={this.handleChange}></Form.Control>
+        {this.renderInstanceLabel(this.props.datasource.selectedInstance, 'instance')}
+        <Form.Control as="input" type="text" placeholder="Vul een uri of label in" name="instance" onChange={this.handleChange}></Form.Control>
         <div id='instanceSelector'>
           <ScrollBox>
             <ListGroup as="ul">
@@ -124,9 +136,29 @@ class Search extends React.Component {
             </ListGroup>
           </ScrollBox>
         </div>
-        <Button onClick={() => this.props.fetchAboutSubject('SELECT * ' +
-                'WHERE { <' + this.props.datasource.selectedInstance.subject.value  + '> ?property ?object }' +
-                'limit 200', this.props.datasource.currentDatasource)}>laad instance</Button>
+        <Button onClick={
+          () => {
+                    //check
+                    if(!(this.props.datasource.selectedInstance)){
+                    console.log('Selecteer een instane')
+                    //dispath an errror
+                    var error = {}
+                    error.message = 'Geen instance geselecteerd, selecteer een instance'
+                    this.props.createError(error)
+                    }
+                    else{
+                      //fetch
+                    this.props.fetchAboutSubject('SELECT * ' +
+                    'WHERE { <' + this.props.datasource.selectedInstance.subject.value  + '> ?property ?object }' +
+                    'limit 200', this.props.datasource.currentDatasource)  
+                    }
+                    
+                }
+                    }
+                
+                >laad instance
+
+        </Button>
         </Form>
       </div>
     )

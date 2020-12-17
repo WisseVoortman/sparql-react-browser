@@ -141,14 +141,14 @@ class ForceGraph extends React.Component {
     return (
       <div>
         <Row>
-          <Col sm={2}>
+          <Col sm={4}>
           </Col>
           <Col>
             <ConnectedDataSource />
           </Col>
         </Row>
         <Row>
-          <Col sm={2}>
+          <Col sm={4}>
             <ConnectedForcegraphSettings />
             <ConnectedSearch></ConnectedSearch>
           </Col>

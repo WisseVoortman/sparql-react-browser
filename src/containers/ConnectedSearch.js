@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 
 import Search from '../components/Search'
 
-import { fetchClasses, fetchInstances, setSelectedClass, setSelectedInstance, fetchAboutSubject } from '../redux/actions/index'
+import { fetchClasses, fetchInstances, setSelectedClass, setSelectedInstance, fetchAboutSubject, createError } from '../redux/actions/index'
 
 const mapStateToProps = (state, props) => {
   return {
@@ -19,6 +19,7 @@ const mapDispatchToProps = (dispatch, props, state) =>
     setSelectedClass,
     setSelectedInstance,
     fetchAboutSubject,
+    createError,
   }, dispatch)
 
 const ConnectedSearch = connect(mapStateToProps, mapDispatchToProps)(Search)
