@@ -61,12 +61,6 @@ class Search extends React.Component {
     }
   }
 
-  fetchAboutSubject() {
-    this.props.fetchAboutSubject('SELECT * ' +
-                'WHERE { <' + this.props.datasource.selectedInstance.subject.value  + '> ?property ?object }' +
-                'limit 200', this.props.datasource.currentDatasource)
-  }
-
   renderKlasseLabel(value, valueName) {
     if(value)
   return <Form.Label>Geselecteerde {valueName}: {value.type.value}</Form.Label>
@@ -148,6 +142,7 @@ class Search extends React.Component {
                     }
                     else{
                       //fetch
+                      this.props.removeSelectedNode()
                     this.props.fetchAboutSubject('SELECT * ' +
                     'WHERE { <' + this.props.datasource.selectedInstance.subject.value  + '> ?property ?object }' +
                     'limit 200', this.props.datasource.currentDatasource)  

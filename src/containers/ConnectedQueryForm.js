@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 
 import QueryForm from '../components/QueryForm'
 import QueryFormOld from '../components/QueryFormOld'
-import { fetchTest, fetchSparql, fetchAboutSubject } from '../redux/actions/index'
+import { fetchTest, fetchSparql, fetchAboutSubject, removeSelectedNode } from '../redux/actions/index'
 import { push } from 'connected-react-router'
 
 
@@ -14,7 +14,13 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapDispatchToProps = (dispatch, props) =>
-  bindActionCreators({ fetchTest, fetchSparql, fetchAboutSubject, push }, dispatch)
+  bindActionCreators({ 
+    fetchTest, 
+    fetchSparql, 
+    fetchAboutSubject, 
+    removeSelectedNode,
+    push 
+  }, dispatch)
 
 const ConnectedQueryForm = connect(mapStateToProps, mapDispatchToProps)(QueryFormOld)
 

@@ -47,8 +47,9 @@ class NodeLabel extends React.Component {
   enterNodeLabel = (selection) => {
     selection.select('text')
       .on('click', function (d) {
-        //window.location.href = d.id // opens in the same page
-        window.open(d.id)           // opens in a new page
+        if (d.type === 'uri') {
+          window.open(d.id)           // opens in a new page
+        }
       })
       .on("mouseover", function (d) {
         console.log('mouseover')

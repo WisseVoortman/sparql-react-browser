@@ -34,7 +34,8 @@ class Link extends React.Component {
         var dx = d.target.x - d.source.x
         var dy = d.target.y - d.source.y
         if (d.linknum) {
-          var dr = d.linknum * 150 - 150;
+          //var dr = d.linknum * 150 - 150; // kromme links
+          var dr = 0
         }
         else {
           var dr = 0

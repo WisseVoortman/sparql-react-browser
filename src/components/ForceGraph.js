@@ -9,11 +9,13 @@ import Marker from './Marker'
 import Tooltip from './Tooltip'
 
 
-import { Row, Col, } from 'react-bootstrap'
+import { Row, Col, Tabs, Tab } from 'react-bootstrap'
 
 import ConnectedForcegraphSettings from '../containers/ConnectedForcegraphSettings'
 import ConnectedDataSource from '../containers/ConnectedDataSource'
 import ConnectedSearch from  '../containers/ConnectedSearch'
+import ConnectedQueryForm from '../containers/ConnectedQueryForm'
+import ConnectedExamples from '../containers/ConnectedExamples'
 
 import D3NodeGenerator from './D3NodeGenerator'
 import D3LinkGenerator from './D3LinkGenerator'
@@ -149,8 +151,20 @@ class ForceGraph extends React.Component {
         </Row>
         <Row>
           <Col sm={4}>
-            <ConnectedForcegraphSettings />
-            <ConnectedSearch></ConnectedSearch>
+            <Tabs defaultActiveKey="Zoeken" id="uncontrolled-tab-example">
+              <Tab eventKey="Zoeken" title="Zoeken">
+                <ConnectedSearch></ConnectedSearch>
+                <ConnectedQueryForm></ConnectedQueryForm>
+              </Tab>
+              <Tab eventKey="Instellingen" title="Instellingen">
+                <ConnectedForcegraphSettings />
+              </Tab>
+
+              <Tab eventKey="Voorbeelden" title="Voorbeelden">
+                <ConnectedExamples></ConnectedExamples>
+              </Tab>
+
+            </Tabs>
           </Col>
           <Col>
             <div id="forcegraph">

@@ -26,23 +26,6 @@ class Graph extends React.Component {
       <Container fluid id="PageContent">
       <div className="Graph">
         <h2>Graph</h2>
-        <Container>
-        <Nav fill variant="tabs" defaultActiveKey="/sparql-react-browser/graph/examples">
-          <Nav.Item>
-            <Nav.Link as={NavLink} activeClassName="active" to="/sparql-react-browser/graph/examples">Voorbeelden</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link as={NavLink} activeClassName="active" to="/sparql-react-browser/graph/queryform">Queryform</Nav.Link>
-          </Nav.Item>
-        </Nav>
-
-        <Switch>
-          <Route exact path={`${this.props.match.path}/examples`} component={ConnectedExamples} />
-          <Route exact path={`${this.props.match.path}/queryform`} component={ConnectedQueryForm} />
-        </Switch>
-        </Container>
-
-
         <ConnectedForceGraph />
       </div>
       </Container>

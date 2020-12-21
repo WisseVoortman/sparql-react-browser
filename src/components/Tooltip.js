@@ -82,9 +82,31 @@ class Tooltip extends React.Component {
   }
   
   const renderlinks = () => {
+
+  function isValidHttpUrl(string) {
+    let url;
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;  
+    }
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
+
     var links = this.props.linksList.filter(linkBelongs)
     console.log("linkslenght:", links.length)
-    return links.map((link) => <tr><td><a href={link.property} target="_blank">{link.property}</a></td><td>{link.target.id}</td></tr>)
+    return links.map((link) => 
+      {
+        if (link.target.type === 'uri' || isValidHttpUrl(link.target.id) ) {
+          return <tr><td><a href={link.property} target={link.property}>{link.property}</a></td><td><a href={link.target.id} target={link.target.id}>{link.target.id}</a></td></tr>
+        }
+        else {
+          return <tr><td><a href={link.property} target={link.property}>{link.property}</a></td><td>{link.target.id}</td></tr>
+        }
+        
+      }
+     
+     )
   }
 
     return (

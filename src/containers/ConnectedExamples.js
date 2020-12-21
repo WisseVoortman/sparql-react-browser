@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import Examples from '../components/Examples'
-import { fetchTest, fetchSparql, fetchAboutSubject } from '../redux/actions/index'
+import { fetchTest, fetchSparql, fetchAboutSubject, removeSelectedNode} from '../redux/actions/index'
 import { push } from 'connected-react-router'
 
 
@@ -13,7 +13,12 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapDispatchToProps = (dispatch, props) =>
-  bindActionCreators({ fetchTest, fetchSparql, fetchAboutSubject, push }, dispatch)
+  bindActionCreators({ 
+    fetchTest,
+    fetchSparql, 
+    fetchAboutSubject, 
+    removeSelectedNode,
+    push }, dispatch)
 
 const ConnectedExamples = connect(mapStateToProps, mapDispatchToProps)(Examples)
 

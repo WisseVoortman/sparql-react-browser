@@ -6,15 +6,12 @@ const Error = ({ message, clearError }) =>
   message
     ? <Modal show={true} onHide={() => clearError()}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Error</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Body>{message}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => clearError()}>
-            Close
-          </Button>
           <Button variant="primary" onClick={() => clearError()}>
-            Save Changes
+            Begrepen
           </Button>
         </Modal.Footer>
       </Modal>

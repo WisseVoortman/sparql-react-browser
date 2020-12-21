@@ -36,7 +36,12 @@ class LinkLabel extends React.Component {
         return text;
       })
       .attr("transform", function (d) {
-        return "translate(" + ((d.source.x + d.target.x) / 2) + "," + ((d.source.y + d.target.y) / 2 ) + ")";
+        if(d.linknum > 1){
+          return "translate(" + ((d.source.x + d.target.x) / 2) + "," + ((d.source.y + d.target.y) / 2 + (d.linknum * 10) ) + ")";
+        }
+        else {
+         return "translate(" + ((d.source.x + d.target.x) / 2) + "," + ((d.source.y + d.target.y) / 2 ) + ")"; 
+        }
       });
   };
 
