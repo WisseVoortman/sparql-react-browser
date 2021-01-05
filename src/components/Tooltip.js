@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import styles from './Tooltip.module.scss'
 import { Popover, Table } from 'react-bootstrap'
 import Scrollbox from './ScrollBox'
+import { isValidHttpUrl } from '../utils/index'
 
 class Tooltip extends React.Component {
   constructor() {
@@ -82,17 +83,6 @@ class Tooltip extends React.Component {
   }
   
   const renderlinks = () => {
-
-  function isValidHttpUrl(string) {
-    let url;
-    try {
-      url = new URL(string);
-    } catch (_) {
-      return false;  
-    }
-    return url.protocol === "http:" || url.protocol === "https:";
-  }
-
     var links = this.props.linksList.filter(linkBelongs)
     console.log("linkslenght:", links.length)
     return links.map((link) => 

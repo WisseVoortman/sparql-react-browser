@@ -18,7 +18,8 @@ const mapDispatchToProps = (dispatch, props) =>
     fetchSparql, 
     fetchAboutSubject, 
     removeSelectedNode,
-    push }, dispatch)
+    push 
+  }, dispatch)
 
 const ConnectedExamples = connect(mapStateToProps, mapDispatchToProps)(Examples)
 

@@ -8,18 +8,6 @@ import LinkLabel from './LinkLabel'
 import Marker from './Marker'
 import Tooltip from './Tooltip'
 
-
-import { Row, Col, Tabs, Tab } from 'react-bootstrap'
-
-import ConnectedForcegraphSettings from '../containers/ConnectedForcegraphSettings'
-import ConnectedDataSource from '../containers/ConnectedDataSource'
-import ConnectedSearch from  '../containers/ConnectedSearch'
-import ConnectedQueryForm from '../containers/ConnectedQueryForm'
-import ConnectedExamples from '../containers/ConnectedExamples'
-
-import D3NodeGenerator from './D3NodeGenerator'
-import D3LinkGenerator from './D3LinkGenerator'
-
 class ForceGraph extends React.Component {
   constructor(props) {
     super(props);
@@ -141,63 +129,31 @@ class ForceGraph extends React.Component {
     }
 
     return (
-      <div>
-        <Row>
-          <Col sm={4}>
-          </Col>
-          <Col>
-            <ConnectedDataSource />
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={4}>
-            <Tabs defaultActiveKey="Zoeken" id="uncontrolled-tab-example">
-              <Tab eventKey="Zoeken" title="Zoeken">
-                <ConnectedSearch></ConnectedSearch>
-                <ConnectedQueryForm></ConnectedQueryForm>
-              </Tab>
-              <Tab eventKey="Instellingen" title="Instellingen">
-                <ConnectedForcegraphSettings />
-              </Tab>
-
-              <Tab eventKey="Voorbeelden" title="Voorbeelden">
-                <ConnectedExamples></ConnectedExamples>
-              </Tab>
-
-            </Tabs>
-          </Col>
-          <Col>
-            <div id="forcegraph">
-              <svg>
-                  <g class="zoom"> 
-                      <g class="links">
-                        {this.props.links.map((link, index) => <Link data={link} key={index} selectedNode={this.props.nodes.selectedNode}></Link>)}
-                      </g>
-                      <g class="nodesellipse">
-                        {this.props.nodes.nodesList.map((node, index) => <Node data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn} selectedNode={this.props.nodes.selectedNode} linksList={this.props.links} ></Node>)}
-                      </g>
-                      <g class="nodestext">
-                        {this.props.nodes.nodesList.map((node, index) => <NodeLabel data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></NodeLabel>)}
-                      </g>
-                      <g class="linkstext">
-                        {this.props.links.map((link, index) => <LinkLabel data={link} key={index}></LinkLabel>)}
-                      </g>
-                      <g class="defs">
-                        <Marker linksList={this.props.links}/>
-                      </g>
-                      <g class="tooltips">
-                        {/* {this.props.nodes.nodesList.map((node, index) => <Tooltip data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn} selectedNode={this.props.nodes.selectedNode} linksList={this.props.links} ></Tooltip>)} */}
-                        {rendertooltip()}
-                      </g>
-                      
-                  </g>
-              </svg>
-              
-            </div >
-          </Col>
-        </Row>
-      </div>
-
+      <div id="forcegraph">
+        <svg>
+          <g class="zoom"> 
+            <g class="links">
+              {this.props.links.map((link, index) => <Link data={link} key={index} selectedNode={this.props.nodes.selectedNode}></Link>)}
+            </g>
+            <g class="nodesellipse">
+              {this.props.nodes.nodesList.map((node, index) => <Node data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn} selectedNode={this.props.nodes.selectedNode} linksList={this.props.links} ></Node>)}
+            </g>
+            <g class="nodestext">
+              {this.props.nodes.nodesList.map((node, index) => <NodeLabel data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></NodeLabel>)}
+            </g>
+            <g class="linkstext">
+              {this.props.links.map((link, index) => <LinkLabel data={link} key={index}></LinkLabel>)}
+            </g>
+            <g class="defs">
+              <Marker linksList={this.props.links}/>
+            </g>
+            <g class="tooltips">
+              {/* {this.props.nodes.nodesList.map((node, index) => <Tooltip data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn} selectedNode={this.props.nodes.selectedNode} linksList={this.props.links} ></Tooltip>)} */}
+              {rendertooltip()}
+            </g>
+          </g>
+        </svg>        
+      </div >
     );
   }
 }

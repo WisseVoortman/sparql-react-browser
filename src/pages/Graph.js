@@ -5,7 +5,7 @@ import {
   Switch,
 } from 'react-router-dom'
 
-import { Nav } from 'react-bootstrap'
+import { Nav, Row, Col, Tab, Tabs } from 'react-bootstrap'
 
 import {
   NavLink,
@@ -15,9 +15,9 @@ import { Container } from 'react-bootstrap'
 
 
 import ConnectedForceGraph from '../containers/ConnectedForceGraph';
-import ConnectedQueryForm from '../containers/ConnectedQueryForm'
 import ConnectedDataSource from '../containers/ConnectedDataSource'
-import ConnectedExamples from '../containers/ConnectedExamples';
+import ConnectedForceGraphSidebar from '../containers/ConnectedForceGraphSidebar'
+import ForceGraphSidebar from '../components/ForceGraphSidebar'
 
 class Graph extends React.Component {
   render() {
@@ -26,9 +26,25 @@ class Graph extends React.Component {
       <Container fluid id="PageContent">
       <div className="Graph">
         <h2>Graph</h2>
-        <ConnectedForceGraph />
+        <Row>
+          <Col sm={4}>
+          </Col>
+          <Col>
+            <ConnectedDataSource />
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={4}>
+            <ConnectedForceGraphSidebar></ConnectedForceGraphSidebar>
+          </Col>
+          <Col sm={8}><ConnectedForceGraph /></Col>
+          </Row>
+
+          
+        
       </div>
       </Container>
+      
     )
   }
 }

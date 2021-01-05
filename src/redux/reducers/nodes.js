@@ -1,4 +1,4 @@
-import { SET_SELECTED_NODE, REMOVE_SELECTED_NODE } from '../actionTypes'
+import { SET_SELECTED_NODE, REMOVE_SELECTED_NODE, FETCH_HISTORY_GRAPHS_SUCCESS } from '../actionTypes'
 import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS, FETCH_ABOUT_CLICKED_NODE_SUCCESS } from '../actionTypes'
 
 export default function nodeReducer(state = {
@@ -152,6 +152,14 @@ export default function nodeReducer(state = {
       })
       return NewState
 
+    }
+    case FETCH_HISTORY_GRAPHS_SUCCESS: {
+      NewState.selectedNode.history = []
+
+      action.result.data.results.bindings.forEach(element => {
+        NewState.selectedNode.history.push(element.graph.value)
+      })
+      return NewState
     }
     default:
       return state
