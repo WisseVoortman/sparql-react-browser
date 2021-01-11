@@ -67,8 +67,8 @@ class Tooltip extends React.Component {
         <Scrollbox orientation="scrollbox-xy">
         <Table>
           <tr>
-            <th>property</th>
-            <th>value</th>
+            <th>Property</th>
+            <th>Value</th>
           </tr>
           
           {renderlinks()}

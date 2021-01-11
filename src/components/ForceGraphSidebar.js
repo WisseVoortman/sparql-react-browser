@@ -1,13 +1,14 @@
 import React from 'react'
 import { isValidHttpUrl } from '../utils/index'
 
-import { Tab, Tabs } from 'react-bootstrap'
+import { Tab, Tabs, Table } from 'react-bootstrap'
 
 import ConnectedQueryForm from '../containers/ConnectedQueryForm'
 import ConnectedExamples from '../containers/ConnectedExamples';
 import ConnectedSearch from '../containers/ConnectedSearch'
 import ConnectedForcegraphSettings from '../containers/ConnectedForcegraphSettings'
 import History from '../components/History'
+import TableLink from '../components/TableLink'
 
 class ForeGraphSidebar extends React.Component {
   constructor(props) {
@@ -16,20 +17,31 @@ class ForeGraphSidebar extends React.Component {
     this.fhg = this.props.fetchHistoryGraphs.bind(this)
   }
   render () {
+
+    const renderlinks = (nodes, links) => {
+    return links.map((link, index) => 
+      {
+        return(<TableLink key={index} link={link}></TableLink>)
+        
+      }
+     
+     )
+  }
     
     const renderNodesandLinksTab = (nodes, links) => {
-      if (nodes.nodesList.length > 0 || links.length > 0) {
         return (
           <Tab eventKey="Nodes & links" title="Nodes & links">
-
-        </Tab>
+            <Table responsive>
+              <tr>
+                <th>Subject</th>
+                <th>Property</th>
+                <th>Value</th>
+              </tr>
+              {renderlinks(nodes, links)}
+            </Table>
+          </Tab>
         )
-      }
-      else {
-        return (
-          null
-        )
-      }
+      
     }
 
     const renderHistoryTab = (nodes) => {

@@ -6,12 +6,21 @@ import { Form } from 'react-bootstrap'
 class History extends React.Component {
   constructor(props) {
     super();
+    this.state = ({
+      docURI: null,
+      data: null
+        })
 
     this.handleChange = this.handleChange.bind(this)
   }
 
 handleChange(event) {
   console.log(event.target.value);
+  console.log('@@@@@@@@@@@@@@')
+
+  //send a request to fetch the data from the graph with the selected time
+  // display that data in the sidebar
+
 }
 
   componentDidMount(){
@@ -51,15 +60,17 @@ handleChange(event) {
    )
    } 
    else {
-     return(<p>geen history beschikbaar</p>)
+     return(<p>Geen history beschikbaar</p>)
    }
+  }
+
+  const renderData = () => {
+    return(<></>)
   }
 
     return(
       <div>
-      
             {renderHistorySelect()}
-    
       </div>
     )
   }
