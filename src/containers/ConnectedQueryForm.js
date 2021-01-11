@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import QueryForm from '../components/QueryForm'
-import QueryFormOld from '../components/QueryFormOld'
 import { fetchTest, fetchSparql, fetchAboutSubject, removeSelectedNode } from '../redux/actions/index'
 import { push } from 'connected-react-router'
 
@@ -22,6 +21,6 @@ const mapDispatchToProps = (dispatch, props) =>
     push 
   }, dispatch)
 
-const ConnectedQueryForm = connect(mapStateToProps, mapDispatchToProps)(QueryFormOld)
+const ConnectedQueryForm = connect(mapStateToProps, mapDispatchToProps)(QueryForm)
 
 export default ConnectedQueryForm

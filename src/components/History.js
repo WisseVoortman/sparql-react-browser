@@ -64,10 +64,6 @@ handleChange(event) {
    }
   }
 
-  const renderData = () => {
-    return(<></>)
-  }
-
     return(
       <div>
             {renderHistorySelect()}

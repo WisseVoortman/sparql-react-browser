@@ -1,7 +1,5 @@
 import React from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
-import useState from 'react'
-import { addDatasource } from '../redux/actions/datasource';
 
 class AddDatasource extends React.Component {
   constructor() {

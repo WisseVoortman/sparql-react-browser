@@ -1,15 +1,7 @@
 import React from 'react'
 
-import {
-  Route,
-  Switch,
-} from 'react-router-dom'
 
-import { Nav, Row, Col, Tab, Tabs } from 'react-bootstrap'
-
-import {
-  NavLink,
-} from 'react-router-dom'
+import { Row, Col, } from 'react-bootstrap'
 
 import { Container } from 'react-bootstrap'
 
@@ -17,7 +9,6 @@ import { Container } from 'react-bootstrap'
 import ConnectedForceGraph from '../containers/ConnectedForceGraph';
 import ConnectedDataSource from '../containers/ConnectedDataSource'
 import ConnectedForceGraphSidebar from '../containers/ConnectedForceGraphSidebar'
-import ForceGraphSidebar from '../components/ForceGraphSidebar'
 
 class Graph extends React.Component {
   render() {

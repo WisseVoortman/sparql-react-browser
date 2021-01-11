@@ -14,9 +14,6 @@ import { Provider } from 'react-redux'
 
 import configureStore from './redux/store/index'
 
-//Bootrap components
-import Container from 'react-bootstrap/Container'
-
 // Layout components
 import Header from './components/Header'
 import Footer from './components/Footer'

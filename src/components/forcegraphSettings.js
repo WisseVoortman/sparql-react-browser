@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col, Form } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 class Slider extends React.Component {
   constructor() {

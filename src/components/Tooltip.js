@@ -105,7 +105,7 @@ class Tooltip extends React.Component {
           <div>
             <Popover id="popover-basic" className={styles.popover}>
               <Popover.Title as="h3">
-                {<a href={this.props.data.id} target="_blank">{this.props.data.id}</a>}
+                {<a href={this.props.data.id} target={this.props.data.id}>{this.props.data.id}</a>}
                 
               <button type="button" class="close" onClick={() => this.props.rsn()}><span>×</span></button>
               </Popover.Title>

@@ -148,7 +148,6 @@ class ForceGraph extends React.Component {
               <Marker linksList={this.props.links}/>
             </g>
             <g class="tooltips">
-              {/* {this.props.nodes.nodesList.map((node, index) => <Tooltip data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn} selectedNode={this.props.nodes.selectedNode} linksList={this.props.links} ></Tooltip>)} */}
               {rendertooltip()}
             </g>
           </g>
@@ -159,6 +158,3 @@ class ForceGraph extends React.Component {
 }
 
 export default ForceGraph
-
-{/* <D3NodeGenerator nodesList={this.props.nodes.nodesList} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></D3NodeGenerator>
-              <D3LinkGenerator linksList={this.props.links} forcegraphSettings={this.props.settings} action={this.rs} ssn={this.ssn}></D3LinkGenerator> */}

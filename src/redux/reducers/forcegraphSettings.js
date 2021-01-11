@@ -14,7 +14,6 @@ export default function forcegraphSettingsReducer(state = {
   }
 },
   action) {
-  let NewState = Object.assign({}, state);
   switch (action.type) {
     case SET_FORCEGRAPH_SETTINGS: {
 

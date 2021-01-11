@@ -4,9 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom';
 
 class Link extends React.Component {
-  constructor() {
-    super()
-  }
+  
   componentDidMount() {
     this.d3Link = d3.select(ReactDOM.findDOMNode(this))
       .datum(this.props.data)
@@ -31,14 +29,13 @@ class Link extends React.Component {
       .classed("connectedLink", (d) => {return d.source.id === this.props.selectedNode.id || d.target.id === this.props.selectedNode.id}) //highlighting soorcelink and targetlink
       .merge(selection)
       .attr("d", function (d) {
-        var dx = d.target.x - d.source.x
-        var dy = d.target.y - d.source.y
+        
         if (d.linknum) {
-          //var dr = d.linknum * 150 - 150; // kromme links
-          var dr = 0
+          var dr = d.linknum * 150 - 150; // zorgt dat links vanaf hetzelfde subject naar hetzelfde target elkaar niet overlappen.
+          //var dr = 0
         }
         else {
-          var dr = 0
+          dr = 0
         }
 
         return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;

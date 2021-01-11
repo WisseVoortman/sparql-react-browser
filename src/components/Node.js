@@ -2,10 +2,6 @@ import * as d3 from 'd3'
 import React from 'react'
 import ReactDOM from 'react-dom';
 
-import { setSelectedNode, removeSelectedNode, fetchAboutClickedNode } from '../redux/actions/index'
-
-import ConnectedTooltip from '../containers/ConnectedTooltip'
-
 class Node extends React.Component {
   constructor() {
     super()
@@ -108,10 +104,3 @@ class Node extends React.Component {
 };
 
 export default Node
-
-// {
-//   <svg width='1110' height='800'>
-//   {this.props.nodes.nodesList.map((node, index) => <Node data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></Node>)}
-//   {this.props.links.map((link, index) => <Link data={link} key={index}></Link>)}
-
-// </svg>}

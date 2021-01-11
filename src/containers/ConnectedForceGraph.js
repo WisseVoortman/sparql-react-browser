@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import ForceGraph from '../components/ForceGraph'
-import ForceGraphOld from '../components/ForceGraphOld'
 
 import { setSelectedNode, removeSelectedNode, fetchAboutClickedNode } from '../redux/actions/index'
 

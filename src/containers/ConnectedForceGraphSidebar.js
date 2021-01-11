@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux'
 
 import ForceGraphSidebar from '../components/ForceGraphSidebar'
 import { setSelectedNode, removeSelectedNode, fetchAboutClickedNode, fetchHistoryGraphs} from '../redux/actions/index'
-import { push } from 'connected-react-router'
 
 const mapStateToProps = (state, props) => {
   return {

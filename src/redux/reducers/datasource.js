@@ -73,9 +73,8 @@ export default function datasourceReducer(state = {
       return newState
     }
     case DELETE_DATASOURCE: {
-      const name = action.datasource.name
-      var index = state.datasources.indexOf(action.datasource)
-      newState.datasources.splice(index, 1)
+      var indexOfDatasourceToRemovedex = state.datasources.indexOf(action.datasource)
+      newState.datasources.splice(indexOfDatasourceToRemovedex, 1)
       return newState
     }
     case ADD_DATASOURCE: {

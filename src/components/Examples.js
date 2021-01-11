@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, CardDeck } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 
 class Example extends React.Component {
   constructor(props) {
