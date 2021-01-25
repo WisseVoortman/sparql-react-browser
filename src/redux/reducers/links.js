@@ -12,7 +12,6 @@ export default function linkReducer(state = [
       NewState = [
         { source: "http://example.nl/persoon/Wisse", target: "http://example.nl/bedrijf/DUO", property: "http://example.nl/Is stagair bij" },
         { source: "http://example.nl/persoon/Wisse", target: "http://example.nl/adres/Adres1", property: "http://example.nl/Heeft Woonadres" },
-        { source: "http://example.nl/persoon/Wisse", target: "http://example.nl/adres/Adres1", property: "http://example.nl/dit hierzo" },
         { source: "http://example.nl/adres/Adres1", target: "7913TH", property: "http://example.nl/Postcode" },
         { source: "http://example.nl/adres/Adres1", target: "25", property: "http://example.nl/Nummer" },
         { source: "http://example.nl/adres/Adres1", target: "Zuideropgaande", property: "http://example.nl/Straatnaam" },

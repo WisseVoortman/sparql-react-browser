@@ -1,7 +1,5 @@
 // Root Reducer, combines all reducers into one single reducer
-
 import { combineReducers } from 'redux'
-
 
 // reducer for updating forcegraph based on meaningfull changes.
 import dataReducer from './data'
@@ -10,7 +8,6 @@ import dataReducer from './data'
 import nodesReducer from './nodes'
 import linkesReducer from './links'
 
-
 import datasourceReducer from './datasource'
 import forcegraphSettingsReducer from './forcegraphSettings'
 
@@ -18,6 +15,7 @@ import forcegraphSettingsReducer from './forcegraphSettings'
 import loadingReducer from './loading'
 import errorReducer from './error'
 
+//router reducer
 import { connectRouter } from 'connected-react-router'
 
 const appReducer = (history) => combineReducers({

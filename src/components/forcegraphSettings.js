@@ -48,10 +48,10 @@ class Slider extends React.Component {
             <Form.Label>Link distance: {this.state.linkDistance.value}</Form.Label>
             <Form.Control type="range" name='linkDistance' min={this.state.linkDistance.min} max={this.state.linkDistance.max} value={this.state.linkDistance.value} class="slider" id="linkDistance" onChange={this.handleChange} ></Form.Control>
           </Form.Group>
-          <Form.Group>
+          {/* <Form.Group>
             <Form.Label>attraction: {this.state.forceCharge.value}</Form.Label>
             <Form.Control type="range" name='forceCharge' min={this.state.forceCharge.min} max={this.state.forceCharge.max} value={this.state.forceCharge.value} class="slider" id="forceCharge" onChange={this.handleChange} ></Form.Control>
-          </Form.Group>
+          </Form.Group> */}
         </Form>
       </div >
     )

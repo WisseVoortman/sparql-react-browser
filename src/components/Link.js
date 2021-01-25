@@ -31,8 +31,8 @@ class Link extends React.Component {
       .attr("d", function (d) {
         
         if (d.linknum) {
-          var dr = d.linknum * 150 - 150; // zorgt dat links vanaf hetzelfde subject naar hetzelfde target elkaar niet overlappen.
-          //var dr = 0
+          //var dr = d.linknum * 150 - 150; // zorgt dat links vanaf hetzelfde subject naar hetzelfde target elkaar niet overlappen.
+          var dr = 0
         }
         else {
           dr = 0

@@ -1,7 +1,9 @@
 import React from 'react'
 import { isValidHttpUrl } from '../utils/index'
 
-import { Form } from 'react-bootstrap'
+import { Form, Table } from 'react-bootstrap'
+
+import { fetchFromHistoricGraphs } from '../redux/actions/index'
 
 class History extends React.Component {
   constructor(props) {
@@ -15,12 +17,12 @@ class History extends React.Component {
   }
 
 handleChange(event) {
-  console.log(event.target.value);
-  console.log('@@@@@@@@@@@@@@')
+  
+  console.log(event.target.value)
 
-  //send a request to fetch the data from the graph with the selected time
-  // display that data in the sidebar
-
+  this.props.sshg(event.target.value)  
+  this.props.ffhg(event.target.value, this.props.datasource)
+  
 }
 
   componentDidMount(){
@@ -36,13 +38,13 @@ handleChange(event) {
       // fire query to determine all the graph that exist of the selected node uri when it gets updated
       this.props.fhg(this.props.selectedNode.id, this.props.datasource)
     }
-    
   }
 
   render() {
+    console.log("rerender")
 
  const renderHistorySelect = () => {
-   if(this.props.selectedNode.history && this.props.selectedNode.history.length > 1){  
+   if(this.props.selectedNode.historyList && this.props.selectedNode.historyList.length > 1){  
    return(
     <>
       <p>History van: {this.props.selectedNode.id}</p>
@@ -50,7 +52,7 @@ handleChange(event) {
         <Form.Group controlId="exampleForm.ControlSelect1">
           <Form.Label>History opties</Form.Label>
           <Form.Control as="select" onChange={this.handleChange}>
-            {this.props.selectedNode.history.map((h, i) => {
+            {this.props.selectedNode.historyList.map((h, i) => {
               return (<option key={i}>{h}</option>) })}
           </Form.Control>
         </Form.Group>
@@ -64,9 +66,36 @@ handleChange(event) {
    }
   }
 
+  const renderHistory = () => {
+    
+    if(this.props.selectedNode.history){
+      return(
+        <>
+         <Table responsive>
+              <tr>
+                <th>Subject</th>
+                <th>Property</th>
+                <th>Value</th>
+              </tr>
+              
+              {this.props.selectedNode.history.map((link, index) => {
+                return(
+                <tr>
+                  <td><a href={link.subject.value}>{link.subject.value}</a></td>
+                  <td><a href={link.property.value}>{link.property.value}</a></td>
+                  <td>{link.object.value}</td>
+                </tr>)})}
+            </Table>
+        </>
+      )
+    }
+  }
+
     return(
       <div>
             {renderHistorySelect()}
+            {renderHistory()}
+            
       </div>
     )
   }

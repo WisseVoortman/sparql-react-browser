@@ -1,8 +1,9 @@
-import { SET_SELECTED_NODE, REMOVE_SELECTED_NODE } from '../actionTypes'
+import { SET_SELECTED_NODE, REMOVE_SELECTED_NODE, SET_SELECTED_HISTORYGRAPH } from '../actionTypes'
 
 import { FETCH_ABOUT_CLICKED_NODE_REQUEST, FETCH_ABOUT_CLICKED_NODE_SUCCESS, FETCH_ABOUT_CLICKED_NODE_FAILURE } from '../actionTypes'
 import { FETCH_SPARQL_ABOUTSUBJECT_REQUEST, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_FAILURE } from '../actionTypes'
 import { FETCH_HISTORY_GRAPHS_REQUEST, FETCH_HISTORY_GRAPHS_SUCCESS, FETCH_HISTORY_GRAPHS_FAILURE } from '../actionTypes'
+import { FETCH_FROM_HISTORIC_GRAPH_REQUEST, FETCH_FROM_HISTORIC_GRAPH_SUCCESS, FETCH_FROM_HISTORIC_GRAPH_FAILURE } from '../actionTypes'
 
 import { thunkCreator } from './utils'
 import qs from 'qs'
@@ -19,6 +20,13 @@ export const setSelectedNode = (node) => {
 export const removeSelectedNode = (node) => {
   return {
     type: REMOVE_SELECTED_NODE,
+  }
+}
+
+export const setSelectedHistoryGraph = (graph) => {
+  return {
+    type: SET_SELECTED_HISTORYGRAPH,
+    graph
   }
 }
 
@@ -77,6 +85,31 @@ export const fetchHistoryGraphs = (subject, datasource) => thunkCreator({
       //START 
       'PREFIX foaf: <http://xmlns.com/foaf/0.1/> prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> select ?subject ?graph where { graph ?graph {{?subject foaf:page ?object FILTER (regex(?subject, "' + subject + 
       '", "i")) .}}{SELECT ?subject WHERE {<' + subject + '>?predicate ?object } LIMIT 1}}'
+      //END
+    }),
+    headers: {
+      Accept: 'application/sparql-results+json'
+    },
+    subject: subject
+
+  })
+  //  .then(response => console.log(response))
+  // .catch(error => { console.log(error) })
+})
+
+export const fetchFromHistoricGraphs = (subject, datasource) => thunkCreator({
+  types: [FETCH_FROM_HISTORIC_GRAPH_REQUEST, FETCH_FROM_HISTORIC_GRAPH_SUCCESS, FETCH_FROM_HISTORIC_GRAPH_FAILURE],
+  promise: axios({
+    method: 'post',
+    url: datasource.currentDatasource,
+    data: qs.stringify({
+      action: 'exec',
+      queryLn: 'SPARQL',
+      ref: 'text',
+      query:
+      //START 
+        'Select * where {Graph <' + subject + '> { ?subject ?property ?object .}}'
+
       //END
     }),
     headers: {

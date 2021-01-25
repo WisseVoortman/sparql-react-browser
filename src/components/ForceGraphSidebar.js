@@ -15,7 +15,10 @@ class ForeGraphSidebar extends React.Component {
     super(props);
 
     this.fhg = this.props.fetchHistoryGraphs.bind(this)
+    this.ffhg = this.props.fetchFromHistoricGraphs.bind(this)
+    this.sshg = this.props.setSelectedHistoryGraph.bind(this)
   }
+
   render () {
 
     const renderlinks = (nodes, links) => {
@@ -37,7 +40,12 @@ class ForeGraphSidebar extends React.Component {
                 <th>Property</th>
                 <th>Value</th>
               </tr>
-              {renderlinks(nodes, links)}
+              
+              {links.map((link, index) => {return(<tr key={link.source.id}>
+                <td>{link.source.id}</td>
+                <td>{link.property}</td>
+                <td>{link.target.id}</td>
+              </tr>)})}
             </Table>
           </Tab>
         )
@@ -48,7 +56,7 @@ class ForeGraphSidebar extends React.Component {
       if (nodes.selectedNode !== "" && isValidHttpUrl(nodes.selectedNode.id)) {
         return (
           <Tab eventKey="History" title="History">
-            <History selectedNode={this.props.nodes.selectedNode} datasource={this.props.datasource} fhg={this.fhg}></History>
+            <History selectedNode={this.props.nodes.selectedNode} datasource={this.props.datasource} fhg={this.fhg} ffhg={this.ffhg} sshg={this.sshg}></History>
           </Tab>
 
         )
