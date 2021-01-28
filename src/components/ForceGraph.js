@@ -20,6 +20,7 @@ class ForceGraph extends React.Component {
     this.ssn = this.props.setSelectedNode.bind(this)
     this.rsn = this.props.removeSelectedNode.bind(this)
     this.facn = this.props.fetchAboutClickedNode.bind(this)
+    this.fps = this.props.fetchParentAndSubNodes.bind(this)
   }
 
   componentDidMount() {
@@ -121,7 +122,7 @@ class ForceGraph extends React.Component {
 
     const rendertooltip = () => {
       if(this.props.nodes.selectedNode){
-        return (<Tooltip data={this.props.nodes.selectedNode} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn} selectedNode={this.props.nodes.selectedNode} linksList={this.props.links} ></Tooltip>)
+        return (<Tooltip data={this.props.nodes.selectedNode} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn} fps={this.fps} selectedNode={this.props.nodes.selectedNode} linksList={this.props.links} ></Tooltip>)
       }
       else {
         return
@@ -136,10 +137,10 @@ class ForceGraph extends React.Component {
               {this.props.links.map((link, index) => <Link data={link} key={index} selectedNode={this.props.nodes.selectedNode}></Link>)}
             </g>
             <g class="nodesellipse">
-              {this.props.nodes.nodesList.map((node, index) => <Node data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn} selectedNode={this.props.nodes.selectedNode} linksList={this.props.links} ></Node>)}
+              {this.props.nodes.nodesList.map((node, index) => <Node data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn} fps={this.fps}selectedNode={this.props.nodes.selectedNode} linksList={this.props.links} ></Node>)}
             </g>
             <g class="nodestext">
-              {this.props.nodes.nodesList.map((node, index) => <NodeLabel data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}></NodeLabel>)}
+              {this.props.nodes.nodesList.map((node, index) => <NodeLabel data={node} key={index} datasource={this.props.datasource} rs={this.rs} ssn={this.ssn} rsn={this.rsn} facn={this.facn}fps={this.fps}></NodeLabel>)}
             </g>
             <g class="linkstext">
               {this.props.links.map((link, index) => <LinkLabel data={link} key={index}></LinkLabel>)}

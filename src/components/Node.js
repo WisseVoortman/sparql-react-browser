@@ -50,6 +50,7 @@ class Node extends React.Component {
         this.props.ssn(d)
         if (d.type === 'uri') {
           this.props.facn(d.id, this.props.datasource)
+          //this.props.fps(d.id, this.props.datasource)
         }
         
       })

@@ -80,7 +80,7 @@ class ForeGraphSidebar extends React.Component {
         <Tab eventKey="Voorbeelden" title="Voorbeelden">
           <ConnectedExamples></ConnectedExamples>
         </Tab>
-        {renderNodesandLinksTab(this.props.nodes, this.props.links)}
+        {/* {renderNodesandLinksTab(this.props.nodes, this.props.links)} */}
         {renderHistoryTab(this.props.nodes)}
       </Tabs>
     )

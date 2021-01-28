@@ -1,6 +1,7 @@
 import { SET_SELECTED_NODE, REMOVE_SELECTED_NODE, SET_SELECTED_HISTORYGRAPH } from '../actionTypes'
 
 import { FETCH_ABOUT_CLICKED_NODE_REQUEST, FETCH_ABOUT_CLICKED_NODE_SUCCESS, FETCH_ABOUT_CLICKED_NODE_FAILURE } from '../actionTypes'
+import { FETCH_PARENT_AND_SUB_NODES_REQUEST, FETCH_PARENT_AND_SUB_NODES_SUCCESS, FETCH_PARENT_AND_SUB_NODES_FAILURE } from '../actionTypes'
 import { FETCH_SPARQL_ABOUTSUBJECT_REQUEST, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_FAILURE } from '../actionTypes'
 import { FETCH_HISTORY_GRAPHS_REQUEST, FETCH_HISTORY_GRAPHS_SUCCESS, FETCH_HISTORY_GRAPHS_FAILURE } from '../actionTypes'
 import { FETCH_FROM_HISTORIC_GRAPH_REQUEST, FETCH_FROM_HISTORIC_GRAPH_SUCCESS, FETCH_FROM_HISTORIC_GRAPH_FAILURE } from '../actionTypes'
@@ -66,6 +67,28 @@ export const fetchAboutClickedNode = (subject, datasource) => thunkCreator({
       Accept: 'application/sparql-results+json'
     },
     subject: subject
+
+  })
+  //  .then(response => console.log(response))
+  // .catch(error => { console.log(error) })
+})
+
+export const fetchParentAndSubNodes = (node, datasource) => thunkCreator({
+  types: [FETCH_PARENT_AND_SUB_NODES_REQUEST, FETCH_PARENT_AND_SUB_NODES_SUCCESS, FETCH_PARENT_AND_SUB_NODES_FAILURE],
+  promise: axios({
+    method: 'post',
+    url: datasource.currentDatasource,
+    data: qs.stringify({
+      action: 'exec',
+      queryLn: 'SPARQL',
+      ref: 'text',
+      query: 'SELECT ?subject ?property ?object {{<' + node +  '> ?property ?object . } UNION {?subject ?property <' + node + '>  .}}'
+
+    }),
+    headers: {
+      Accept: 'application/sparql-results+json'
+    },
+    node: node
 
   })
   //  .then(response => console.log(response))

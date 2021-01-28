@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 
 import ForceGraph from '../components/ForceGraph'
 
-import { setSelectedNode, removeSelectedNode, fetchAboutClickedNode } from '../redux/actions/index'
+import { setSelectedNode, removeSelectedNode, fetchAboutClickedNode, fetchParentAndSubNodes} from '../redux/actions/index'
 
 const mapStateToProps = (state, props) => {
   return {
@@ -20,7 +20,8 @@ const mapDispatchToProps = (dispatch, props) =>
   bindActionCreators({
     setSelectedNode,
     removeSelectedNode,
-    fetchAboutClickedNode
+    fetchAboutClickedNode,
+    fetchParentAndSubNodes,
   }, dispatch)
 
 const ConnectedForceGraph = connect(mapStateToProps, mapDispatchToProps)(ForceGraph)

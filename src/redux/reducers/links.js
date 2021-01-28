@@ -1,4 +1,4 @@
-import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS, FETCH_ABOUT_CLICKED_NODE_SUCCESS } from '../actionTypes'
+import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS, FETCH_ABOUT_CLICKED_NODE_SUCCESS, FETCH_PARENT_AND_SUB_NODES_SUCCESS } from '../actionTypes'
 
 import { sortBy, setLinkNum } from './utils'
 
@@ -128,6 +128,11 @@ export default function linkReducer(state = [
         NewState = setLinkNum(NewState)
 
       });
+      return NewState
+    }
+    case FETCH_PARENT_AND_SUB_NODES_SUCCESS: {
+      NewState = state
+
       return NewState
     }
     default:

@@ -1,4 +1,4 @@
-import { SET_SELECTED_NODE, REMOVE_SELECTED_NODE, FETCH_HISTORY_GRAPHS_SUCCESS, SET_SELECTED_HISTORYGRAPH } from '../actionTypes'
+import { SET_SELECTED_NODE, REMOVE_SELECTED_NODE, FETCH_HISTORY_GRAPHS_SUCCESS, SET_SELECTED_HISTORYGRAPH, FETCH_PARENT_AND_SUB_NODES_SUCCESS } from '../actionTypes'
 import { FETCH_TEST_SUCCESS, FETCH_SPARQL_SUCCESS, FETCH_SPARQL_ABOUTSUBJECT_SUCCESS, FETCH_ABOUT_CLICKED_NODE_SUCCESS, FETCH_FROM_HISTORIC_GRAPH_SUCCESS } from '../actionTypes'
 
 export default function nodeReducer(state = {
@@ -152,6 +152,41 @@ export default function nodeReducer(state = {
       })
       return NewState
 
+    }
+    case FETCH_PARENT_AND_SUB_NODES_SUCCESS: {
+      NewState.nodesList = state.nodesList
+
+      //subject = 0, property = 1, object = 2
+
+      action.result.data.results.bindings.forEach(element => {
+        if(element.subject){
+          // check and add
+          console.log(element.subject.value)
+          
+          //add subject to nodeslist
+          const contains = (node) => node.id === element.subject.value
+          if (!NewState.nodesList.some(contains)) {
+            console.log('didnotcontain')
+            NewState.nodesList.push({ id: element.subject.value, type: element.subject.type })          
+
+          }
+          
+        } 
+        if(element.object){
+          // check and add
+          console.log(element.object.value)
+
+          //add targets to nodeslist
+          const contains = (node) => node.id === element.object.value
+          if (!NewState.nodesList.some(contains)) {
+            console.log('didnotcontain')
+            NewState.nodesList.push({ id: element.object.value, type: element.object.type })          
+
+          }
+        }       
+      })
+      
+      return NewState
     }
     case FETCH_HISTORY_GRAPHS_SUCCESS: {
       NewState.selectedNode.historyList = []
